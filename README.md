@@ -5,7 +5,7 @@
 Make sure to install the dependencies:
 
 ```bash
-bun install
+pnpm install
 ```
 
 ## Development Server
@@ -13,6 +13,5 @@ bun install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-bun run dev
+pnpm run dev
 ```
-
