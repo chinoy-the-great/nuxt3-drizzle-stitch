@@ -38,13 +38,16 @@
 			<div v-if="activeIndex === index" class="mt-4 text-nude-600">
 				<p>{{ pdf.description }}</p>
 				<!-- PDF Viewport -->
-				<iframe :src="pdf.url" class="w-full h-96 mt-4 border border-nude-300 rounded-lg"></iframe>
+				<div class="w-full h-1/2 mt-4 border border-nude-300 rounded-lg">
+					<PDF :src="pdf.url" />
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
+import PDF from 'pdf-vue3'
 import { ref } from 'vue'
 
 // Sample list of PDFs

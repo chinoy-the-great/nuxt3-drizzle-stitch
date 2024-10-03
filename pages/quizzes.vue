@@ -10,7 +10,7 @@
 				:key="index"
 				class="border border-nude-300 p-4 rounded-lg bg-white flex justify-between items-center"
 			>
-				<div>
+				<div v-if="quiz">
 					<span class="text-lg font-semibold text-nude-700">{{ quiz.title }}</span>
 					<p v-if="quiz.score !== null" class="text-nude-500">Score: {{ quiz.score }}%</p>
 				</div>

@@ -5,5 +5,8 @@ export const users = sqliteTable('users', {
 	name: text('name').notNull(),
 	email: text('email').notNull().unique(),
 	password: text('password').notNull(),
-	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+	createdAt: integer('created_at', { mode: 'timestamp' }).default(1),
 })
+
+export type User = InferModel<typeof users>
+export type InsertUser = InferModel<typeof users, 'insert'>

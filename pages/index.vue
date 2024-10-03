@@ -1,6 +1,12 @@
 <template>
-	<div>
-		<h1>Welcome to the Home Page</h1>
-		<p>This is the home page of our Nuxt 3 app.</p>
-	</div>
+	<div></div>
 </template>
+
+<script setup lang="ts">
+import { onMounted } from 'vue'
+
+onMounted(() => {
+	// Redirect immediately when the page loads
+	navigateTo('/login')
+})
+</script>

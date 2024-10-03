@@ -23,7 +23,11 @@
 
 			<!-- Avatar and Name Section -->
 			<div class="flex flex-col items-center mb-6">
-				<img src="/avatar.png" alt="Avatar" class="32 h-32 rounded-full mb-2 border border-nude-300" />
+				<img
+					src="/Your_Account_Icon.png"
+					alt="Avatar"
+					class="32 h-32 rounded-full mb-2 border border-nude-300"
+				/>
 				<h3 class="text-nude-700 text-lg font-semibold">Your Account</h3>
 			</div>
 

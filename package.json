@@ -13,14 +13,22 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
+		"@capacitor/android": "^6.1.2",
+		"@capacitor/core": "^6.1.2",
+		"axios": "^1.7.7",
+		"bcrypt": "^5.1.1",
 		"better-sqlite3": "^11.3.0",
+		"defu": "^6.1.4",
 		"drizzle-orm": "^0.33.0",
 		"nuxt": "^3.13.0",
+		"pdf-vue3": "^1.0.12",
 		"vue": "latest",
 		"vue-router": "latest"
 	},
 	"devDependencies": {
 		"@antfu/eslint-config": "^3.6.2",
+		"@capacitor/cli": "^6.1.2",
+		"@nuxtjs/pwa": "^3.3.5",
 		"@nuxtjs/tailwindcss": "^6.12.1",
 		"@types/better-sqlite3": "^7.6.11",
 		"drizzle-kit": "^0.24.2",

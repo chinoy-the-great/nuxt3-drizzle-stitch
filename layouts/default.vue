@@ -37,18 +37,15 @@
 			</main>
 		</div>
 
-		<!-- Footer -->
-		<footer class="bg-white shadow mt-4">
-			<div class="container mx-auto px-4 py-4 text-center text-gray-600">
-				<p>&copy; 2024 My Website</p>
-			</div>
-		</footer>
-
 		<!-- Bottom Toolbar -->
-		<div class="fixed inset-x-0 bottom-0 bg-white shadow-lg">
+		<div v-if="showToolbar" class="fixed inset-x-0 bottom-0 bg-white shadow-lg">
 			<nav class="flex justify-around py-2">
 				<!-- Home Icon -->
-				<button class="flex flex-col items-center text-nude-600 hover:text-nude-800">
+				<NuxtLink
+					to="/home"
+					class="flex flex-col items-center"
+					:class="[isActive('/home') ? 'text-nude-800' : 'text-nude-600 hover:text-nude-800']"
+				>
 					<svg
 						class="w-6 h-6"
 						fill="none"
@@ -64,10 +61,14 @@
 						/>
 					</svg>
 					<span class="text-sm mt-1">Home</span>
-				</button>
+				</NuxtLink>
 
 				<!-- Tracker Icon -->
-				<button class="flex flex-col items-center text-nude-600 hover:text-nude-800">
+				<NuxtLink
+					to="/notes"
+					class="flex flex-col items-center"
+					:class="[isActive('/notes') ? 'text-nude-800' : 'text-nude-600 hover:text-nude-800']"
+				>
 					<svg
 						class="w-6 h-6"
 						fill="none"
@@ -83,29 +84,37 @@
 						/>
 					</svg>
 					<span class="text-sm mt-1">Tracker</span>
-				</button>
+				</NuxtLink>
 
-				<!-- Forum Icon -->
-				<!--				<button class="flex flex-col items-center text-nude-600 hover:text-nude-800">-->
-				<!--					<svg-->
-				<!--						class="w-6 h-6"-->
-				<!--						fill="none"-->
-				<!--						stroke="currentColor"-->
-				<!--						viewBox="0 0 24 24"-->
-				<!--						xmlns="http://www.w3.org/2000/svg"-->
-				<!--					>-->
-				<!--						<path-->
-				<!--							stroke-linecap="round"-->
-				<!--							stroke-linejoin="round"-->
-				<!--							stroke-width="2"-->
-				<!--							d="M8 10h8M8 6h12M3 6h1M8 14h6M3 14h3m0 0h.01M3 18h6m6 0h5m-8 0h.01"-->
-				<!--						/>-->
-				<!--					</svg>-->
-				<!--					<span class="text-sm mt-1">Forum</span>-->
-				<!--				</button>-->
+				<!-- Quiz Icon -->
+				<NuxtLink
+					to="/quizzes"
+					class="flex flex-col items-center"
+					:class="[isActive('/quizzes') ? 'text-nude-800' : 'text-nude-600 hover:text-nude-800']"
+				>
+					<svg
+						class="w-6 h-6"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M8 10h8M8 6h12M3 6h1M8 14h6M3 14h3m0 0h.01M3 18h6m6 0h5m-8 0h.01"
+						/>
+					</svg>
+					<span class="text-sm mt-1">Quizzes</span>
+				</NuxtLink>
 
 				<!-- Notifications Icon -->
-				<button class="flex flex-col items-center text-nude-600 hover:text-nude-800">
+				<NuxtLink
+					to="/notifications"
+					class="flex flex-col items-center"
+					:class="[isActive('/notifications') ? 'text-nude-800' : 'text-nude-600 hover:text-nude-800']"
+				>
 					<svg
 						class="w-6 h-6"
 						fill="none"
@@ -121,7 +130,7 @@
 						/>
 					</svg>
 					<span class="text-sm mt-1">Notifications</span>
-				</button>
+				</NuxtLink>
 			</nav>
 		</div>
 	</div>
@@ -129,15 +138,31 @@
 
 <script setup>
 import Sidebar from '@/components/Sidebar.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 const isSidebarOpen = ref(false)
-
 const toggleSidebar = () => {
 	isSidebarOpen.value = !isSidebarOpen.value
 }
-</script>
 
-<style scoped>
-/* Add any additional styles here */
-</style>
+const route = useRoute()
+const showToolbar = ref(true)
+
+// Specify the routes where the toolbar should be hidden
+const hiddenToolbarRoutes = ['/login', '/register']
+
+// Watch for changes in the route and update showToolbar accordingly
+watch(
+	() => route.path,
+	(newPath) => {
+		showToolbar.value = !hiddenToolbarRoutes.includes(newPath)
+	},
+	{ immediate: true },
+)
+
+// Function to check if the current route matches the link
+const isActive = (path) => {
+	return route.path === path
+}
+</script>

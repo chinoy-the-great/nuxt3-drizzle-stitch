@@ -1,10 +1,10 @@
 <!-- src/components/QuizPage.vue -->
 <template>
 	<div class="max-w-lg mx-auto p-6 bg-nude-50 rounded-lg shadow-lg">
-		<h1 class="text-3xl font-extrabold text-nude-900 mb-6 text-center">{{ quiz.title }}</h1>
+		<h1 v-if="quiz" class="text-3xl font-extrabold text-nude-900 mb-6 text-center">{{ quiz.title }}</h1>
 
 		<!-- Quiz questions -->
-		<div v-for="(question, index) in quiz.questions" :key="index" class="mb-6">
+		<div v-for="(question, index) in quiz?.questions ?? {}" :key="index" class="mb-6">
 			<h2 class="text-lg font-semibold text-nude-700">{{ question.question }}</h2>
 			<ul class="space-y-2">
 				<li

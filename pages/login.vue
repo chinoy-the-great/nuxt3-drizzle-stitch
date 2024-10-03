@@ -41,7 +41,6 @@
 					>
 						Login
 					</button>
-					<!-- Updated section -->
 					<p class="text-gray-600 mt-4 text-center">New here? Go to</p>
 					<p class="text-center">
 						<NuxtLink to="/register" class="text-nude-700 hover:underline">Sign Up</NuxtLink>
@@ -53,19 +52,32 @@
 </template>
 
 <script lang="ts" setup>
+import { useFetch } from '#app'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const username = ref<string>('')
 const password = ref<string>('')
 
-// const router = useRouter();
+const router = useRouter()
 
 const handleLogin = async () => {
 	try {
-		console.log('Login successful')
-		// await router.push('/'); // Redirect on success
+		// Send a POST request to the backend with user credentials
+		const { data, error } = await useFetch('/api/auth/login', {
+			method: 'POST',
+			body: { username: username.value, password: password.value },
+		})
+
+		if (error.value) {
+			console.error('Login failed:', error.value.message)
+		} else {
+			console.log('Login successful', data)
+			// Redirect to homepage or dashboard
+			await router.push('/')
+		}
 	} catch (error) {
-		console.error(error.message)
+		console.error('An error occurred during login:', error)
 	}
 }
 </script>

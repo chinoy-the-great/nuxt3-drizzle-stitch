@@ -41,6 +41,7 @@
 			<button
 				type="submit"
 				class="w-full bg-nude-500 text-white py-2 rounded hover:bg-nude-600 transition duration-200"
+				:disabled="isSubmitting"
 			>
 				Sign up
 			</button>
@@ -48,24 +49,57 @@
 				Already have an account?
 				<router-link to="/login" class="text-nude-700 hover:underline">Login here</router-link>
 			</p>
+
+			<!-- Error message -->
+			<p v-if="errorMessage" class="text-red-500 mt-2">{{ errorMessage }}</p>
 		</form>
 	</div>
 </template>
 
 <script>
+import axios from 'axios' // Import axios for API call
+
 export default {
 	data() {
 		return {
-			username: '',
+			name: '',
 			email: '',
 			password: '',
 			repeat_password: '',
+			isSubmitting: false, // Disable the button while submitting
+			errorMessage: '', // Handle error messages
 		}
 	},
 	methods: {
-		handleRegister() {
-			// Handle registration logic (e.g., API call to create user)
-			console.log('Registering:', this.username, this.password)
+		async handleRegister() {
+			// Reset error message
+			this.errorMessage = ''
+
+			// Check if passwords match
+			if (this.password !== this.repeat_password) {
+				this.errorMessage = 'Passwords do not match in register.vue!'
+				return
+			}
+
+			try {
+				this.isSubmitting = true
+
+				// Send registration request to the backend
+				const response = await axios.post('/api/register', {
+					name: this.username,
+					email: this.email,
+					password: this.password,
+				})
+
+				console.log('Received this:', response)
+				// Registration successful, redirect to login
+				this.$router.push('/login')
+			} catch (error) {
+				// Handle error and display an appropriate message
+				this.errorMessage = error.response?.data?.message || 'An error occurred during registration.'
+			} finally {
+				this.isSubmitting = false
+			}
 		},
 	},
 }
