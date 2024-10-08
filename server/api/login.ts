@@ -1,5 +1,5 @@
-import bcrypt from 'bcrypt'
-import { createError, defineEventHandler, readBody } from 'h3' // For password hashing comparison
+import { and, eq } from 'drizzle-orm' // For password hashing comparison
+import { createError, defineEventHandler, readBody } from 'h3'
 // Adjust this to your users table
 
 export default defineEventHandler(async (event) => {
@@ -8,33 +8,27 @@ export default defineEventHandler(async (event) => {
 		const { username, password } = await readBody(event)
 
 		// Fetch the user from the database
-		const user = await db.select().from(users).where(users.username.equals(username)).get()
+		const user = await db
+			.select()
+			.from(users)
+			.where(and(eq(users.email, username), eq(users.password, password)))
+			.get()
 		// commented out the above line because db is throwing an error during compilation
 
+		console.log('User: ', user)
+		console.log('Login ts username: ', username)
+		console.log('Login ts password: ', password)
+
 		if (!user) {
-			throw createError({
+			return createError({
 				statusCode: 404,
-				statusMessage: 'User not found',
+				statusMessage: 'Login failed due to invalid credentials',
 			})
 		}
-
-		// Check if the password matches
-		const isPasswordValid = await bcrypt.compare(password, user.password) // assuming passwords are hashed
-
-		if (!isPasswordValid) {
-			throw createError({
-				statusCode: 401,
-				statusMessage: 'Invalid credentials',
-			})
-		}
-
-		// If successful, you can generate a session or token (e.g., JWT)
-		const token = 'your-generated-token' // In a real scenario, use JWT or session handling
 
 		return {
 			success: true,
 			message: 'Login successful',
-			token, // Send back the token for client-side storage
 		}
 	} catch (e: any) {
 		throw createError({

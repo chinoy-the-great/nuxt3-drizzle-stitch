@@ -63,8 +63,9 @@ const router = useRouter()
 
 const handleLogin = async () => {
 	try {
+		console.log('handle login')
 		// Send a POST request to the backend with user credentials
-		const { data, error } = await useFetch('/api/auth/login', {
+		const { data, error } = await useFetch('/api/login', {
 			method: 'POST',
 			body: { username: username.value, password: password.value },
 		})
