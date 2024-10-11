@@ -49,20 +49,6 @@
 					</NuxtLink>
 				</li>
 				<li>
-					<NuxtLink to="/fabric-guide" class="flex items-center text-nude-700 hover:text-nude-600">
-						<!-- Image Icon -->
-						<img src="" alt="Fabric Guide" class="w-5 h-5 mr-3" />
-						Fabric Guide
-					</NuxtLink>
-				</li>
-				<li>
-					<NuxtLink to="/tutorials" class="flex items-center text-nude-700 hover:text-nude-600">
-						<!-- Image Icon -->
-						<img src="" alt="Tutorials" class="w-5 h-5 mr-3" />
-						Tutorials
-					</NuxtLink>
-				</li>
-				<li>
 					<NuxtLink
 						to="/login"
 						class="flex items-center text-nude-700 hover:text-nude-600"
