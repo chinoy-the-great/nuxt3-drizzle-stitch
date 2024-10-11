@@ -35,25 +35,41 @@
 			<h2 class="text-nude-700 text-xl font-bold mb-4">Navigation</h2>
 			<ul class="space-y-2">
 				<li>
-					<NuxtLink to="/login" class="block text-nude-700 hover:text-nude-600">Login</NuxtLink>
+					<NuxtLink to="/settings" class="flex items-center text-nude-700 hover:text-nude-600">
+						<!-- Image Icon -->
+						<img src="/public/Settings_Icon.png" alt="Settings" class="w-5 h-5 mr-3" />
+						Settings
+					</NuxtLink>
 				</li>
 				<li>
-					<NuxtLink to="/register" class="block text-nude-700 hover:text-nude-600">Register</NuxtLink>
+					<NuxtLink to="/references" class="flex items-center text-nude-700 hover:text-nude-600">
+						<!-- Image Icon -->
+						<img src="/public/References_Icon.png" alt="References" class="w-5 h-5 mr-3" />
+						References
+					</NuxtLink>
 				</li>
 				<li>
-					<NuxtLink to="/fabric-guide" class="block text-nude-700 hover:text-nude-600">Fabric Guide</NuxtLink>
+					<NuxtLink to="/fabric-guide" class="flex items-center text-nude-700 hover:text-nude-600">
+						<!-- Image Icon -->
+						<img src="" alt="Fabric Guide" class="w-5 h-5 mr-3" />
+						Fabric Guide
+					</NuxtLink>
 				</li>
 				<li>
-					<NuxtLink to="/tutorials" class="block text-nude-700 hover:text-nude-600">Tutorials</NuxtLink>
+					<NuxtLink to="/tutorials" class="flex items-center text-nude-700 hover:text-nude-600">
+						<!-- Image Icon -->
+						<img src="" alt="Tutorials" class="w-5 h-5 mr-3" />
+						Tutorials
+					</NuxtLink>
 				</li>
 				<li>
-					<NuxtLink to="/notes" class="block text-nude-700 hover:text-nude-600">Notes</NuxtLink>
-				</li>
-				<li>
-					<NuxtLink to="/quizzes" class="block text-nude-700 hover:text-nude-600">Quizzes</NuxtLink>
-				</li>
-				<li>
-					<NuxtLink to="/login" class="block text-nude-700 hover:text-nude-600" @click="userStore.clearUser">
+					<NuxtLink
+						to="/login"
+						class="flex items-center text-nude-700 hover:text-nude-600"
+						@click="userStore.clearUser"
+					>
+						<!-- Image Icon -->
+						<img src="/public/Log_out_Icon.png" alt="Logout" class="w-5 h-5 mr-3" />
 						Logout
 					</NuxtLink>
 				</li>
