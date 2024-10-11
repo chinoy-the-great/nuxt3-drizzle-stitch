@@ -26,10 +26,7 @@ export default defineEventHandler(async (event) => {
 			})
 		}
 
-		return {
-			success: true,
-			message: 'Login successful',
-		}
+		return user
 	} catch (e: any) {
 		throw createError({
 			statusCode: 400,

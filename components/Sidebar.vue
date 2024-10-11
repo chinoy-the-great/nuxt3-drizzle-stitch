@@ -52,6 +52,11 @@
 				<li>
 					<NuxtLink to="/quizzes" class="block text-nude-700 hover:text-nude-600">Quizzes</NuxtLink>
 				</li>
+				<li>
+					<NuxtLink to="/login" class="block text-nude-700 hover:text-nude-600" @click="userStore.clearUser">
+						Logout
+					</NuxtLink>
+				</li>
 				<!-- Add more links as needed -->
 			</ul>
 		</div>
@@ -61,6 +66,7 @@
 <script setup>
 defineProps(['isOpen'])
 const emit = defineEmits(['close'])
+const userStore = useUserStore()
 </script>
 
 <style scoped>

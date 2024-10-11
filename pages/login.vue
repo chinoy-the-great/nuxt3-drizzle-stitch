@@ -55,6 +55,9 @@
 import { useFetch } from '#app'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '~/stores/user'
+
+const userStore = useUserStore()
 
 const username = ref<string>('')
 const password = ref<string>('')
@@ -73,9 +76,17 @@ const handleLogin = async () => {
 		if (error.value) {
 			console.error('Login failed:', error.value.message)
 		} else {
-			console.log('Login successful', data)
 			// Redirect to homepage or dashboard
-			await router.push('/')
+
+			console.log('handle login', data)
+			userStore.setUser({
+				username: data.value.email,
+			})
+
+			console.log('user store: ', userStore)
+			console.log('username: ', userStore.user?.username)
+
+			await router.push('/home')
 		}
 	} catch (error) {
 		console.error('An error occurred during login:', error)

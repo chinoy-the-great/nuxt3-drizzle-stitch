@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-col min-h-screen bg-nude-50">
 		<!-- Navbar -->
-		<header class="bg-white shadow">
+		<header v-if="userStore.user" class="bg-white shadow">
 			<nav class="container mx-auto px-4 py-4 flex justify-between items-center">
 				<button class="text-nude-700 hover:text-nude-600 flex items-center" @click="toggleSidebar">
 					<!-- Menu Icon -->
@@ -29,7 +29,12 @@
 
 		<div class="flex flex-grow">
 			<!-- Sidebar -->
-			<Sidebar :is-open="isSidebarOpen" @update:is-open="isSidebarOpen = $event" @close="toggleSidebar" />
+			<Sidebar
+				v-if="userStore.user"
+				:is-open="isSidebarOpen"
+				@update:is-open="isSidebarOpen = $event"
+				@close="toggleSidebar"
+			/>
 
 			<!-- Page content -->
 			<main class="flex-grow container mx-auto px-4 py-6">
@@ -138,6 +143,7 @@
 
 <script setup>
 import Sidebar from '@/components/Sidebar.vue'
+import { useUserStore } from '@/stores/user'
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -145,6 +151,8 @@ const isSidebarOpen = ref(false)
 const toggleSidebar = () => {
 	isSidebarOpen.value = !isSidebarOpen.value
 }
+
+const userStore = useUserStore()
 
 const route = useRoute()
 const showToolbar = ref(true)
