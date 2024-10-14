@@ -2,7 +2,7 @@
 	<div class="mx-auto w-full max-w-1/2">
 		<!-- Header Image -->
 		<img
-			src="/_BG_ART_LogIn_alt.jpg"
+			src="/_BG_ART_LogIn_home.jpeg"
 			alt="Login Header"
 			class="w-full h-[25vh] object-cover rounded-t-lg mb-6"
 		/>

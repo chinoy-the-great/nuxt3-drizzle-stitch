@@ -41,6 +41,28 @@
 				<div class="w-full h-1/2 mt-4 border border-nude-300 rounded-lg">
 					<PDF :src="pdf.url" />
 				</div>
+				<!-- Download Button -->
+				<div class="mt-4">
+					<a
+						:href="pdf.url"
+						download
+						class="inline-flex items-center px-4 py-2 bg-nude-500 text-white rounded hover:bg-nude-600 transition duration-200"
+					>
+						Download PDF
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-5 w-5 ml-2"
+							viewBox="0 0 20 20"
+							fill="currentColor"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M3 3a1 1 0 011-1h12a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm1 0v10h12V3H4zm5 7a1 1 0 011-1h2a1 1 0 011 1v3a1 1 0 11-2 0v-3H8v3a1 1 0 11-2 0v-3h2z"
+								clip-rule="evenodd"
+							/>
+						</svg>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -55,17 +77,22 @@ const pdfs = ref([
 	{
 		title: 'Fabric Guide 1',
 		description: 'Description for fabric guide 1',
-		url: '/Fabric Types.pdf',
+		url: '/FABRIC TYPES.pdf',
 	},
 	{
 		title: 'Fabric Guide 2',
 		description: 'Description for fabric guide 2',
-		url: '/Method Before cutting the Cloth.pdf',
+		url: '/METHODS BEFORE CUTTING THE CLOTH.pdf',
 	},
 	{
 		title: 'Fabric Guide 3',
 		description: 'Description for fabric guide 3',
-		url: '/Tips on how to handle and care of different fabrics.pdf',
+		url: '/TIPS ON HOW TO HANDLE AND CARE OF DIFFERENT FABRICS.pdf',
+	},
+	{
+		title: 'Fabric Guide 4',
+		description: 'Description for fabric guide 4',
+		url: '/WAYS ON HOLDING THE FABRIC.pdf',
 	},
 ])
 
