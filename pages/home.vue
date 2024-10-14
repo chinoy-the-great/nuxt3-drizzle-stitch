@@ -13,14 +13,14 @@
 			<img
 				src="/public/Book_Icon.png"
 				alt="Fabric Guide Icon"
-				class="w-24 h-24 cursor-pointer"
+				class="colored-icon w-24 h-24 cursor-pointer"
 				@click="selectedPage = 'fabricGuide'"
 			/>
 			<!-- Second Icon (Tutorials) -->
 			<img
 				src="/public/Video_Icon.png"
 				alt="Tutorials Icon"
-				class="w-24 h-24 cursor-pointer"
+				class="colored-icon w-24 h-24 cursor-pointer"
 				@click="selectedPage = 'tutorials'"
 			/>
 		</div>
@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from 'vue'
+import { computed, defineAsyncComponent, ref } from 'vue'
 
 // Define reactive state for selected page
 const selectedPage = ref('fabricGuide') // Default to 'fabricGuide'
@@ -56,5 +56,14 @@ const currentComponent = computed(() => {
 </script>
 
 <style scoped>
-/* Add any additional styling as needed */
+/* Styling to change the color of the icons to #dc6e63 */
+.colored-icon {
+	/* Approximate #dc6e63 using filters */
+	filter: invert(51%) sepia(43%) saturate(457%) hue-rotate(-10deg) brightness(90%) contrast(89%);
+	transition: filter 0.3s ease-in-out;
+}
+
+.colored-icon:hover {
+	filter: invert(51%) sepia(43%) saturate(457%) hue-rotate(-10deg) brightness(110%) contrast(90%);
+}
 </style>
