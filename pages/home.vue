@@ -1,28 +1,89 @@
 <template>
 	<div class="mx-auto w-full max-w-1/2">
 		<!-- Header Image -->
-		<img
-			src="/_BG_ART_LogIn_home.jpeg"
-			alt="Login Header"
-			class="w-full h-[25vh] object-cover rounded-t-lg mb-6"
-		/>
+		<div class="relative w-full">
+			<!-- Main Image -->
+			<img
+				src="/_BG_ART_LogIn_home.jpeg"
+				alt="Login Header"
+				class="w-full h-[25vh] object-cover rounded-t-lg mb-6"
+			/>
+
+			<!-- Fun Facts Section -->
+			<div class="absolute top-2 bottom-2 right-0 w-1/3 h-9/10 flex items-center justify-center">
+				<img src="/home_fun_facts copy.jpg" alt="Fun Facts" class="h-full object-cover rounded-l-lg" />
+
+				<!-- Fun Facts Text inside the second image -->
+				<div class="absolute inset-0 flex flex-col items-center justify-center">
+					<h2 class="text-sm font-bold text-yellow-300 text-center">FUN FACTS</h2>
+					<p class="text-xxs text-white text-center mt-2 w-1/2">
+						Did you know that the first sewing machine was invented in 1790 by Thomas Saint? It revolutionized
+						the textile industry!
+					</p>
+				</div>
+			</div>
+		</div>
 
 		<!-- Icon Buttons -->
-		<div class="flex justify-center space-x-24 mb-6">
+		<div class="flex overflow-x-auto space-x-6 mb-6 p-4">
 			<!-- First Icon (Fabric Guide) -->
-			<img
-				src="/public/Book_Icon.png"
-				alt="Fabric Guide Icon"
-				class="colored-icon w-24 h-24 cursor-pointer"
-				@click="selectedPage = 'fabricGuide'"
-			/>
-			<!-- Second Icon (Tutorials) -->
-			<img
-				src="/public/Video_Icon.png"
-				alt="Tutorials Icon"
-				class="colored-icon w-24 h-24 cursor-pointer"
-				@click="selectedPage = 'tutorials'"
-			/>
+			<!-- First Icon (Fabric Guide) with White Box -->
+			<!-- First Icon (Fabric Guide) with White Box -->
+			<div class="flex justify-between space-x-4">
+				<!-- First Icon (Fabric Guide) -->
+				<div
+					class="bg-white rounded-lg p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
+				>
+					<img
+						src="/public/Book_Icon.png"
+						alt="Fabric Guide Icon"
+						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
+						@click="selectedPage = 'fabricGuide'"
+					/>
+					<p class="text-center text-base font-semibold colored-icon">
+						Dressmaking
+						<br />
+						Library
+					</p>
+					<!-- Label below the icon -->
+				</div>
+
+				<!-- Second Icon (Tutorials) -->
+				<div
+					class="bg-white rounded-lg p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
+				>
+					<img
+						src="/public/Video_Icon.png"
+						alt="Tutorials Icon"
+						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
+						@click="selectedPage = 'tutorials'"
+					/>
+					<p class="text-center text-base font-semibold colored-icon">
+						Video
+						<br />
+						Tutorial
+					</p>
+					<!-- Label below the icon -->
+				</div>
+
+				<!-- Third Icon (Sewing Machine) -->
+				<div
+					class="bg-white rounded-lg p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
+				>
+					<img
+						src="/public/Sewing_Icon.png"
+						alt="Sewing Machine Icon"
+						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
+						@click="selectedPage = 'sewingModel'"
+					/>
+					<p class="text-center text-base font-semibold colored-icon">
+						View 3D
+						<br />
+						Sewing Machine
+					</p>
+					<!-- Label below the icon -->
+				</div>
+			</div>
 		</div>
 
 		<!-- Conditional Rendering Based on Selected Page -->
@@ -42,6 +103,7 @@ const selectedPage = ref('fabricGuide') // Default to 'fabricGuide'
 // Lazy-load components for better performance
 const fabricGuide = defineAsyncComponent(() => import('~/pages/fabric-guide.vue'))
 const tutorials = defineAsyncComponent(() => import('~/pages/tutorials.vue'))
+const sewingModel = defineAsyncComponent(() => import('~/pages/sewingmodel.vue'))
 
 // Computed property to return the current component based on selectedPage
 const currentComponent = computed(() => {
@@ -49,6 +111,8 @@ const currentComponent = computed(() => {
 		return fabricGuide
 	} else if (selectedPage.value === 'tutorials') {
 		return tutorials
+	} else if (selectedPage.value === 'sewingModel') {
+		return sewingModel
 	} else {
 		return null
 	}
@@ -65,5 +129,20 @@ const currentComponent = computed(() => {
 
 .colored-icon:hover {
 	filter: invert(51%) sepia(43%) saturate(457%) hue-rotate(-10deg) brightness(110%) contrast(90%);
+}
+/* Optional: Add custom styles for smooth scrolling */
+.flex {
+	scrollbar-width: thin; /* For Firefox */
+	scrollbar-color: #b8b8b8 transparent; /* For Firefox */
+}
+.flex::-webkit-scrollbar {
+	height: 6px; /* Height for horizontal scrollbar */
+}
+.flex::-webkit-scrollbar-thumb {
+	background-color: #b8b8b8;
+	border-radius: 3px;
+}
+.flex::-webkit-scrollbar-track {
+	background: transparent;
 }
 </style>
