@@ -15,6 +15,9 @@ export default <Partial<Config>>{
 					900: '#9c7560', // Additional nude text color
 				},
 			},
+			fontSize: {
+				xxs: '0.500rem', // Custom smaller font size (10px)
+			},
 		},
 	},
 }
