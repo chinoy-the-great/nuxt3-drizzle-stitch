@@ -11,7 +11,7 @@
 
 			<div class="">
 				<!-- Login Title -->
-				<h2 class="font-serif text-nude-700 text-3xl mb-6 text-center">LOG IN</h2>
+				<h2 class="text-3xl mb-6 text-center" style="color: #b9445f">LOG IN</h2>
 
 				<!-- Login Form -->
 				<form @submit.prevent="handleLogin">
@@ -37,10 +37,12 @@
 					</div>
 					<button
 						type="submit"
-						class="w-full bg-nude-500 text-white py-2 rounded hover:bg-nude-600 transition duration-200"
+						class="w-full py-2 rounded transition duration-200 mt-8 mb-8"
+						style="background-color: #b9445f; color: white"
 					>
-						Login
+						Log in
 					</button>
+
 					<p class="text-gray-600 mt-4 text-center">New here? Go to</p>
 					<p class="text-center">
 						<NuxtLink to="/register" class="text-nude-700 hover:underline">Sign Up</NuxtLink>
