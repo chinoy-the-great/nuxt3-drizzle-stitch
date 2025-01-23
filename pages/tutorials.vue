@@ -1,23 +1,24 @@
 <template>
 	<div class="max-w-4xl mx-auto p-6 bg-nude-50 rounded-lg shadow-lg">
-		<h1 class="text-4xl font-extrabold text-nude-900 mb-6 text-center">Video Tutorials</h1>
-		<p class="text-lg text-nude-600 mb-8 text-center">
-			Explore our curated list of video tutorials. Click on any video to watch it.
-		</p>
-
 		<!-- List of Videos -->
-		<div v-for="(video, index) in videos" :key="index" class="mb-8">
-			<div class="aspect-w-16 aspect-h-9">
-				<!-- YouTube iframe for each video -->
-				<iframe
-					:src="`https://www.youtube.com/embed/${video.id}`"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen
-					class="w-full h-full"
-				></iframe>
+		<div v-for="(video, index) in videos" :key="index" class="mb-8 bg-[#b9445f] rounded-lg p-4">
+			<div class="flex items-center">
+				<!-- Video Thumbnail (1/2 width) -->
+				<div class="w-1/2 pr-4">
+					<iframe
+						:src="`https://www.youtube.com/embed/${video.id}`"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+						class="w-full h-32 rounded-lg"
+					></iframe>
+				</div>
+
+				<!-- Video Title and Description (1/2 width) -->
+				<div class="w-1/2">
+					<h3 class="text-2xl font-semibold text-white mt-2">{{ video.title }}</h3>
+					<p class="text-white text-lg mt-1">{{ video.description }}</p>
+				</div>
 			</div>
-			<h3 class="text-xl font-semibold text-nude-700 mt-4">{{ video.title }}</h3>
-			<p class="text-nude-600">{{ video.description }}</p>
 		</div>
 	</div>
 </template>
