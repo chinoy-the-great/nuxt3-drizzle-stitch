@@ -51,43 +51,17 @@
 					class="flex flex-col items-center"
 					:class="[isActive('/home') ? 'text-nude-800' : 'text-nude-600 hover:text-nude-800']"
 				>
-					<svg
-						class="w-6 h-6"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"
-						/>
-					</svg>
+					<img src="/Toolbar_Home_Icon.png" alt="Home Icon" class="w-6 h-6" />
 					<span class="text-sm mt-1">Home</span>
 				</NuxtLink>
 
 				<!-- Tracker Icon -->
 				<NuxtLink
-					to="/notes"
+					to="/tasktracker"
 					class="flex flex-col items-center"
-					:class="[isActive('/notes') ? 'text-nude-800' : 'text-nude-600 hover:text-nude-800']"
+					:class="[isActive('/tasktracker') ? 'text-nude-800' : 'text-nude-600 hover:text-nude-800']"
 				>
-					<svg
-						class="w-6 h-6"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M12 8c2.21 0 4-1.79 4-4S14.21 0 12 0s-4 1.79-4 4 1.79 4 4 4zm0 2c-2.21 0-4 1.79-4 4v6h8v-6c0-2.21-1.79-4-4-4z"
-						/>
-					</svg>
+					<img src="/Toolbar_Tracker_Icon.png" alt="Tracker Icon" class="w-6 h-6" />
 					<span class="text-sm mt-1">Tracker</span>
 				</NuxtLink>
 
@@ -97,20 +71,7 @@
 					class="flex flex-col items-center"
 					:class="[isActive('/quizzes') ? 'text-nude-800' : 'text-nude-600 hover:text-nude-800']"
 				>
-					<svg
-						class="w-6 h-6"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M8 10h8M8 6h12M3 6h1M8 14h6M3 14h3m0 0h.01M3 18h6m6 0h5m-8 0h.01"
-						/>
-					</svg>
+					<img src="/Toolbar_Quiz_Icon.png" alt="Quiz Icon" class="w-6 h-6" />
 					<span class="text-sm mt-1">Quizzes</span>
 				</NuxtLink>
 
@@ -120,20 +81,7 @@
 					class="flex flex-col items-center"
 					:class="[isActive('/notifications') ? 'text-nude-800' : 'text-nude-600 hover:text-nude-800']"
 				>
-					<svg
-						class="w-6 h-6"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.658V11c0-1.105-.895-2-2-2h-4a2 2 0 00-2 2v3.658a2.032 2.032 0 01-.595 1.437L8 17h5m0 0v1a2 2 0 104 0v-1m-5 1h2"
-						/>
-					</svg>
+					<img src="/Toolbar_Notification_Icon.png" alt="Notifications Icon" class="w-6 h-6" />
 					<span class="text-sm mt-1">Notifications</span>
 				</NuxtLink>
 			</nav>
