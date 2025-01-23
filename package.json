@@ -24,7 +24,9 @@
 		"nuxt": "^3.13.0",
 		"pdf-vue3": "^1.0.12",
 		"pinia": "^2.2.4",
+		"three": "^0.172.0",
 		"vue": "latest",
+		"vue-3d-loader": "^2.2.4",
 		"vue-router": "latest"
 	},
 	"devDependencies": {
