@@ -9,14 +9,14 @@
 				class="w-full h-72 object-contain rounded-t-lg mb-6"
 			/>
 
-			<div class="">
+			<div class="bg-[#461a1c] p-6 rounded-lg">
 				<!-- Login Title -->
 				<h2 class="text-3xl mb-6 text-center" style="color: #b9445f">LOG IN</h2>
 
 				<!-- Login Form -->
 				<form @submit.prevent="handleLogin">
 					<div class="mb-4">
-						<label for="username" class="block text-gray-700 mb-1">Username:</label>
+						<label for="username" class="block mb-1" style="color: #ddbdb4">Username:</label>
 						<input
 							v-model="username"
 							type="text"
@@ -26,7 +26,7 @@
 						/>
 					</div>
 					<div class="mb-4">
-						<label for="password" class="block text-gray-700 mb-1">Password:</label>
+						<label for="password" class="block mb-1" style="color: #ddbdb4">Password:</label>
 						<input
 							v-model="password"
 							type="password"
@@ -43,9 +43,9 @@
 						Log in
 					</button>
 
-					<p class="text-gray-600 mt-4 text-center">New here? Go to</p>
+					<p class="mt-4 text-center" style="color: #ddbdb4">New here? Go to</p>
 					<p class="text-center">
-						<NuxtLink to="/register" class="text-nude-700 hover:underline">Sign Up</NuxtLink>
+						<NuxtLink to="/register" class="text-white hover:underline font-bold">Sign Up</NuxtLink>
 					</p>
 				</form>
 			</div>
