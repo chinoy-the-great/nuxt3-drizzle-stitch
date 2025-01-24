@@ -4,7 +4,7 @@
 		<div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
 			<!-- Header Image -->
 			<img
-				src="/_BG_ART_LogIn_alt.jpg"
+				src="/_BG_ART_LogIn_alt_2.jpeg"
 				alt="Login Header"
 				class="w-full h-72 object-contain rounded-t-lg mb-6"
 			/>
