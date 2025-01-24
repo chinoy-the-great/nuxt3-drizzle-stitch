@@ -1,14 +1,14 @@
 <template>
 	<div class="flex flex-col items-center justify-center min-h-screen">
-		<h1 class="text-2xl font-bold mb-6">3D Model Viewer</h1>
-		<div class="flex items-center justify-center bg-white rounded shadow-lg p-4">
+		<h1 class="text-2xl font-bold mb-6">3D Model of a Sewing Machine</h1>
+		<div class="flex items-center justify-center bg-transparent rounded shadow-lg p-2">
 			<Vue3dLoader
 				:height="500"
 				:width="500"
 				:show-fps="true"
 				:file-path="['/3d_model_machine.fbx']"
 				:mtl-path="[null, '/obj/2.mtl', null]"
-				:background-color="0xffffff"
+				:background-color="0xadd8e6"
 			></Vue3dLoader>
 		</div>
 	</div>
