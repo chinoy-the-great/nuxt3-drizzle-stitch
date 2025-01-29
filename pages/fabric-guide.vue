@@ -1,10 +1,5 @@
 <template>
-	<div class="max-w-4xl mx-auto p-6 bg-nude-50 rounded-lg shadow-lg">
-		<h1 class="text-4xl font-extrabold text-nude-900 mb-6 text-center">Fabric Guide</h1>
-		<p class="text-lg text-nude-600 mb-8 text-center">
-			Explore the essential fabric guides below. Click to view the PDF in a viewport.
-		</p>
-
+	<div class="max-w-4xl mx-auto p-6 bg-nude-50 rounded-lg shadow-lg mb-4">
 		<!-- List of PDFs -->
 		<div
 			v-for="(pdf, index) in pdfs"

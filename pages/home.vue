@@ -101,7 +101,7 @@ import { computed, defineAsyncComponent, ref } from 'vue'
 const selectedPage = ref('fabricGuide') // Default to 'fabricGuide'
 
 // Lazy-load components for better performance
-const fabricGuide = defineAsyncComponent(() => import('~/pages/fabric-guide.vue'))
+const fabricGuide = defineAsyncComponent(() => import('~/pages/home-dressmaking-library.vue'))
 const tutorials = defineAsyncComponent(() => import('~/pages/tutorials.vue'))
 const sewingModel = defineAsyncComponent(() => import('~/pages/sewingmodel.vue'))
 

@@ -4,4 +4,3 @@
 		<p>This is the notifications page.</p>
 	</div>
 </template>
-a
