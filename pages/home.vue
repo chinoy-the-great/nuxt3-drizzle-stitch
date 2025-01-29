@@ -32,7 +32,7 @@
 			<div class="flex justify-between space-x-4">
 				<!-- First Icon (Fabric Guide) -->
 				<div
-					class="bg-white rounded-lg p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
+					class="bg-white rounded-3xl p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
 				>
 					<img
 						src="/public/Book_Icon.png"
@@ -40,17 +40,17 @@
 						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
 						@click="selectedPage = 'fabricGuide'"
 					/>
-					<p class="text-center text-base font-semibold colored-icon">
-						Dressmaking
+					<p class="text-center text-base font-semibold colored-icon leading-tight">
+						DRESSMAKING
 						<br />
-						Library
+						LIBRARY
 					</p>
 					<!-- Label below the icon -->
 				</div>
 
 				<!-- Second Icon (Tutorials) -->
 				<div
-					class="bg-white rounded-lg p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
+					class="bg-white rounded-3xl p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
 				>
 					<img
 						src="/public/Video_Icon.png"
@@ -58,17 +58,17 @@
 						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
 						@click="selectedPage = 'tutorials'"
 					/>
-					<p class="text-center text-base font-semibold colored-icon">
-						Video
+					<p class="text-center text-base font-semibold colored-icon leading-tight">
+						VIDEO
 						<br />
-						Tutorial
+						TUTORIAL
 					</p>
 					<!-- Label below the icon -->
 				</div>
 
 				<!-- Third Icon (Sewing Machine) -->
 				<div
-					class="bg-white rounded-lg p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
+					class="bg-white rounded-3xl p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
 				>
 					<img
 						src="/public/Sewing_Icon.png"
@@ -76,10 +76,10 @@
 						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
 						@click="selectedPage = 'sewingModel'"
 					/>
-					<p class="text-center text-base font-semibold colored-icon">
-						View 3D
+					<p class="text-center text-base font-semibold colored-icon leading-tight">
+						VIEW 3D
 						<br />
-						Sewing Machine
+						SEWING MACHINE
 					</p>
 					<!-- Label below the icon -->
 				</div>
