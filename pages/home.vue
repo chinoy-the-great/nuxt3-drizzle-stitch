@@ -25,7 +25,7 @@
 		</div>
 
 		<!-- Icon Buttons -->
-		<div class="flex overflow-x-auto space-x-6 mb-6 p-4">
+		<div class="flex overflow-x-auto space-x-6 mb-6 pb-4 mx-4">
 			<!-- First Icon (Fabric Guide) -->
 			<!-- First Icon (Fabric Guide) with White Box -->
 			<!-- First Icon (Fabric Guide) with White Box -->
@@ -40,7 +40,7 @@
 						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
 						@click="selectedPage = 'fabricGuide'"
 					/>
-					<p class="text-center text-base font-semibold colored-icon leading-tight">
+					<p class="text-center text-base font-bold colored-icon leading-none">
 						DRESSMAKING
 						<br />
 						LIBRARY
@@ -58,7 +58,7 @@
 						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
 						@click="selectedPage = 'tutorials'"
 					/>
-					<p class="text-center text-base font-semibold colored-icon leading-tight">
+					<p class="text-center text-base font-bold colored-icon leading-none">
 						VIDEO
 						<br />
 						TUTORIAL
@@ -76,7 +76,7 @@
 						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
 						@click="selectedPage = 'sewingModel'"
 					/>
-					<p class="text-center text-base font-semibold colored-icon leading-tight">
+					<p class="text-center text-base font-bold colored-icon leading-none">
 						VIEW 3D
 						<br />
 						SEWING MACHINE
