@@ -1,5 +1,5 @@
 <template>
-	<div class="space-y-4 mb-24">
+	<div class="space-y-4 mb-24 mx-4">
 		<!-- First Row -->
 		<NuxtLink to="/home-library-fabric-guide">
 			<div class="w-full h-32 bg-[#D76A7D] flex items-start justify-start p-4 rounded-lg">

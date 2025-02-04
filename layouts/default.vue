@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-col min-h-screen bg-nude-50">
 		<!-- Navbar -->
-		<header v-if="userStore.user" class="bg-transparent">
+		<header v-if="userStore.user" class="bg-transparent fixed inset-x-0 top-0 z-30">
 			<nav class="container mx-auto px-4 py-4 flex justify-between items-center">
 				<button class="text-nude-700 hover:text-nude-600 flex items-center" @click="toggleSidebar">
 					<!-- Menu Icon -->
@@ -30,8 +30,9 @@
 				@close="toggleSidebar"
 			/>
 
-			<!-- Page content -->
-			<main class="flex-grow container mx-auto px-4 py-6">
+			<!-- Page content (overlapping the header) -->
+			<main class="flex-grow container mx-auto">
+				<!-- Adjusted margin-top to overlap the header -->
 				<NuxtPage />
 			</main>
 		</div>

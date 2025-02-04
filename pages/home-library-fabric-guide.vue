@@ -1,6 +1,6 @@
 <template>
 	<div class="space-y-4 p-6">
-		<h2 class="text-2xl font-bold mb-4">Fabric Guide</h2>
+		<h2 class="text-2xl font-bold mb-4 mt-8">Fabric Guide</h2>
 
 		<!-- Folder List -->
 		<div v-for="(folder, folderIndex) in folders" :key="folderIndex">
