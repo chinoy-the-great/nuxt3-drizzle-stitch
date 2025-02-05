@@ -1,5 +1,13 @@
 <template>
-	<div class="container mx-auto p-6">
+	<div
+		class="container mx-auto p-6"
+		style="
+			background-image: url('/quiz_page_bg.png');
+			background-size: cover;
+			background-position: center;
+			min-height: 100vh;
+		"
+	>
 		<div class="flex justify-center mt-8">
 			<div class="bg-[#391917] p-6 rounded-lg mb-8 inline-block">
 				<!-- STITCH IN TIME Header (White font color) -->
@@ -20,48 +28,13 @@
 					backgroundSize: 'cover',
 					backgroundPosition: 'center',
 					backgroundRepeat: 'no-repeat',
-					minHeight: '300px' /* Adjust this to control the height */,
-					height: '100%' /* Ensure full height if needed */,
+					minHeight: '120px' /* Adjust this to control the height */,
 				}"
-				@click="toggleQuestions(quizIndex)"
+				@click="goToQuiz(quizIndex)"
 			>
 				<div class="flex flex-col justify-center items-center h-full text-center">
 					<h2 class="text-2xl font-semibold text-white">{{ quiz.title }}</h2>
 					<p class="text-sm text-gray-200 mt-2">{{ quiz.description }}</p>
-				</div>
-			</div>
-
-			<!-- Questions List (only shown when quiz is clicked) -->
-			<div v-if="quiz.isOpen" class="mt-4">
-				<div v-for="(question, questionIndex) in quiz.questions" :key="questionIndex" class="mb-4">
-					<h3 class="text-xl font-semibold">{{ question.question }}</h3>
-					<div class="mt-2 space-y-2">
-						<div
-							v-for="(option, optionIndex) in question.options"
-							:key="optionIndex"
-							class="flex items-center"
-						>
-							<input
-								:id="`quiz${quizIndex}-question${questionIndex}-option${optionIndex}`"
-								v-model="userAnswers[quizIndex][questionIndex]"
-								type="radio"
-								:name="`quiz${quizIndex}-question${questionIndex}`"
-								:value="option"
-								class="mr-2"
-							/>
-							<label :for="`quiz${quizIndex}-question${questionIndex}-option${optionIndex}`" class="text-lg">
-								{{ option }}
-							</label>
-						</div>
-					</div>
-					<div v-if="userAnswers[quizIndex][questionIndex]" class="mt-2">
-						<p v-if="isAnswerCorrect(quizIndex, questionIndex)" class="text-green-500 font-medium">
-							Correct!
-						</p>
-						<p v-else class="text-red-500 font-medium">
-							Incorrect. The correct answer is: {{ question.correctAnswer }}
-						</p>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -76,7 +49,6 @@ export default {
 				{
 					title: 'Math Quiz',
 					description: 'Test your basic math knowledge.',
-					isOpen: false,
 					questions: [
 						{
 							question: 'What is 2 + 2?',
@@ -93,7 +65,6 @@ export default {
 				{
 					title: 'History Quiz',
 					description: 'Test your knowledge of history.',
-					isOpen: false,
 					questions: [
 						{
 							question: 'Who was the first president of the United States?',
@@ -108,24 +79,12 @@ export default {
 					],
 				},
 			],
-			userAnswers: {},
 		}
 	},
 	methods: {
-		// Toggle the visibility of questions for each quiz using $set for reactivity
-		toggleQuestions(quizIndex) {
-			this.$set(this.quizzes, quizIndex, {
-				...this.quizzes[quizIndex],
-				isOpen: !this.quizzes[quizIndex].isOpen,
-			})
-		},
-
-		// Check if the user's answer is correct for a given question
-		isAnswerCorrect(quizIndex, questionIndex) {
-			const userAnswer = this.userAnswers[quizIndex]?.[questionIndex]
-			if (!userAnswer) return false // No answer selected yet
-			const correctAnswer = this.quizzes[quizIndex].questions[questionIndex].correctAnswer
-			return userAnswer === correctAnswer
+		goToQuiz(quizIndex) {
+			// Navigate to the individual quiz view page
+			this.$router.push({ path: `/quiz/${quizIndex}` })
 		},
 	},
 }
