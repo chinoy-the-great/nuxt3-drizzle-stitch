@@ -21,22 +21,24 @@
 		<!-- Quizzes List -->
 		<div v-for="(quiz, quizIndex) in quizzes" :key="quizIndex" class="mb-6">
 			<!-- Quiz Item -->
-			<div
-				class="p-4 rounded-xl shadow-md cursor-pointer"
-				:style="{
-					backgroundImage: 'url(/quiz_bg.png)',
-					backgroundSize: 'cover',
-					backgroundPosition: 'center',
-					backgroundRepeat: 'no-repeat',
-					minHeight: '120px' /* Adjust this to control the height */,
-				}"
-				@click="goToQuiz(quizIndex)"
-			>
-				<div class="flex flex-col justify-center items-center h-full text-center">
-					<h2 class="text-2xl font-semibold text-white">{{ quiz.title }}</h2>
-					<p class="text-sm text-gray-200 mt-2">{{ quiz.description }}</p>
+			<NuxtLink :to="`/quiz/${quizIndex}`">
+				<div
+					class="p-4 rounded-xl shadow-md cursor-pointer"
+					:style="{
+						backgroundImage: 'url(/quiz_bg.png)',
+						backgroundSize: 'cover',
+						backgroundPosition: 'center',
+						backgroundRepeat: 'no-repeat',
+						minHeight: '120px' /* Adjust this to control the height */,
+					}"
+					@click="goToQuiz(quizIndex)"
+				>
+					<div class="flex flex-col justify-center items-center h-full text-center">
+						<h2 class="text-2xl font-semibold text-white">{{ quiz.title }}</h2>
+						<p class="text-sm text-gray-200 mt-2">{{ quiz.description }}</p>
+					</div>
 				</div>
-			</div>
+			</NuxtLink>
 		</div>
 	</div>
 </template>
@@ -47,8 +49,11 @@ export default {
 		return {
 			quizzes: [
 				{
-					title: 'Math Quiz',
-					description: 'Test your basic math knowledge.',
+					title: 'How to Thread a Domestic/Manual Sewing Machine',
+					description:
+						'This quiz is designed to\n' +
+						'challenge your understanding of the process and test your ability to recall specific\n' +
+						'details.',
 					questions: [
 						{
 							question: 'What is 2 + 2?',
