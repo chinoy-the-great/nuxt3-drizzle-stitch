@@ -2,25 +2,35 @@
 	<div class="space-y-4 mb-24 mx-4">
 		<!-- First Row -->
 		<NuxtLink to="/home-library-fabric-guide">
-			<div class="w-full h-32 bg-[#D76A7D] flex items-start justify-start p-4 rounded-lg">
+			<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
 				<div>
-					<div class="text-white font-bold text-xl">FABRIC GUIDE</div>
-					<div class="text-white text-sm mt-1">
-						A fabric guide is a resource that provides information about different fabrics, their properties,
-						and how they can be used in sewing and garment making.
-					</div>
+					<div class="text-white font-bold text-4xl">MODULE</div>
+					<div class="text-white text-sm mt-1"></div>
 				</div>
 			</div>
 		</NuxtLink>
 
 		<!-- Second Row -->
-		<div class="w-full h-32 bg-[#D76A7D] flex items-start justify-start p-4 rounded-lg">
+		<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
 			<div>
-				<div class="text-white font-bold text-xl">SEWING TECHNIQUES</div>
-				<div class="text-white text-sm mt-1">
-					Sewing techniques are the methods and processes used for joining pieces of fabric together to create
-					a finished garment.
-				</div>
+				<div class="text-white font-bold text-4xl">SEWING TECHNIQUES</div>
+				<div class="text-white text-sm mt-1"></div>
+			</div>
+		</div>
+
+		<!-- Third Row -->
+		<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
+			<div>
+				<div class="text-white font-bold text-4xl">DRESSMAKING TOOLS</div>
+				<div class="text-white text-sm mt-1"></div>
+			</div>
+		</div>
+
+		<!-- Fourt Row -->
+		<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
+			<div>
+				<div class="text-white font-bold text-4xl">TROUBLESHOOTING</div>
+				<div class="text-white text-sm mt-1"></div>
 			</div>
 		</div>
 	</div>
@@ -28,7 +38,7 @@
 
 <script>
 export default {
-	name: 'ThreeRows',
+	name: 'FourRows',
 }
 </script>
 
