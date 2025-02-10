@@ -23,7 +23,7 @@
 			<!-- Quiz Item -->
 			<NuxtLink :to="`/quiz/${quizIndex}`">
 				<div
-					class="p-4 rounded-xl shadow-md cursor-pointer"
+					class="p-4 rounded-xl shadow-md cursor-pointer w-full h-32 items-center"
 					:style="{
 						backgroundImage: 'url(/quiz_bg.png)',
 						backgroundSize: 'cover',
@@ -49,7 +49,7 @@ export default {
 		return {
 			quizzes: [
 				{
-					title: 'How to Thread a Domestic/Manual Sewing Machine',
+					title: 'How to Thread a Domestic / Manual Sewing Machine',
 					description:
 						'This quiz is designed to\n' +
 						'challenge your understanding of the process and test your ability to recall specific\n' +
