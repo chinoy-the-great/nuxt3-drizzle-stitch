@@ -1,6 +1,6 @@
 <template>
 	<div class="container mx-auto p-4 mb-8 mt-8">
-		<h1 class="text-3xl font-semibold text-center mb-6">January 2025</h1>
+		<h1 class="text-3xl font-semibold text-center mb-6">February 2025</h1>
 
 		<!-- Days of the week (Header row) -->
 		<div class="grid grid-cols-7 gap-0">
