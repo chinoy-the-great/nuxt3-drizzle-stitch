@@ -77,7 +77,14 @@
 		<!-- Quiz Container For Matching-->
 		<div v-if="quiz.type === 'matching'">
 			<div class="w-full max-w-2xl bg-white p-6 shadow-lg rounded-lg">
-				<h1 class="text-3xl font-bold text-center mb-4">{{ quiz?.title }}</h1>
+				<h1 class="text-3xl font-bold text-center mb-2">{{ quiz?.title }}</h1>
+
+				<!-- Directions -->
+				<p class="text-sm text-gray-600 text-center mb-4">
+					Directions: Welcome to the Sewing Machine Parts and Functions Matching Quiz! In this quiz, you will
+					match each part of the sewing machine with its corresponding function.
+				</p>
+
 				<p v-if="!quiz" class="text-red-500">Quiz not found!</p>
 
 				<div v-if="quiz">
