@@ -68,8 +68,10 @@ export default {
 					],
 				},
 				{
-					title: 'History Quiz',
-					description: 'Test your knowledge of history.',
+					title: 'Parts and Functions of Domestic/Manual Sewing Machine',
+					description:
+						'In this quiz, you will match each part of the sewing machine with its corresponding\n' +
+						'function.',
 					questions: [
 						{
 							question: 'Who was the first president of the United States?',

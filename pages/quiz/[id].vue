@@ -4,72 +4,101 @@
 		@touchstart="handleTouchStart"
 		@touchend="handleTouchEnd"
 	>
-		<!-- Quiz Container -->
-		<div class="w-full max-w-2xl bg-white p-6 shadow-lg rounded-lg relative">
-			<!-- Quiz Title (Static) -->
-			<h1 class="text-3xl font-bold text-center mb-4">{{ quiz?.title }}</h1>
+		<!-- Quiz Container For Multiple Choice -->
+		<div v-if="quiz.type === 'multiple-choice'">
+			<div class="w-full max-w-2xl bg-white p-6 shadow-lg rounded-lg relative">
+				<!-- Quiz Title (Static) -->
+				<h1 class="text-3xl font-bold text-center mb-4">{{ quiz?.title }}</h1>
 
-			<!-- If Quiz is Not Found -->
-			<p v-if="!quiz" class="text-red-500">Quiz not found!</p>
+				<!-- If Quiz is Not Found -->
+				<p v-if="!quiz" class="text-red-500">Quiz not found!</p>
 
-			<!-- Quiz Content -->
-			<div v-if="quiz" class="relative w-full overflow-hidden">
-				<!-- Questions Wrapper -->
-				<div
-					class="flex transition-transform duration-300 ease-in-out w-full"
-					:style="{ transform: `translateX(-${currentQuestionIndex * 100}%)` }"
-				>
-					<!-- Single Question Slide -->
+				<!-- Quiz Content -->
+				<div v-if="quiz" class="relative w-full overflow-hidden">
+					<!-- Questions Wrapper -->
 					<div
-						v-for="(question, index) in quiz.questions"
-						:key="index"
-						class="w-full max-w-full flex-shrink-0 p-4"
+						class="flex transition-transform duration-300 ease-in-out w-full"
+						:style="{ transform: `translateX(-${currentQuestionIndex * 100}%)` }"
 					>
-						<p class="font-semibold break-words text-wrap">{{ question.text }}</p>
-						<ul>
-							<li v-for="option in question.options" :key="option" class="mt-2">
-								<label class="flex items-center gap-2 cursor-pointer">
-									<input
-										v-model="answers[index]"
-										type="radio"
-										:name="`question-${index}`"
-										:value="option"
-										class="accent-blue-500"
-									/>
-									{{ option }}
-								</label>
-							</li>
-						</ul>
+						<!-- Single Question Slide -->
+						<div
+							v-for="(question, index) in quiz.questions"
+							:key="index"
+							class="w-full max-w-full flex-shrink-0 p-4"
+						>
+							<p class="font-semibold break-words text-wrap">{{ question.text }}</p>
+							<ul>
+								<li v-for="option in question.options" :key="option" class="mt-2">
+									<label class="flex items-center gap-2 cursor-pointer">
+										<input
+											v-model="answers[index]"
+											type="radio"
+											:name="`question-${index}`"
+											:value="option"
+											class="accent-blue-500"
+										/>
+										{{ option }}
+									</label>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- Navigation Buttons -->
-			<div class="flex justify-between mt-4">
+				<!-- Navigation Buttons -->
+				<div class="flex justify-between mt-4">
+					<button
+						:disabled="currentQuestionIndex === 0"
+						class="px-4 py-2 bg-gray-300 rounded-lg disabled:opacity-50"
+						@click="prevQuestion"
+					>
+						⬅
+					</button>
+					<button
+						:disabled="currentQuestionIndex === quiz.questions.length - 1"
+						class="px-4 py-2 bg-gray-300 rounded-lg disabled:opacity-50"
+						@click="nextQuestion"
+					>
+						➡
+					</button>
+				</div>
+
+				<!-- Submit Button -->
 				<button
-					:disabled="currentQuestionIndex === 0"
-					class="px-4 py-2 bg-gray-300 rounded-lg disabled:opacity-50"
-					@click="prevQuestion"
+					v-if="currentQuestionIndex === quiz.questions.length - 1"
+					class="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+					@click="submitQuiz"
 				>
-					⬅
-				</button>
-				<button
-					:disabled="currentQuestionIndex === quiz.questions.length - 1"
-					class="px-4 py-2 bg-gray-300 rounded-lg disabled:opacity-50"
-					@click="nextQuestion"
-				>
-					➡
+					Submit Quiz
 				</button>
 			</div>
+		</div>
 
-			<!-- Submit Button -->
-			<button
-				v-if="currentQuestionIndex === quiz.questions.length - 1"
-				class="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
-				@click="submitQuiz"
-			>
-				Submit Quiz
-			</button>
+		<!-- Quiz Container For Matching-->
+		<div v-if="quiz.type === 'matching'">
+			<div class="w-full max-w-2xl bg-white p-6 shadow-lg rounded-lg">
+				<h1 class="text-3xl font-bold text-center mb-4">{{ quiz?.title }}</h1>
+				<p v-if="!quiz" class="text-red-500">Quiz not found!</p>
+
+				<div v-if="quiz">
+					<div v-for="(question, index) in quiz.questions" :key="question.id" class="mb-4">
+						<p class="font-semibold">{{ question.text }}</p>
+						<select v-model="userAnswers[index]" class="w-full p-2 border rounded">
+							<option disabled value="">Select an answer</option>
+							<option v-for="answer in quiz.answers" :key="answer.id" :value="answer.id">
+								{{ answer.text }}
+							</option>
+						</select>
+					</div>
+
+					<button
+						class="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+						@click="submitQuiz"
+					>
+						Submit Quiz
+					</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -89,6 +118,7 @@ const quizId = route.params.id.toString() // Ensure it's a string
 const quiz = ref(quizzesData.find((q) => q.id === quizId))
 const answers = ref([])
 const currentQuestionIndex = ref(0)
+const userAnswers = ref(Array.from({ length: quiz.value?.questions.length }).fill(''))
 
 // Touch swipe handling
 const touchStartX = ref(0)
