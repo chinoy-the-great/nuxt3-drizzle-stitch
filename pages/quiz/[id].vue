@@ -16,32 +16,32 @@
 				<!-- Quiz Content -->
 				<div v-if="quiz" class="relative w-full overflow-hidden">
 					<!-- Questions Wrapper -->
-					<div
-						class="flex transition-transform duration-300 ease-in-out w-full"
-						:style="{ transform: `translateX(-${currentQuestionIndex * 100}%)` }"
-					>
-						<!-- Single Question Slide -->
-						<div
-							v-for="(question, index) in quiz.questions"
-							:key="index"
-							class="w-full max-w-full flex-shrink-0 p-4"
-						>
-							<p class="font-semibold break-words text-wrap">{{ question.text }}</p>
-							<ul>
-								<li v-for="option in question.options" :key="option" class="mt-2">
-									<label class="flex items-center gap-2 cursor-pointer">
-										<input
-											v-model="answers[index]"
-											type="radio"
-											:name="`question-${index}`"
-											:value="option"
-											class="accent-blue-500"
-										/>
-										{{ option }}
-									</label>
-								</li>
-							</ul>
-						</div>
+					<div class="relative w-full min-h-[300px] flex items-center">
+						<!-- Single Question (Only One Visible at a Time) -->
+						<transition name="fade" mode="out-in">
+							<!-- Wrapper Div to Ensure a Single Child -->
+							<div :key="currentQuestionIndex" class="w-full p-4 absolute">
+								<p class="font-semibold">{{ quiz.questions[currentQuestionIndex].text }}</p>
+								<ul>
+									<li
+										v-for="option in quiz.questions[currentQuestionIndex].options"
+										:key="option"
+										class="mt-2"
+									>
+										<label class="flex items-center gap-2 cursor-pointer">
+											<input
+												v-model="answers[currentQuestionIndex]"
+												type="radio"
+												:name="`question-${currentQuestionIndex}`"
+												:value="option"
+												class="accent-blue-500"
+											/>
+											{{ option }}
+										</label>
+									</li>
+								</ul>
+							</div>
+						</transition>
 					</div>
 				</div>
 
@@ -171,3 +171,14 @@ const submitQuiz = () => {
 	router.push('/quizzes') // Redirect after submission
 }
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.3s ease-in-out;
+}
+.fade-enter,
+.fade-leave-to {
+	opacity: 0;
+}
+</style>
