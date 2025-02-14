@@ -25,7 +25,7 @@
 		</div>
 
 		<!-- Icon Buttons -->
-		<div class="flex overflow-x-auto space-x-6 mb-6 pb-4 mx-4">
+		<div class="flex overflow-x-auto space-x-6 mb-6 pb-4 mx-4 custom-scrollbar">
 			<!-- First Icon (Fabric Guide) -->
 			<!-- First Icon (Fabric Guide) with White Box -->
 			<!-- First Icon (Fabric Guide) with White Box -->
@@ -130,19 +130,27 @@ const currentComponent = computed(() => {
 .colored-icon:hover {
 	filter: invert(51%) sepia(43%) saturate(457%) hue-rotate(-10deg) brightness(110%) contrast(90%);
 }
-/* Optional: Add custom styles for smooth scrolling */
-.flex {
-	scrollbar-width: thin; /* For Firefox */
-	scrollbar-color: #b8b8b8 transparent; /* For Firefox */
+
+.custom-scrollbar::-webkit-scrollbar {
+	height: 8px;
 }
-.flex::-webkit-scrollbar {
-	height: 6px; /* Height for horizontal scrollbar */
+
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: #f5e1c8; /* Light brown track */
+	border-radius: 10px;
 }
-.flex::-webkit-scrollbar-thumb {
-	background-color: #b8b8b8;
-	border-radius: 3px;
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background: #c8a97e; /* Darker brown scrollbar */
+	border-radius: 10px;
 }
-.flex::-webkit-scrollbar-track {
-	background: transparent;
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: #a57c50; /* Darker brown on hover */
+}
+
+/* For Firefox */
+.custom-scrollbar {
+	scrollbar-color: #c8a97e #f5e1c8;
 }
 </style>
