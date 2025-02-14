@@ -189,11 +189,18 @@ const submitQuiz = () => {
 			}
 		})
 	} else if (quiz.value.type === 'matching') {
+		score = 0 // Reset score before checking
+
 		quiz.value.answerKey.forEach((correctAnswer, index) => {
-			if (String(userAnswers.value[index] || '') === String(correctAnswer)) {
+			// Find the selected answer text using the selected ID
+			const selectedAnswerId = userAnswers.value[index]
+			const selectedAnswerText =
+				quiz.value.answers.find((answer) => answer.id === selectedAnswerId)?.text || ''
+
+			if (String(selectedAnswerText) === String(correctAnswer)) {
 				score++
 			} else {
-				console.log(`❌ Match ${index + 1}: Expected "${correctAnswer}", Got "${userAnswers.value[index]}"`)
+				console.log(`❌ Match ${index + 1}: Expected "${correctAnswer}", Got "${selectedAnswerText}"`)
 			}
 		})
 	}
