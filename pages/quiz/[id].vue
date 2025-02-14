@@ -167,8 +167,40 @@ const handleTouchEnd = (event) => {
 }
 
 const submitQuiz = () => {
-	console.log('User answers:', answers.value)
-	router.push('/quizzes') // Redirect after submission
+	if (!quiz.value || !quiz.value.answerKey) {
+		console.error('Quiz data or answer key is missing!')
+		return
+	}
+
+	console.log('Quiz Title:', quiz.value.title)
+	console.log('Quiz Type:', quiz.value.type)
+	console.log('User Answers:', answers.value || userAnswers.value)
+	console.log('Correct Answers:', quiz.value.answerKey)
+
+	let score = 0
+	const totalQuestions = quiz.value.questions.length
+
+	if (quiz.value.type === 'multiple-choice') {
+		quiz.value.answerKey.forEach((correctAnswer, index) => {
+			if (String(answers.value[index] || '') === String(correctAnswer)) {
+				score++
+			} else {
+				console.log(`❌ Question ${index + 1}: Expected "${correctAnswer}", Got "${answers.value[index]}"`)
+			}
+		})
+	} else if (quiz.value.type === 'matching') {
+		quiz.value.answerKey.forEach((correctAnswer, index) => {
+			if (String(userAnswers.value[index] || '') === String(correctAnswer)) {
+				score++
+			} else {
+				console.log(`❌ Match ${index + 1}: Expected "${correctAnswer}", Got "${userAnswers.value[index]}"`)
+			}
+		})
+	}
+
+	// eslint-disable-next-line no-alert
+	alert(`Your Score: ${score} / ${totalQuestions}`)
+	router.push('/quizzes')
 }
 </script>
 
