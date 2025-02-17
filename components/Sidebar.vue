@@ -28,8 +28,18 @@
 			</div>
 
 			<!-- Sidebar content -->
-			<h2 class="text-white text-center text-xl font-bold mb-1 border-b border-t pt-1 pb-1">YOUR ACCOUNT</h2>
 			<ul class="space-y-2">
+				<li class="border-t border-b border-white pt-1 pb-1">
+					<NuxtLink to="/profile" class="flex items-center text-white hover:text-nude-600">
+						<!-- Image Icon -->
+						<img
+							src="/public/Account_Icon.png"
+							alt="Profile"
+							class="w-5 h-5 mr-3 filter invert brightness-200"
+						/>
+						My Account
+					</NuxtLink>
+				</li>
 				<li class="border-b border-white pb-1">
 					<NuxtLink to="/achievements" class="flex items-center text-white hover:text-nude-600">
 						<!-- Image Icon -->
