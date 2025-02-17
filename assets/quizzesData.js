@@ -1,6 +1,7 @@
 export const quizzesData = [
 	{
 		id: '0',
+		outerTitle: 'Quiz #1',
 		title: 'How to Thread a Domestic / Manual Sewing Machine',
 		type: 'multiple-choice',
 		questions: [
@@ -112,6 +113,7 @@ export const quizzesData = [
 	},
 	{
 		id: '1',
+		outerTitle: 'Quiz #2',
 		title: 'Parts and Functions of Domestic/Manual Sewing Machine',
 		type: 'matching',
 		questions: [
