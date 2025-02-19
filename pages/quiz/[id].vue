@@ -10,6 +10,14 @@
 				<!-- Quiz Title (Static) -->
 				<h1 class="text-3xl font-bold text-center mb-4">{{ quiz?.title }}</h1>
 
+				<!-- Directions -->
+				<p class="text-sm text-gray-600 text-center">
+					Directions: Threading a domestic/manual sewing machine requires careful attention to detail and
+					proper handling of the thread and bobbin. This quiz is designed to challenge your understanding of
+					the process and test your ability to recall specific details. Think carefully before answering each
+					question!
+				</p>
+
 				<!-- If Quiz is Not Found -->
 				<p v-if="!quiz" class="text-red-500">Quiz not found!</p>
 
