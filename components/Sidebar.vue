@@ -23,8 +23,14 @@
 
 			<!-- Avatar and Name Section -->
 			<div class="flex flex-col items-center mb-6">
-				<img src="/Your_Account_Icon.png" alt="Avatar" class="32 h-32 mb-2 filter invert brightness-200" />
-				<h3 class="text-white text-lg font-semibold">Name</h3>
+				<img
+					:src="userStore.profilePicture"
+					:style="
+						userStore.profilePicture === '/Your_Account_Icon.png' ? 'filter: invert(1) brightness(2);' : ''
+					"
+					class="h-32 w-32 rounded-full mb-2"
+				/>
+				<h3 class="text-white text-lg font-semibold">{{ userStore.name }}</h3>
 			</div>
 
 			<!-- Sidebar content -->
