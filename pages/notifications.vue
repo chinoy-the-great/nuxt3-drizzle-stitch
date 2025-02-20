@@ -57,6 +57,13 @@ const notifications = ref([
 		time: '4 days ago',
 		icon: '💬',
 	},
+	{
+		id: 5,
+		type: 'task',
+		message: "Don't forget to complete your pending tasks.",
+		time: '5 hours ago',
+		icon: '⏰',
+	},
 ])
 
 // Function to return the icon class based on notification type
@@ -68,6 +75,8 @@ const notificationIconClass = (type) => {
 			return 'bg-green-500 text-white'
 		case 'upload':
 			return 'bg-yellow-500 text-white'
+		case 'task':
+			return 'bg-purple-500 text-white'
 		default:
 			return 'bg-gray-500 text-white'
 	}
@@ -81,6 +90,8 @@ const notificationTextClass = (type) => {
 		case 'comment':
 			return 'text-white'
 		case 'upload':
+			return 'text-white'
+		case 'task':
 			return 'text-white'
 		default:
 			return 'text-gray-800'
