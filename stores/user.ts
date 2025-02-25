@@ -6,15 +6,25 @@ interface User {
 	token: string
 }
 
+interface QuizScore {
+	quizTitle: string
+	score: number
+	totalQuestions: number
+	date: string
+}
+
 export const useUserStore = defineStore('user', () => {
 	// User Authentication State
 	const user = ref<User | null>(null)
 
 	// Profile State
 	const name = ref('John Doe')
-	const fullName = ref('Johnathan Doe') // New field
-	const address = ref('123 Main St, City, Country') // New field
+	const fullName = ref('Johnathan Doe')
+	const address = ref('123 Main St, City, Country')
 	const profilePicture = ref('/Your_Account_Icon.png')
+
+	// Quiz Scores State
+	const quizScores = ref<QuizScore[]>([])
 
 	// Actions
 	const setUser = (userData: User) => {
@@ -37,8 +47,31 @@ export const useUserStore = defineStore('user', () => {
 		profilePicture.value = newProfilePicture
 	}
 
+	// Store quiz score
+	const storeQuizScore = (quizTitle: string, score: number, totalQuestions: number) => {
+		const newScore: QuizScore = {
+			quizTitle,
+			score,
+			totalQuestions,
+			date: new Date().toLocaleString(), // Store timestamp
+		}
+		quizScores.value.push(newScore)
+	}
+
 	// Getters
 	const isLoggedIn = computed(() => !!user.value)
 
-	return { user, name, fullName, address, profilePicture, setUser, clearUser, updateProfile, isLoggedIn }
+	return {
+		user,
+		name,
+		fullName,
+		address,
+		profilePicture,
+		quizScores,
+		setUser,
+		clearUser,
+		updateProfile,
+		storeQuizScore,
+		isLoggedIn,
+	}
 })

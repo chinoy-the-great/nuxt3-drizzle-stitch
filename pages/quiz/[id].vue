@@ -134,6 +134,7 @@ const quiz = ref(quizzesData.find((q) => q.id === quizId))
 const answers = ref([])
 const currentQuestionIndex = ref(0)
 const userAnswers = ref(Array.from({ length: quiz.value?.questions.length }).fill(''))
+const userStore = useUserStore()
 
 // Touch swipe handling
 const touchStartX = ref(0)
@@ -212,6 +213,9 @@ const submitQuiz = () => {
 			}
 		})
 	}
+
+	// Store quiz score in Pinia
+	userStore.storeQuizScore(quiz.value.title, score, totalQuestions)
 
 	// eslint-disable-next-line no-alert
 	alert(`Your Score: ${score} / ${totalQuestions}`)
