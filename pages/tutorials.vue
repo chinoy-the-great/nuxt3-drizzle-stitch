@@ -3,14 +3,12 @@
 		<!-- List of Videos -->
 		<div v-for="(video, index) in videos" :key="index" class="mb-8 bg-[#b9445f] rounded-lg p-4 pb-1">
 			<div class="flex items-center">
-				<!-- Video Thumbnail (1/2 width) -->
+				<!-- Video Player (1/2 width) -->
 				<div class="w-1/2 pr-4">
-					<iframe
-						:src="`https://www.youtube.com/embed/${video.id}`"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-						class="w-full h-32 rounded-lg"
-					></iframe>
+					<video controls class="w-full h-32 rounded-lg">
+						<source :src="`/videos/${video.filename}`" type="video/mp4" />
+						Your browser does not support the video tag.
+					</video>
 				</div>
 
 				<!-- Video Title and Description (1/2 width) -->
@@ -83,31 +81,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// Array of video details with comments section
+// Array of video details with local filenames
 const videos = ref([
 	{
-		id: 'tBudnRKg_r8',
-		title: 'Video Tutorial 1',
-		description: 'Description for video tutorial 1.',
-		comments: [
-			{ user: 'Alice', text: 'Great tutorial, thanks!' },
-			{ user: 'Bob', text: 'Very informative, I learned a lot.' },
-		],
-		newComment: { user: '', text: '' }, // Store the new comment input
-		showComments: false, // Collapsible section visibility
-	},
-	{
-		id: 'OpNU-PRxMqE',
-		title: 'Video Tutorial 2',
-		description: 'Description for video tutorial 2.',
+		filename: 'How to thread a Domestic or Manual Sewing Machine.mp4',
+		title: 'How to thread a Domestic or Manual Sewing Machine',
+		description: 'Enter description here.',
 		comments: [],
 		newComment: { user: '', text: '' },
 		showComments: false,
 	},
 	{
-		id: 'KDvK_q7ohaE',
-		title: 'Video Tutorial 3',
-		description: 'Description for video tutorial 3.',
+		filename: 'Parts of the Domestic or Manual Sewing Machine.mp4',
+		title: 'Parts of the Domestic or Manual Sewing Machine',
+		description: 'Enter description here.',
 		comments: [],
 		newComment: { user: '', text: '' },
 		showComments: false,
@@ -134,23 +121,3 @@ const addComment = (video, index) => {
 	}
 }
 </script>
-
-<style scoped>
-/* Style adjustments for the video aspect ratio */
-.aspect-w-16 {
-	position: relative;
-	width: 100%;
-}
-
-.aspect-h-9 {
-	padding-top: 56.25%; /* Aspect ratio for 16:9 */
-}
-
-.aspect-w-16 iframe {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-</style>
