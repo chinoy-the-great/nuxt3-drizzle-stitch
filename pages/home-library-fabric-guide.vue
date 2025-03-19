@@ -1,5 +1,5 @@
 <template>
-	<div class="space-y-4 p-6">
+	<div class="space-y-4 p-6 mb-20">
 		<h2 class="text-2xl font-bold mb-4 mt-8">Fabric Guide</h2>
 
 		<!-- Folder List -->
