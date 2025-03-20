@@ -1,6 +1,6 @@
 <template>
 	<div class="space-y-4 p-6 mb-20">
-		<h2 class="text-2xl font-bold mb-4 mt-8">Fabric Guide</h2>
+		<h2 class="text-2xl font-bold mb-4 mt-8">{{ pageTitle }}</h2>
 
 		<!-- Folder List -->
 		<div v-for="(folder, folderIndex) in folders" :key="folderIndex">
@@ -16,42 +16,38 @@
 	</div>
 </template>
 
-<script>
+<script setup>
 import { foldersData } from '@/assets/foldersData'
+import { sewingTechniquesData } from '@/assets/sewingTechniquesData'
+import { computed, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import FolderItem from '~/components/FolderItem.vue'
 
-export default {
-	components: {
-		FolderItem,
-	},
-	data() {
-		return {
-			activeFolderIndex: null,
-			activePdfIndex: {},
-			folders: foldersData, // Use the imported data here
-		}
-	},
-	methods: {
-		toggleFolder(folderIndex) {
-			this.activeFolderIndex = this.activeFolderIndex === folderIndex ? null : folderIndex
-		},
-		togglePdfViewer(folderIndex, pdfIndex) {
-			this.activePdfIndex[folderIndex] = this.activePdfIndex[folderIndex] === pdfIndex ? null : pdfIndex
-		},
-	},
+const route = useRoute()
+const activeFolderIndex = ref(null)
+const activePdfIndex = ref({})
+const folders = ref([])
+
+// Compute the title based on the selected data
+const pageTitle = computed(() => {
+	return route.query.type === 'sewing' ? 'Sewing Techniques' : 'Fabric Guide'
+})
+
+// Function to load the correct data based on query parameter
+const loadData = () => {
+	folders.value = route.query.type === 'sewing' ? sewingTechniquesData : foldersData
+}
+
+// Watch for changes in the query parameter and update data
+watch(() => route.query.type, loadData, { immediate: true })
+
+// Toggle folder open/close state
+const toggleFolder = (folderIndex) => {
+	activeFolderIndex.value = activeFolderIndex.value === folderIndex ? null : folderIndex
+}
+
+// Toggle PDF viewer
+const togglePdfViewer = (folderIndex, pdfIndex) => {
+	activePdfIndex.value[folderIndex] = activePdfIndex.value[folderIndex] === pdfIndex ? null : pdfIndex
 }
 </script>
-
-<style scoped>
-.pdf-container {
-	width: 100%;
-	height: 500px;
-	overflow: hidden;
-	border: 1px solid #ccc;
-}
-
-iframe {
-	width: 100%;
-	height: 100%;
-}
-</style>

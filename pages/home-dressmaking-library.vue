@@ -1,22 +1,20 @@
 <template>
 	<div class="space-y-4 mb-24 mx-4">
-		<!-- First Row -->
-		<NuxtLink to="/home-library-fabric-guide">
-			<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
+		<!-- Link for Fabric Guide (Default) -->
+		<NuxtLink :to="{ path: '/home-library-fabric-guide', query: { type: 'fabric' } }">
+			<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg mb-4">
 				<div>
-					<div class="text-white font-bold text-4xl">MODULE</div>
-					<div class="text-white text-sm mt-1"></div>
+					<div class="text-white font-bold text-4xl">MODULES</div>
 				</div>
 			</div>
 		</NuxtLink>
 
-		<!-- Second Row -->
-		<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
-			<div>
+		<!-- Link for Sewing Techniques -->
+		<NuxtLink :to="{ path: '/home-library-fabric-guide', query: { type: 'sewing' } }">
+			<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
 				<div class="text-white font-bold text-4xl">SEWING TECHNIQUES</div>
-				<div class="text-white text-sm mt-1"></div>
 			</div>
-		</div>
+		</NuxtLink>
 
 		<!-- Third Row -->
 		<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
@@ -26,7 +24,7 @@
 			</div>
 		</div>
 
-		<!-- Fourt Row -->
+		<!-- Fourth Row -->
 		<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
 			<div>
 				<div class="text-white font-bold text-4xl">TROUBLESHOOTING</div>
