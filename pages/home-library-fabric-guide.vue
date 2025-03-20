@@ -17,8 +17,10 @@
 </template>
 
 <script setup>
+import { dressmakingToolsData } from '@/assets/dressmakingToolsData'
 import { foldersData } from '@/assets/foldersData'
 import { sewingTechniquesData } from '@/assets/sewingTechniquesData'
+import { troubleshootingData } from '@/assets/troubleshootingData'
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import FolderItem from '~/components/FolderItem.vue'
@@ -28,14 +30,31 @@ const activeFolderIndex = ref(null)
 const activePdfIndex = ref({})
 const folders = ref([])
 
-// Compute the title based on the selected data
+// Define possible data sets
+const dataSets = {
+	fabric: foldersData,
+	sewing: sewingTechniquesData,
+	tools: dressmakingToolsData,
+	troubleshooting: troubleshootingData,
+}
+
+// Compute the page title dynamically
 const pageTitle = computed(() => {
-	return route.query.type === 'sewing' ? 'Sewing Techniques' : 'Fabric Guide'
+	const type = route.query.type
+	return (
+		{
+			fabric: 'Fabric Guide',
+			sewing: 'Sewing Techniques',
+			tools: 'Dressmaking Tools',
+			troubleshooting: 'Troubleshooting Guide',
+		}[type] || 'Default Title'
+	)
 })
 
-// Function to load the correct data based on query parameter
+// Function to load the correct data set based on query parameter
 const loadData = () => {
-	folders.value = route.query.type === 'sewing' ? sewingTechniquesData : foldersData
+	const type = route.query.type
+	folders.value = dataSets[type] || foldersData // Default to foldersData if no match
 }
 
 // Watch for changes in the query parameter and update data

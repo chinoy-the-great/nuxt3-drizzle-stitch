@@ -11,26 +11,28 @@
 
 		<!-- Link for Sewing Techniques -->
 		<NuxtLink :to="{ path: '/home-library-fabric-guide', query: { type: 'sewing' } }">
-			<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
+			<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg mb-4">
 				<div class="text-white font-bold text-4xl">SEWING TECHNIQUES</div>
 			</div>
 		</NuxtLink>
 
-		<!-- Third Row -->
-		<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
-			<div>
-				<div class="text-white font-bold text-4xl">DRESSMAKING TOOLS</div>
-				<div class="text-white text-sm mt-1"></div>
+		<!-- Link for Dressmaking Tools -->
+		<NuxtLink :to="{ path: '/home-library-fabric-guide', query: { type: 'tools' } }">
+			<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg mb-4">
+				<div>
+					<div class="text-white font-bold text-4xl">DRESSMAKING TOOLS</div>
+				</div>
 			</div>
-		</div>
+		</NuxtLink>
 
-		<!-- Fourth Row -->
-		<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
-			<div>
-				<div class="text-white font-bold text-4xl">TROUBLESHOOTING</div>
-				<div class="text-white text-sm mt-1"></div>
+		<!-- Link for Troubleshooting Guide -->
+		<NuxtLink :to="{ path: '/home-library-fabric-guide', query: { type: 'troubleshooting' } }">
+			<div class="w-full h-32 bg-[#D76A7D] flex justify-center items-center p-4 rounded-lg">
+				<div>
+					<div class="text-white font-bold text-4xl">TROUBLESHOOTING</div>
+				</div>
 			</div>
-		</div>
+		</NuxtLink>
 	</div>
 </template>
 
