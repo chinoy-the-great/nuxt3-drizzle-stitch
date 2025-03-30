@@ -88,7 +88,7 @@ const password = ref<string>('')
 const router = useRouter()
 
 const goBack = () => {
-	router.go(-1)
+	router.push('/welcome') // Redirects to the welcome page
 }
 
 const handleLogin = async () => {
