@@ -1,55 +1,76 @@
 <template>
-	<div class="flex flex-col items-center justify-center min-h-screen bg-nude-50 p-4">
-		<!-- Container for Image and Form -->
-		<div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
-			<!-- Header Image -->
-			<img
-				src="/_BG_ART_LogIn_alt_2.jpeg"
-				alt="Login Header"
-				class="w-full h-72 object-contain rounded-t-lg mb-6"
-			/>
+	<div class="relative flex flex-col items-center justify-center min-h-screen bg-white p-6">
+		<!-- Back Button -->
+		<button
+			class="absolute top-4 left-4 text-white bg-[#ff0066] w-10 h-10 flex items-center justify-center rounded-full shadow-lg"
+			@click="goBack"
+		>
+			<i class="fas fa-angle-left text-lg text-white"></i>
+		</button>
 
-			<div class="bg-[#461a1c] p-6 rounded-lg">
-				<!-- Login Title -->
-				<h2 class="text-3xl mb-6 text-center" style="color: #b9445f">LOG IN</h2>
+		<!-- Image -->
+		<img
+			src="/STITCH IN TIME LOGO.png"
+			alt="Welcome Image"
+			class="w-60 h-60 object-contain rounded-lg mb-4"
+		/>
 
-				<!-- Login Form -->
-				<form @submit.prevent="handleLogin">
-					<div class="mb-4">
-						<label for="username" class="block mb-1" style="color: #ddbdb4">Username:</label>
-						<input
-							v-model="username"
-							type="text"
-							placeholder="Enter Username/Email"
-							required
-							class="w-full p-2 border border-nude-300 rounded bg-gray-50 text-gray-800 focus:outline-none focus:ring focus:ring-nude-500"
-						/>
-					</div>
-					<div class="mb-4">
-						<label for="password" class="block mb-1" style="color: #ddbdb4">Password:</label>
-						<input
-							v-model="password"
-							type="password"
-							placeholder="Enter Password"
-							required
-							class="w-full p-2 border border-nude-300 rounded bg-gray-50 text-gray-800 focus:outline-none focus:ring focus:ring-nude-500"
-						/>
-					</div>
-					<button
-						type="submit"
-						class="w-full py-2 rounded transition duration-200 mt-8 mb-8"
-						style="background-color: #b9445f; color: white"
-					>
-						Log in
-					</button>
+		<h1 class="text-3xl text-black text-center font-bold">WELCOME BACK</h1>
 
-					<p class="mt-4 text-center" style="color: #ddbdb4">New here? Go to</p>
-					<p class="text-center">
-						<NuxtLink to="/register" class="text-white hover:underline font-bold">Sign Up</NuxtLink>
-					</p>
-				</form>
+		<!-- Login Title -->
+		<h2 class="text-sm text-black mb-6 text-center">SIGN IN</h2>
+
+		<!-- Login Form -->
+		<form class="w-4/5 max-w-lg z-10" @submit.prevent="handleLogin">
+			<!-- Username Input -->
+			<div class="mb-4 relative">
+				<input
+					v-model="username"
+					type="text"
+					placeholder="Email or Username"
+					required
+					class="w-full p-3 pr-10 text-sm rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+				/>
+				<!-- User Icon -->
+				<i class="fas fa-user absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
 			</div>
-		</div>
+
+			<!-- Password Input -->
+			<div class="mb-4 relative">
+				<input
+					v-model="password"
+					type="password"
+					placeholder="Password"
+					required
+					class="w-full p-3 pr-10 text-sm rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+				/>
+				<!-- Lock Icon -->
+				<i class="fas fa-eye absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+			</div>
+
+			<!-- Sign In Button -->
+			<button
+				type="submit"
+				class="w-full py-3 rounded-full transition duration-200 mt-8 mb-4 shadow-lg"
+				style="background-color: #65558f; color: white"
+			>
+				SIGN IN
+			</button>
+
+			<!-- Sign Up Link -->
+			<p class="text-center text-white">
+				Don't have an account?
+				<NuxtLink to="/register" class="font-bold hover:underline" style="color: #ff0066">
+					Create one now!
+				</NuxtLink>
+			</p>
+		</form>
+
+		<!-- Background Footer Image -->
+		<div
+			class="absolute bottom-0 w-full h-1/3 bg-cover bg-no-repeat bg-center"
+			style="background-image: url('/Group 109.png')"
+		></div>
 	</div>
 </template>
 
@@ -65,6 +86,10 @@ const username = ref<string>('')
 const password = ref<string>('')
 
 const router = useRouter()
+
+const goBack = () => {
+	router.go(-1)
+}
 
 const handleLogin = async () => {
 	try {
