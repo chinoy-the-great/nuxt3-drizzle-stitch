@@ -1,6 +1,5 @@
-<!-- layouts/fullscreen.vue -->
 <template>
-	<div class="min-h-screen flex items-center justify-center bg-gray-100">
+	<div class="fixed inset-0 flex items-center justify-center" style="background-color: #fcd9d8">
 		<slot />
 	</div>
 </template>
