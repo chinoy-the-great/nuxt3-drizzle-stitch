@@ -13,6 +13,9 @@ importers:
       '@capacitor/core':
         specifier: ^6.1.2
         version: 6.2.0
+      '@fortawesome/fontawesome-free':
+        specifier: ^6.7.2
+        version: 6.7.2
       '@pinia/nuxt':
         specifier: ^0.5.5
         version: 0.5.5(magicast@0.3.5)(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2))
@@ -1436,6 +1439,13 @@ packages:
         integrity: sha512-JubJ5B2pJ4k4yGxaNLdbjrnk9d/iDz6/q8wOilpIowd6PJPgaxCuHBnBszq7Ce2TyMrywm5r4PnKm6V3iiZF+g==,
       }
     engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
+
+  '@fortawesome/fontawesome-free@6.7.2':
+    resolution:
+      {
+        integrity: sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==,
+      }
+    engines: { node: '>=6' }
 
   '@humanfs/core@0.19.1':
     resolution:
@@ -9901,6 +9911,8 @@ snapshots:
     dependencies:
       '@eslint/core': 0.12.0
       levn: 0.4.1
+
+  '@fortawesome/fontawesome-free@6.7.2': {}
 
   '@humanfs/core@0.19.1': {}
 
