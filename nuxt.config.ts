@@ -16,4 +16,5 @@ export default defineNuxtConfig({
 			offlineStrategy: 'CacheFirst',
 		},
 	},
+	css: ['@fortawesome/fontawesome-free/css/all.min.css'],
 })
