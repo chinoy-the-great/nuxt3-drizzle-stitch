@@ -92,7 +92,7 @@
 				</li>
 				<li class="border-b border-white pb-1">
 					<NuxtLink
-						to="/login"
+						to="/welcome"
 						class="flex items-center text-white hover:text-nude-600"
 						@click="userStore.clearUser"
 					>
