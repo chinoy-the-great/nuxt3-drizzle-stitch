@@ -1,6 +1,6 @@
 <template>
 	<aside
-		class="fixed inset-y-0 left-0 z-30 w-64 bg-nude-700 bg-opacity-90 shadow-lg transition-transform transform"
+		class="fixed inset-y-0 left-0 z-30 w-64 bg-black bg-opacity-90 shadow-lg transition-transform transform"
 		:class="{ '-translate-x-full': !isOpen, 'translate-x-0': isOpen }"
 	>
 		<div class="p-4 relative">
@@ -44,17 +44,6 @@
 							class="w-5 h-5 mr-3 filter invert brightness-200"
 						/>
 						My Account
-					</NuxtLink>
-				</li>
-				<li class="border-b border-white pb-1">
-					<NuxtLink to="/achievements" class="flex items-center text-white hover:text-nude-600">
-						<!-- Image Icon -->
-						<img
-							src="/public/Achievements_Icon.png"
-							alt="Achievements"
-							class="w-5 h-5 mr-3 filter invert brightness-200"
-						/>
-						My Achievements
 					</NuxtLink>
 				</li>
 				<li class="border-b border-white pb-1">
