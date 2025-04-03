@@ -38,54 +38,56 @@
 		</div>
 
 		<!-- Bottom Toolbar -->
-		<div v-if="showToolbar" class="fixed inset-x-0 bottom-0 bg-[#381816] shadow-lg">
+		<div v-if="showToolbar" class="fixed inset-x-0 bottom-0 bg-white shadow-lg">
 			<nav class="flex justify-around py-2">
-				<!-- Home Icon -->
+				<!-- Activities Icon -->
 				<NuxtLink
-					to="/home"
+					to="/activities"
 					class="flex flex-col items-center"
-					:class="[isActive('/home') ? 'text-gray-500' : 'text-white hover:text-gray-500']"
+					:class="[isActive('/activities') ? 'text-[#ff0066]' : 'text-black hover:text-[#f4bbbb]']"
 				>
-					<img src="/Toolbar_Home_Icon.png" alt="Home Icon" class="w-6 h-6 filter invert brightness-0" />
-					<span class="text-sm mt-1">Home</span>
+					<img src="/Toolbar_Activities_Icon.png" alt="Home Icon" class="w-6 h-6" />
+					<span class="text-xs mt-1">Activities</span>
 				</NuxtLink>
 
 				<!-- Tracker Icon -->
 				<NuxtLink
 					to="/tasktracker"
 					class="flex flex-col items-center"
-					:class="[isActive('/tasktracker') ? 'text-gray-500' : 'text-white hover:text-gray-500']"
+					:class="[isActive('/tasktracker') ? 'text-[#ff0066]' : 'text-black hover:text-[#f4bbbb]']"
 				>
-					<img
-						src="/Toolbar_Tracker_Icon.png"
-						alt="Tracker Icon"
-						class="w-6 h-6 filter invert brightness-0"
-					/>
-					<span class="text-sm mt-1">Tracker</span>
+					<img src="/Toolbar_Tracker_Icon.png" alt="Tracker Icon" class="w-6 h-6" />
+					<span class="text-xs mt-1">Tracker</span>
+				</NuxtLink>
+
+				<!-- Home Icon -->
+				<NuxtLink
+					to="/home"
+					class="flex flex-col items-center"
+					:class="[isActive('/home') ? 'text-[#ff0066]' : 'text-black hover:text-[#f4bbbb]']"
+				>
+					<img src="/Toolbar_Home_Icon.png" alt="Home Icon" class="w-6 h-6" />
+					<span class="text-xs mt-1">Home</span>
 				</NuxtLink>
 
 				<!-- Quiz Icon -->
 				<NuxtLink
 					to="/quizzes"
 					class="flex flex-col items-center"
-					:class="[isActive('/quizzes') ? 'text-gray-500' : 'text-white hover:text-gray-500']"
+					:class="[isActive('/quizzes') ? 'text-[#ff0066]' : 'text-black hover:text-[#f4bbbb]']"
 				>
-					<img src="/Toolbar_Quiz_Icon.png" alt="Quiz Icon" class="w-6 h-6 filter invert brightness-0" />
-					<span class="text-sm mt-1">Quizzes</span>
+					<img src="/Toolbar_Quiz_Icon.png" alt="Quiz Icon" class="w-6 h-6" />
+					<span class="text-xs mt-1">Quizzes</span>
 				</NuxtLink>
 
-				<!-- Notifications Icon -->
+				<!-- Achievements Icon -->
 				<NuxtLink
-					to="/notifications"
+					to="/achievements"
 					class="flex flex-col items-center"
-					:class="[isActive('/notifications') ? 'text-gray-500' : 'text-white hover:text-gray-500']"
+					:class="[isActive('/achievements') ? 'text-[#ff0066]' : 'text-black hover:text-[#f4bbbb]']"
 				>
-					<img
-						src="/Toolbar_Notification_Icon.png"
-						alt="Notifications Icon"
-						class="w-6 h-6 filter invert brightness-0"
-					/>
-					<span class="text-sm mt-1">Notifications</span>
+					<img src="/Toolbar_Achievements_Icon.png" alt="Notifications Icon" class="w-6 h-6" />
+					<span class="text-xs mt-1">Achievements</span>
 				</NuxtLink>
 			</nav>
 		</div>
