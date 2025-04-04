@@ -2,7 +2,7 @@
 	<div class="flex flex-col min-h-screen bg-nude-50">
 		<!-- Navbar -->
 		<!-- Navbar -->
-		<header v-if="userStore.user" class="bg-[#ffa5a5] fixed inset-x-0 top-0 z-30">
+		<header v-if="userStore.user" class="bg-[#ffa5a5] w-full z-30">
 			<nav class="container mx-auto px-4 py-4 flex justify-between items-center">
 				<!-- Left: Menu Icon -->
 				<button class="text-nude-700 hover:text-nude-600 flex items-center" @click="toggleSidebar">
