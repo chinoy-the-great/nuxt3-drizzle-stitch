@@ -1,27 +1,13 @@
 <template>
 	<div class="mx-auto w-full max-w-1/2">
 		<!-- Header Image -->
-		<div class="relative w-full">
-			<!-- Main Image -->
+		<div class="p-4">
+			<!-- Main Image with thicker border, darker shadow, and taller height -->
 			<img
-				src="/_BG_ART_LogIn_home.jpeg"
+				src="/_BG_ART_LogIn_home_v2.jpg"
 				alt="Login Header"
-				class="w-full h-[25vh] object-cover rounded-t-lg mb-6"
+				class="w-full h-[30vh] object-cover rounded-lg border-4 border-[#f4bbbb] shadow-md shadow-gray-400"
 			/>
-
-			<!-- Fun Facts Section -->
-			<div class="absolute top-2 bottom-2 right-0 w-1/3 h-9/10 flex items-center justify-center">
-				<img src="/home_fun_facts copy.jpg" alt="Fun Facts" class="h-full object-cover rounded-l-lg" />
-
-				<!-- Fun Facts Text inside the second image -->
-				<div class="absolute inset-0 flex flex-col items-center justify-center">
-					<h2 class="text-sm font-bold text-yellow-300 text-center">FUN FACTS</h2>
-					<p class="text-xxs text-white text-center mt-2 w-1/2">
-						Did you know that the first sewing machine was invented in 1790 by Thomas Saint? It revolutionized
-						the textile industry!
-					</p>
-				</div>
-			</div>
 		</div>
 
 		<!-- Icon Buttons -->
