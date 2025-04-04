@@ -12,10 +12,15 @@
 				<!-- Right: Notifications & Profile Icons -->
 				<div class="flex space-x-4 items-center">
 					<NuxtLink to="/notifications">
-						<img src="/Titlebar_Notification_Icon.png" alt="Notifications" class="w-6 h-6" />
+						<img src="/Titlebar_Notification_Icon.png" alt="Notifications" class="w-4 h-4" />
 					</NuxtLink>
 					<NuxtLink to="/profile">
-						<img src="/Titlebar_Account_Icon.png" alt="Profile" class="w-6 h-6" />
+						<img
+							:src="userStore.profilePicture"
+							:style="userStore.profilePicture === '/Your_Account_Icon.png'"
+							alt="Profile"
+							class="w-8 h-8 rounded-full object-cover"
+						/>
 					</NuxtLink>
 				</div>
 			</nav>
