@@ -1,13 +1,36 @@
 <template>
 	<div class="mx-auto w-full max-w-1/2">
-		<!-- Header Image -->
+		<!-- Greeting and User Name -->
+		<h1 class="text-black text-3xl font-semibold px-4 pt-4">Hello!</h1>
+		<p v-if="userStore.name" class="text-black text-3xl font-semibold px-4">{{ userStore.name }}</p>
+
 		<div class="p-4">
-			<!-- Main Image with thicker border, darker shadow, and taller height -->
-			<img
-				src="/_BG_ART_LogIn_home_v2.jpg"
-				alt="Login Header"
-				class="w-full h-[30vh] object-cover rounded-lg border-4 border-[#f4bbbb] shadow-md shadow-gray-400"
-			/>
+			<!-- Carousel Wrapper -->
+			<div>
+				<!-- Image Carousel -->
+				<div
+					ref="carousel"
+					class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory space-x-4 scrollbar-hide"
+				>
+					<img
+						v-for="(image, index) in images"
+						:key="index"
+						:src="image"
+						:alt="`Banner ${index + 1}`"
+						class="flex-shrink-0 w-full sm:w-[90vw] h-[35vh] object-cover rounded-lg border-4 border-[#f4bbbb] snap-start"
+					/>
+				</div>
+			</div>
+
+			<!-- Indicator Dots (Below Carousel) -->
+			<div class="mt-4 flex justify-center space-x-2">
+				<span
+					v-for="(image, index) in images"
+					:key="`dot-${index}`"
+					class="w-2 h-2 rounded-full"
+					:class="currentIndex === index ? 'bg-[#ff0066]' : 'bg-gray-300'"
+				></span>
+			</div>
 		</div>
 
 		<!-- Icon Buttons -->
@@ -83,8 +106,20 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, ref } from 'vue'
 
+const images = ['/Home_Banner_1.png', '/Home_Banner_2.png', '/Home_Banner_3.png']
+const carousel = ref(null)
+const currentIndex = ref(0)
+
+const updateIndexOnScroll = () => {
+	if (!carousel.value) return
+	const scrollLeft = carousel.value.scrollLeft
+	const imageWidth = carousel.value.children[0].offsetWidth + 16 // 16 for spacing
+	currentIndex.value = Math.round(scrollLeft / imageWidth)
+}
+
 // Define reactive state for selected page
 const selectedPage = ref('fabricGuide') // Default to 'fabricGuide'
+const userStore = useUserStore()
 
 // Lazy-load components for better performance
 const fabricGuide = defineAsyncComponent(() => import('~/pages/home-dressmaking-library.vue'))
@@ -102,6 +137,14 @@ const currentComponent = computed(() => {
 	} else {
 		return null
 	}
+})
+
+onMounted(() => {
+	carousel.value?.addEventListener('scroll', updateIndexOnScroll)
+})
+
+onBeforeUnmount(() => {
+	carousel.value?.removeEventListener('scroll', updateIndexOnScroll)
 })
 </script>
 
@@ -138,5 +181,13 @@ const currentComponent = computed(() => {
 /* For Firefox */
 .custom-scrollbar {
 	scrollbar-color: #c8a97e #f5e1c8;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 </style>
