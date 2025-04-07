@@ -33,64 +33,30 @@
 			</div>
 		</div>
 
+		<h2 class="text-black text-lg font-semibold px-4 pt-4 pb-2">Dressmaking Learning Hub</h2>
 		<!-- Icon Buttons -->
-		<div class="flex overflow-x-auto space-x-6 mb-6 pb-4 mx-4 custom-scrollbar">
-			<!-- First Icon (Fabric Guide) -->
-			<!-- First Icon (Fabric Guide) with White Box -->
-			<!-- First Icon (Fabric Guide) with White Box -->
-			<div class="flex justify-between space-x-4">
-				<!-- First Icon (Fabric Guide) -->
+		<div class="flex overflow-x-auto gap-2 mb-6 pb-4 px-4 custom-scrollbar">
+			<div class="flex gap-2 justify-center w-full">
+				<!-- Loop through icons -->
 				<div
-					class="bg-white rounded-3xl p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
+					v-for="(icon, index) in icons"
+					:key="index"
+					class="flex flex-col items-center flex-[1_0_23%] min-w-[23%] max-w-[23%]"
 				>
-					<img
-						src="/public/Book_Icon.png"
-						alt="Fabric Guide Icon"
-						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
-						@click="selectedPage = 'fabricGuide'"
-					/>
-					<p class="text-center text-base font-bold colored-icon leading-none">
-						DRESSMAKING
-						<br />
-						LIBRARY
-					</p>
-					<!-- Label below the icon -->
-				</div>
+					<!-- Icon Box (Square) -->
+					<div
+						class="bg-[#ffa5a5] rounded-xl p-2 flex items-center justify-center w-full aspect-square"
+						@click="selectedPage = icon.clickAction"
+					>
+						<img :src="icon.src" :alt="icon.alt" class="h-12 w-12 object-contain cursor-pointer" />
+					</div>
 
-				<!-- Second Icon (Tutorials) -->
-				<div
-					class="bg-white rounded-3xl p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
-				>
-					<img
-						src="/public/Video_Icon.png"
-						alt="Tutorials Icon"
-						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
-						@click="selectedPage = 'tutorials'"
-					/>
-					<p class="text-center text-base font-bold colored-icon leading-none">
-						VIDEO
+					<!-- Label below icon box -->
+					<p class="text-center text-xxs font-bold leading-none mt-2">
+						{{ icon.label[0] }}
 						<br />
-						TUTORIAL
+						{{ icon.label[1] }}
 					</p>
-					<!-- Label below the icon -->
-				</div>
-
-				<!-- Third Icon (Sewing Machine) -->
-				<div
-					class="bg-white rounded-3xl p-2 inline-flex items-center justify-center w-2/5 flex-shrink-0 flex-col"
-				>
-					<img
-						src="/public/Sewing_Icon.png"
-						alt="Sewing Machine Icon"
-						class="colored-icon h-24 object-contain cursor-pointer flex-shrink-0"
-						@click="selectedPage = 'sewingModel'"
-					/>
-					<p class="text-center text-base font-bold colored-icon leading-none">
-						VIEW 3D
-						<br />
-						SEWING MACHINE
-					</p>
-					<!-- Label below the icon -->
 				</div>
 			</div>
 		</div>
@@ -109,6 +75,33 @@ import { computed, defineAsyncComponent, ref } from 'vue'
 const images = ['/Home_Banner_1.png', '/Home_Banner_2.png', '/Home_Banner_3.png']
 const carousel = ref(null)
 const currentIndex = ref(0)
+
+const icons = [
+	{
+		src: '/Hub_Modules.png',
+		alt: 'Fabric Guide Icon',
+		label: ['MODULES'],
+		clickAction: 'fabricGuide',
+	},
+	{
+		src: '/Hub_Sewing Techniques.png',
+		alt: 'Tutorials Icon',
+		label: ['SEWING', 'TECHNIQUES'],
+		clickAction: 'tutorials',
+	},
+	{
+		src: '/Hub_Dressmaking Tools.png',
+		alt: 'Sewing Machine Icon',
+		label: ['DRESSMAKING', 'TOOLS'],
+		clickAction: 'sewingModel',
+	},
+	{
+		src: '/Hub_Troubleshooting.png',
+		alt: 'Troubleshooting Icon',
+		label: ['TROUBLESHOOTING'],
+		clickAction: '',
+	},
+]
 
 const updateIndexOnScroll = () => {
 	if (!carousel.value) return
