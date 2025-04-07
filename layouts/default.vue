@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col min-h-screen bg-nude-50">
+	<div class="flex flex-col min-h-screen bg-white">
 		<!-- Navbar -->
 		<!-- Navbar -->
 		<header v-if="userStore.user" class="bg-[#ffa5a5] w-full z-30">
