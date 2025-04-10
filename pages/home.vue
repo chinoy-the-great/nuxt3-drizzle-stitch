@@ -1,5 +1,5 @@
 <template>
-	<div class="mx-auto w-full max-w-1/2">
+	<div class="mx-auto w-full max-w-1/2 mb-24">
 		<!-- Greeting and User Name -->
 		<h1 class="text-black text-3xl font-semibold px-4 pt-4">Hello!</h1>
 		<p v-if="userStore.name" class="text-black text-3xl font-semibold px-4">{{ userStore.name }}</p>
@@ -61,16 +61,53 @@
 			</div>
 		</div>
 
-		<!-- Conditional Rendering Based on Selected Page -->
-		<div>
-			<!-- Dynamically render the components -->
-			<component :is="currentComponent" />
+		<h2 class="text-black text-lg font-semibold px-4 pb-2">Dressmaking Tools</h2>
+		<div class="flex gap-4 px-4 mb-6">
+			<!-- Loop through buttonItems -->
+			<div
+				v-for="(button, index) in buttonItems"
+				:key="index"
+				class="flex items-center bg-[#ffa5a5] rounded-xl px-4 h-20 py-2 w-1/2 cursor-pointer"
+				@click="selectedPage = button.clickAction"
+			>
+				<!-- Icon on the left -->
+				<img :src="button.src" :alt="button.alt" class="h-14 w-14 object-contain mr-3" />
+
+				<!-- Text on the right -->
+				<div class="flex-1 flex justify-center">
+					<p class="text-xxs font-bold text-black">{{ button.label }}</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="flex justify-between items-center px-4 pb-2">
+			<h2 class="text-black text-lg font-semibold">Video Tutorials</h2>
+			<span class="text-[10px] text-[#ff0066] cursor-pointer">See all</span>
+		</div>
+		<div class="flex px-4 mb-6">
+			<div
+				class="flex items-center bg-[#ffa5a5] rounded-xl h-24 w-full cursor-pointer overflow-hidden"
+				@click="selectedPage = 'videoTutorials'"
+			>
+				<!-- Thumbnail on the left, full height, no left spacing -->
+				<img src="/Tutorials_Thumbnail.png" alt="Video Thumbnail" class="h-full w-auto object-cover" />
+
+				<!-- Title and author on the right -->
+				<div class="flex-1 flex flex-col justify-center items-center text-center">
+					<p class="text-xs font-bold text-black">
+						How To Thread a Domestic /
+						<br />
+						Manual Sewing Machine
+					</p>
+					<p class="text-[10px] text-black">by Stitch In Time</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref } from 'vue'
+import { ref } from 'vue'
 
 const images = ['/Home_Banner_1.png', '/Home_Banner_2.png', '/Home_Banner_3.png']
 const carousel = ref(null)
@@ -103,6 +140,21 @@ const icons = [
 	},
 ]
 
+const buttonItems = [
+	{
+		src: '/Tools_Customization.png',
+		alt: 'Customization Icon',
+		label: 'Customization',
+		clickAction: '',
+	},
+	{
+		src: '/Tools_3D_Machine.png',
+		alt: '3D Machine Icon',
+		label: '3D Sewing Machine',
+		clickAction: '',
+	},
+]
+
 const updateIndexOnScroll = () => {
 	if (!carousel.value) return
 	const scrollLeft = carousel.value.scrollLeft
@@ -113,24 +165,6 @@ const updateIndexOnScroll = () => {
 // Define reactive state for selected page
 const selectedPage = ref('fabricGuide') // Default to 'fabricGuide'
 const userStore = useUserStore()
-
-// Lazy-load components for better performance
-const fabricGuide = defineAsyncComponent(() => import('~/pages/home-dressmaking-library.vue'))
-const tutorials = defineAsyncComponent(() => import('~/pages/tutorials.vue'))
-const sewingModel = defineAsyncComponent(() => import('~/pages/sewingmodel.vue'))
-
-// Computed property to return the current component based on selectedPage
-const currentComponent = computed(() => {
-	if (selectedPage.value === 'fabricGuide') {
-		return fabricGuide
-	} else if (selectedPage.value === 'tutorials') {
-		return tutorials
-	} else if (selectedPage.value === 'sewingModel') {
-		return sewingModel
-	} else {
-		return null
-	}
-})
 
 onMounted(() => {
 	carousel.value?.addEventListener('scroll', updateIndexOnScroll)
