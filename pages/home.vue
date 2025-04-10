@@ -84,11 +84,8 @@
 			<h2 class="text-black text-lg font-semibold">Video Tutorials</h2>
 			<span class="text-[10px] text-[#ff0066] cursor-pointer">See all</span>
 		</div>
-		<div class="flex px-4 mb-6">
-			<div
-				class="flex items-center bg-[#ffa5a5] rounded-xl h-24 w-full cursor-pointer overflow-hidden"
-				@click="selectedPage = 'videoTutorials'"
-			>
+		<NuxtLink to="/tutorials" class="flex px-4 mb-6">
+			<div class="flex items-center bg-[#ffa5a5] rounded-xl h-24 w-full cursor-pointer overflow-hidden">
 				<!-- Thumbnail on the left, full height, no left spacing -->
 				<img src="/Tutorials_Thumbnail.png" alt="Video Thumbnail" class="h-full w-auto object-cover" />
 
@@ -102,7 +99,7 @@
 					<p class="text-[10px] text-black">by Stitch In Time</p>
 				</div>
 			</div>
-		</div>
+		</NuxtLink>
 	</div>
 </template>
 

@@ -1,14 +1,11 @@
 <template>
-	<div class="max-w-4xl mx-auto p-6 mb-8 bg-nude-50 rounded-lg shadow-lg">
+	<div class="max-w-4xl mx-auto p-6 bg-transparent min-h-screen rounded-lg shadow-lg">
 		<!-- List of Videos -->
 		<div v-for="(video, index) in videos" :key="index" class="mb-8 bg-[#b9445f] rounded-lg p-4 pb-1">
 			<div class="flex items-center">
 				<!-- Video Player (1/2 width) -->
 				<div class="w-1/2 pr-4">
-					<video controls class="w-full h-32 rounded-lg">
-						<source :src="`/videos/${video.filename}`" type="video/mp4" />
-						Your browser does not support the video tag.
-					</video>
+					<iframe class="w-full h-32 rounded-lg" :src="video.url" allowfullscreen></iframe>
 				</div>
 
 				<!-- Video Title and Description (1/2 width) -->
@@ -81,10 +78,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// Array of video details with local filenames
+definePageMeta({
+	layout: 'window', // Uses fullscreen layout instead of default
+})
+
+// Array of video details with Google Drive video URLs
 const videos = ref([
 	{
-		filename: 'How to thread a Domestic or Manual Sewing Machine.mp4',
+		url: 'https://www.youtube.com/embed/MNTbF1McIsk',
 		title: 'How to thread a Domestic or Manual Sewing Machine',
 		description: 'Enter description here.',
 		comments: [],
@@ -92,7 +93,7 @@ const videos = ref([
 		showComments: false,
 	},
 	{
-		filename: 'Parts of the Domestic or Manual Sewing Machine.mp4',
+		url: 'https://www.youtube.com/embed/FOe79uMS0xo',
 		title: 'Parts of the Domestic or Manual Sewing Machine',
 		description: 'Enter description here.',
 		comments: [],
