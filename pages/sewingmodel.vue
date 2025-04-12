@@ -1,24 +1,70 @@
 <template>
-	<div class="flex flex-col items-center justify-center min-h-screen">
-		<h1 class="text-2xl font-bold mb-6">3D Model of a Sewing Machine</h1>
-		<div class="flex items-center justify-center bg-transparent rounded shadow-lg p-2">
-			<Vue3dLoader
-				:height="500"
-				:width="500"
-				:show-fps="true"
-				:file-path="['/3d_model_machine.fbx']"
-				:mtl-path="[null, '/obj/2.mtl', null]"
-				:background-color="0xadd8e6"
-			></Vue3dLoader>
+	<div class="flex flex-col items-center justify-center min-h-screen mb-8 pt-4">
+		<div class="flex flex-col items-start justify-start w-full max-w-5xl mx-auto px-4">
+			<h1 class="text-2xl font-semibold mt-2 mb-2 text-left">3D Sewing Machine</h1>
+			<div class="w-full flex items-center justify-center bg-transparent rounded shadow-lg">
+				<Vue3dLoader
+					:height="500"
+					:width="500"
+					:file-path="['/3d_model_machine.fbx']"
+					:mtl-path="[null, '/obj/2.mtl', null]"
+					:background-color="0xadd8e6"
+				/>
+			</div>
+		</div>
+
+		<div class="w-full">
+			<!-- Header Tabs -->
+			<div class="flex justify-around bg-gray-100 shadow-md border-b border-gray-300 mb-4 w-full">
+				<div
+					v-for="tab in tabs"
+					:key="tab"
+					class="relative py-2 cursor-pointer text-xs font-normal text-gray-700 w-full text-center"
+					@click="selectedTab = tab"
+				>
+					{{ tab }}
+					<!-- Black underline if selected -->
+					<div
+						v-if="selectedTab === tab"
+						class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-10 h-[2px] bg-black rounded-full"
+					></div>
+				</div>
+			</div>
+
+			<!-- Tab Content -->
+			<div class="px-4 text-sm text-gray-800 min-h-[150px]">
+				<div v-if="selectedTab === 'History'">
+					<p>
+						The sewing machine was invented during the first Industrial Revolution to decrease the amount of
+						manual sewing work performed in clothing companies. It was a groundbreaking innovation that
+						allowed garments to be produced at a faster pace.
+					</p>
+				</div>
+				<div v-else-if="selectedTab === 'Sewing Machine Parts'">
+					<ul class="list-disc list-inside">
+						<li>Handwheel</li>
+						<li>Spool Pin</li>
+						<li>Thread Guide</li>
+						<li>Needle Clamp</li>
+						<li>Presser Foot</li>
+						<li>Bobbin Case</li>
+						<li>Stitch Selector</li>
+						<li>Feed Dogs</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { ref } from 'vue'
 import { vue3dLoader as Vue3dLoader } from 'vue-3d-loader'
 
-export default defineComponent({
-	components: { Vue3dLoader },
+definePageMeta({
+	layout: 'window',
 })
+
+const tabs = ['History', 'Sewing Machine Parts']
+const selectedTab = ref('History')
 </script>

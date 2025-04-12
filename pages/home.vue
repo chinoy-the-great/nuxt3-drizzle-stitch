@@ -64,11 +64,11 @@
 		<h2 class="text-black text-lg font-semibold px-4 pb-2">Dressmaking Tools</h2>
 		<div class="flex gap-4 px-4 mb-6">
 			<!-- Loop through buttonItems -->
-			<div
+			<NuxtLink
 				v-for="(button, index) in buttonItems"
 				:key="index"
+				:to="button.clickAction"
 				class="flex items-center bg-[#ffa5a5] rounded-xl px-4 h-20 py-2 w-1/2 cursor-pointer"
-				@click="selectedPage = button.clickAction"
 			>
 				<!-- Icon on the left -->
 				<img :src="button.src" :alt="button.alt" class="h-14 w-14 object-contain mr-3" />
@@ -77,7 +77,7 @@
 				<div class="flex-1 flex justify-center">
 					<p class="text-xxs font-bold text-black">{{ button.label }}</p>
 				</div>
-			</div>
+			</NuxtLink>
 		</div>
 
 		<div class="flex justify-between items-center px-4 pb-2">
@@ -142,13 +142,13 @@ const buttonItems = [
 		src: '/Tools_Customization.png',
 		alt: 'Customization Icon',
 		label: 'Customization',
-		clickAction: '',
+		clickAction: '/customization',
 	},
 	{
 		src: '/Tools_3D_Machine.png',
 		alt: '3D Machine Icon',
 		label: '3D Sewing Machine',
-		clickAction: '',
+		clickAction: '/sewingmodel',
 	},
 ]
 
