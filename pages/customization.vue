@@ -1,7 +1,15 @@
 <template>
 	<div>
-		<h1>Customization</h1>
-		<p>This is the CUSTOMIZATION page.</p>
+		<!-- Header Image -->
+		<div
+			class="w-full shadow-md shadow-gray-400"
+			style="
+				background-image: url('/_BG_ART_LogIn_home_v2.jpg');
+				background-size: cover;
+				background-position: center;
+				height: 12vh;
+			"
+		></div>
 	</div>
 </template>
 
