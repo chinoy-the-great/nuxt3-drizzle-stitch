@@ -42,14 +42,38 @@
 				</div>
 				<div v-else-if="selectedTab === 'Sewing Machine Parts'">
 					<ul class="list-disc list-inside">
-						<li>Handwheel</li>
-						<li>Spool Pin</li>
-						<li>Thread Guide</li>
-						<li>Needle Clamp</li>
-						<li>Presser Foot</li>
-						<li>Bobbin Case</li>
-						<li>Stitch Selector</li>
-						<li>Feed Dogs</li>
+						<li>
+							<strong>Handwheel:</strong>
+							The handwheel is used to manually raise and lower the needle.
+						</li>
+						<li>
+							<strong>Spool Pin:</strong>
+							This pin holds the spool of thread and allows it to unwind while sewing.
+						</li>
+						<li>
+							<strong>Thread Guide:</strong>
+							The thread guide ensures the thread runs smoothly from the spool to the needle.
+						</li>
+						<li>
+							<strong>Needle Clamp:</strong>
+							The needle clamp secures the sewing needle in place.
+						</li>
+						<li>
+							<strong>Presser Foot:</strong>
+							The presser foot holds the fabric in place while it is being sewn.
+						</li>
+						<li>
+							<strong>Bobbin Case:</strong>
+							The bobbin case holds the bobbin and ensures that the bobbin thread is tensioned correctly.
+						</li>
+						<li>
+							<strong>Stitch Selector:</strong>
+							The stitch selector allows the user to choose the type of stitch to use.
+						</li>
+						<li>
+							<strong>Feed Dogs:</strong>
+							The feed dogs move the fabric through the sewing machine while stitching.
+						</li>
 					</ul>
 				</div>
 			</div>
