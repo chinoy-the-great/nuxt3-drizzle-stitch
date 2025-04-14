@@ -43,7 +43,7 @@
 				<!-- Achievement details -->
 				<div class="flex-1 flex flex-col justify-between p-2">
 					<!-- Top row: outerTitle and score -->
-					<div class="flex justify-between items-start">
+					<div class="flex justify-between items-start mr-2 ml-2 mt-1">
 						<p class="text-black max-w-[50%]">
 							<span class="font-semibold text-sm">{{ score.outerTitle }}</span>
 							<br />
@@ -53,7 +53,7 @@
 					</div>
 
 					<!-- Bottom row: date -->
-					<p class="text-xs text-black">{{ formatDate(score.date) }}</p>
+					<p class="text-xs text-black ml-2 mb-1">{{ formatDate(score.date) }}</p>
 				</div>
 			</div>
 		</div>
