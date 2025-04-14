@@ -29,19 +29,32 @@
 		</div>
 
 		<!-- Quiz Scores Grid -->
-		<div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
+		<div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4 px-6">
 			<div
 				v-for="(score, index) in filteredScores"
 				:key="index"
-				class="p-4 bg-white shadow-md rounded-lg border border-gray-200"
+				class="flex bg-[#ffa5a5] shadow-md rounded-lg border border-gray-200 h-32"
 			>
-				<h2 class="font-semibold text-lg text-blue-600">{{ score.quizTitle }}</h2>
-				<p class="text-gray-700">
-					Score:
-					<span class="font-bold">{{ score.score }}</span>
-					/ {{ score.totalQuestions }}
-				</p>
-				<p class="text-sm text-gray-500">{{ score.date }}</p>
+				<!-- Leftmost vertical gray bar with centered icon -->
+				<div class="flex items-center justify-center w-20 bg-gray-100 h-full">
+					<img src="/Toolbar_Quiz_Icon_Pink.png" alt="Quiz Icon" class="w-10 h-12" />
+				</div>
+
+				<!-- Achievement details -->
+				<div class="flex-1 flex flex-col justify-between p-2">
+					<!-- Top row: outerTitle and score -->
+					<div class="flex justify-between items-start">
+						<p class="text-black max-w-[50%]">
+							<span class="font-semibold text-sm">{{ score.outerTitle }}</span>
+							<br />
+							<span class="text-xs block">{{ score.quizTitle }}</span>
+						</p>
+						<p class="text-black text-xs">Score: {{ score.score }} / {{ score.totalQuestions }}</p>
+					</div>
+
+					<!-- Bottom row: date -->
+					<p class="text-xs text-black">{{ formatDate(score.date) }}</p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -73,4 +86,18 @@ const filteredScores = computed(() => {
 		return quizScores.value
 	}
 })
+
+// Define a method to format the date
+const formatDate = (date: string): string => {
+	const options: Intl.DateTimeFormatOptions = {
+		month: '2-digit',
+		day: '2-digit',
+		year: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
+		second: '2-digit',
+		hour12: true,
+	}
+	return new Date(date).toLocaleString('en-US', options)
+}
 </script>
