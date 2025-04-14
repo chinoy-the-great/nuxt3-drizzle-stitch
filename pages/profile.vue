@@ -1,47 +1,61 @@
 <template>
-	<div class="min-h-screen bg-nude-50 p-8">
-		<h1 class="text-4xl font-bold text-center text-gray-800 mb-6">Profile</h1>
-
+	<div class="min-h-screen bg-white p-8">
 		<!-- Profile Picture Upload -->
-		<div class="flex flex-col items-center mb-6">
+		<div class="flex flex-col items-center mt-8 mb-6">
 			<div class="relative">
 				<img
 					:src="localProfilePicture"
 					alt="Profile Picture"
-					class="h-40 w-40 rounded-full border-4 border-gray-300 shadow-md object-cover"
+					class="bg-[#ffa5a5] h-40 w-40 rounded-full shadow-md object-cover p-4"
 				/>
-				<label
-					for="profilePicture"
-					class="text-4xl absolute bottom-0 right-0 bg-transparent text-white p-2 rounded-full cursor-pointer transition"
-				>
-					📤
-				</label>
 			</div>
 			<input id="profilePicture" type="file" class="hidden" @change="handleFileUpload" />
+			<button
+				class="text-xs mt-2 rounded-full transition duration-200 shadow-lg px-6 py-3 text-white hover:bg-[#504366]"
+				style="background-color: #65558f"
+				@click="editMode ? triggerFileUpload() : toggleEditMode()"
+			>
+				{{ editMode ? 'Change Profile Pic' : 'Edit Profile' }}
+			</button>
 		</div>
-
 		<!-- Form Fields -->
 		<div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-			<div>
-				<label for="name" class="block text-gray-600 font-medium">Name</label>
-				<input id="name" v-model="localName" class="input-field" placeholder="Enter your name" />
+			<div class="w-3/4 mx-auto">
+				<label for="name" class="block text-gray-600 font-medium text-xs">NAME</label>
+				<input
+					id="name"
+					v-model="localName"
+					placeholder="Enter your name"
+					:readonly="!editMode"
+					class="w-full p-3 text-xs rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+				/>
 			</div>
-
-			<div>
-				<label for="fullName" class="block text-gray-600 font-medium">Full Name</label>
-				<input id="fullName" v-model="localFullName" class="input-field" placeholder="Enter your full name" />
+			<div class="w-3/4 mx-auto">
+				<label for="fullName" class="block text-gray-600 font-medium text-xs">FULLNAME</label>
+				<input
+					id="fullName"
+					v-model="localFullName"
+					placeholder="Enter your full name"
+					:readonly="!editMode"
+					class="w-full p-3 text-xs rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+				/>
 			</div>
-
-			<div class="md:col-span-2">
-				<label for="address" class="block text-gray-600 font-medium">Address</label>
-				<input id="address" v-model="localAddress" class="input-field" placeholder="Enter your address" />
+			<div class="md:col-span-2 w-3/4 mx-auto">
+				<label for="address" class="block text-gray-600 font-medium text-xs">ADDRESS</label>
+				<input
+					id="address"
+					v-model="localAddress"
+					placeholder="Enter your address"
+					:readonly="!editMode"
+					class="w-full p-3 text-xs rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+				/>
 			</div>
 		</div>
-
 		<!-- Save Button -->
-		<div class="max-w-3xl mx-auto mt-6">
+		<div v-if="editMode" class="max-w-3xl mx-auto mt-12 w-3/4 mx-auto text-xs">
 			<button
-				class="bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg w-full hover:bg-blue-600 transition"
+				class="w-full py-3 rounded-full transition duration-200 shadow-lg text-white"
+				style="background-color: #65558f"
 				@click="saveProfile"
 			>
 				Update Profile
@@ -66,6 +80,7 @@ const localName = ref('')
 const localFullName = ref('')
 const localAddress = ref('')
 const localProfilePicture = ref('')
+const editMode = ref(false) // Add edit mode ref
 
 // Load userStore data into local refs when the component mounts
 onMounted(() => {
@@ -91,11 +106,19 @@ const handleFileUpload = (event: Event) => {
 const saveProfile = () => {
 	// Update Pinia store only when "Save" is clicked
 	userStore.updateProfile(localName.value, localFullName.value, localAddress.value, localProfilePicture.value)
+	editMode.value = false // Turn off edit mode after saving
+}
+
+const triggerFileUpload = () => {
+	const input = document.getElementById('profilePicture') as HTMLInputElement
+	input.click()
+}
+
+const toggleEditMode = () => {
+	editMode.value = !editMode.value
 }
 </script>
 
 <style scoped>
-.input-field {
-	@apply w-full p-3 border rounded-lg text-gray-700 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400;
-}
+/* Remove the existing input-field styles, as they are now inline */
 </style>
