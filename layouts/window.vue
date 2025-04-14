@@ -3,11 +3,13 @@
 		<!-- Navbar -->
 		<header class="bg-white w-full z-30 border-b-2 border-[#ffa5a5]">
 			<nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-				<!-- Left: Back Icon (FontAwesome) -->
-				<button class="text-black hover:text-nude-600 flex items-center" @click="onBackClick">
-					<i class="fa fa-arrow-left text-xl"></i>
-					<!-- FontAwesome Back Icon -->
-				</button>
+				<!-- Left: Back Icon and Page Title -->
+				<div class="flex items-center space-x-8">
+					<button class="text-black hover:text-nude-600 flex items-center" @click="onBackClick">
+						<i class="fa fa-arrow-left text-xl"></i>
+					</button>
+					<span class="text-sm font-semibold text-black">{{ pageTitle }}</span>
+				</div>
 
 				<!-- Right: Notifications & Profile Icons -->
 				<div class="flex space-x-4 items-center">
@@ -35,8 +37,12 @@
 
 <script setup>
 import { useUserStore } from '@/stores/user'
+import { useRoute } from 'vue-router'
 
 const userStore = useUserStore()
+const route = useRoute()
+
+const pageTitle = computed(() => route.meta.title || '')
 
 // Handle Back Button Click
 const onBackClick = () => {
