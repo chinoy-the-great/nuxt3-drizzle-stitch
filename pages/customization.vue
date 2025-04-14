@@ -47,5 +47,6 @@
 <script setup>
 definePageMeta({
 	layout: 'window',
+	title: 'Customization',
 })
 </script>
