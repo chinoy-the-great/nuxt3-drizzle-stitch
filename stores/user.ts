@@ -7,6 +7,7 @@ interface User {
 }
 
 interface QuizScore {
+	outerTitle: string
 	quizTitle: string
 	score: number
 	totalQuestions: number
@@ -48,8 +49,9 @@ export const useUserStore = defineStore('user', () => {
 	}
 
 	// Store quiz score
-	const storeQuizScore = (quizTitle: string, score: number, totalQuestions: number) => {
+	const storeQuizScore = (outerTitle: string, quizTitle: string, score: number, totalQuestions: number) => {
 		const newScore: QuizScore = {
+			outerTitle,
 			quizTitle,
 			score,
 			totalQuestions,

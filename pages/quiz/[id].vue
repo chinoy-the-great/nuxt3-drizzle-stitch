@@ -215,7 +215,7 @@ const submitQuiz = () => {
 	}
 
 	// Store quiz score in Pinia
-	userStore.storeQuizScore(quiz.value.title, score, totalQuestions)
+	userStore.storeQuizScore(quiz.value.outerTitle, quiz.value.title, score, totalQuestions)
 
 	// eslint-disable-next-line no-alert
 	alert(`Your Score: ${score} / ${totalQuestions}`)
