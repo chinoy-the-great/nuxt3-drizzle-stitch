@@ -16,7 +16,7 @@
 					<NuxtLink to="/notifications">
 						<img src="/Titlebar_Notification_Icon.png" alt="Notifications" class="w-4 h-4" />
 					</NuxtLink>
-					<NuxtLink to="/profile">
+					<NuxtLink v-if="showProfileIcon" to="/profile">
 						<img
 							:src="userStore.profilePicture"
 							:style="userStore.profilePicture === '/Your_Account_Icon.png'"
@@ -43,6 +43,7 @@ const userStore = useUserStore()
 const route = useRoute()
 
 const pageTitle = computed(() => route.meta.title || '')
+const showProfileIcon = computed(() => route.meta.showProfileIcon !== false)
 
 // Handle Back Button Click
 const onBackClick = () => {

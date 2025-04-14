@@ -55,7 +55,8 @@ import { onMounted, ref } from 'vue'
 import { useUserStore } from '~/stores/user'
 
 definePageMeta({
-	layout: 'fullscreen', // Uses fullscreen layout instead of default
+	layout: 'window',
+	showProfileIcon: false, // Uses fullscreen layout instead of default
 })
 
 const userStore = useUserStore()
