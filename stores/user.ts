@@ -53,7 +53,7 @@ export const useUserStore = defineStore('user', () => {
 			quizTitle,
 			score,
 			totalQuestions,
-			date: new Date().toLocaleString(), // Store timestamp
+			date: new Date().toISOString(), // Store timestamp in ISO format
 		}
 		quizScores.value.push(newScore)
 	}
