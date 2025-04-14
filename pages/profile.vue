@@ -31,7 +31,7 @@
 				/>
 			</div>
 			<div class="w-3/4 mx-auto">
-				<label for="fullName" class="block text-gray-600 font-medium text-xs">FULLNAME</label>
+				<label for="fullName" class="block text-gray-600 font-medium text-xs">FULL NAME</label>
 				<input
 					id="fullName"
 					v-model="localFullName"
@@ -40,12 +40,26 @@
 					class="w-full p-3 text-xs rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
 				/>
 			</div>
-			<div class="md:col-span-2 w-3/4 mx-auto">
-				<label for="address" class="block text-gray-600 font-medium text-xs">ADDRESS</label>
+
+			<div class="w-3/4 mx-auto">
+				<label for="age" class="block text-gray-600 font-medium text-xs">Age</label>
 				<input
-					id="address"
-					v-model="localAddress"
-					placeholder="Enter your address"
+					id="age"
+					v-model.number="localAge"
+					type="number"
+					placeholder="Enter your age"
+					:readonly="!editMode"
+					class="w-full p-3 text-xs rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+				/>
+			</div>
+
+			<div class="w-3/4 mx-auto">
+				<label for="email" class="block text-gray-600 font-medium text-xs">Email</label>
+				<input
+					id="email"
+					v-model="localEmail"
+					type="email"
+					placeholder="Enter your email"
 					:readonly="!editMode"
 					class="w-full p-3 text-xs rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
 				/>
@@ -78,7 +92,8 @@ const userStore = useUserStore()
 // Local refs for temporary changes
 const localName = ref('')
 const localFullName = ref('')
-const localAddress = ref('')
+const localAge = ref<number | null>(null)
+const localEmail = ref('')
 const localProfilePicture = ref('')
 const editMode = ref(false) // Add edit mode ref
 
@@ -86,7 +101,8 @@ const editMode = ref(false) // Add edit mode ref
 onMounted(() => {
 	localName.value = userStore.name
 	localFullName.value = userStore.fullName
-	localAddress.value = userStore.address
+	localAge.value = userStore.age
+	localEmail.value = userStore.email
 	localProfilePicture.value = userStore.profilePicture
 })
 
@@ -105,7 +121,14 @@ const handleFileUpload = (event: Event) => {
 
 const saveProfile = () => {
 	// Update Pinia store only when "Save" is clicked
-	userStore.updateProfile(localName.value, localFullName.value, localAddress.value, localProfilePicture.value)
+	userStore.updateProfile(
+		localName.value,
+		localFullName.value,
+		'',
+		localProfilePicture.value,
+		localAge.value,
+		localEmail.value,
+	)
 	editMode.value = false // Turn off edit mode after saving
 }
 
