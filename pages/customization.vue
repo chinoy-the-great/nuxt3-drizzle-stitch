@@ -10,6 +10,37 @@
 				height: 12vh;
 			"
 		></div>
+
+		<!-- New Pattern Customization Box -->
+		<div class="flex justify-center mt-8">
+			<div
+				class="flex items-center bg-white border-[2px] border-black rounded-md px-3 py-2 w-[85%] shadow-md shadow-gray-400"
+			>
+				<!-- Plus Icon inside a white circle with black border -->
+				<div class="flex items-center justify-center border border-black rounded-full w-6 h-6 mr-3 bg-white">
+					<i class="fas fa-plus text-xs text-black"></i>
+				</div>
+				<span class="text-xxs text-black font-semibold">New Pattern Customization</span>
+			</div>
+		</div>
+
+		<!-- Section with two rectangles and labels below -->
+		<div class="flex justify-center mt-4">
+			<div class="w-[85%] flex gap-2 flex-col items-center">
+				<div class="flex w-full gap-2">
+					<!-- Left Rectangle (2/3 width) -->
+					<div class="w-2/3 bg-[#f4bbbb] h-32 rounded-md shadow-md shadow-gray-400"></div>
+
+					<!-- Right Rectangle (1/3 width) -->
+					<div class="w-1/3 bg-[#ff0066] h-32 rounded-md shadow-md shadow-gray-400"></div>
+				</div>
+
+				<div class="flex w-full gap-2 mt-1">
+					<span class="w-2/3 text-center text-xxs text-black">My Creation</span>
+					<span class="w-1/3 text-center text-xxs text-black">Pattern Template</span>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
