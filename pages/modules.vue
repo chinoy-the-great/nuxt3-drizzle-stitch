@@ -1,6 +1,17 @@
 <template>
-	<div class="min-h-screen bg-white p-8">
-		<div v-for="(grade, gradeIndex) in foldersData" :key="gradeIndex">
+	<div class="min-h-screen bg-white">
+		<!-- Header Image -->
+		<div
+			class="w-full shadow-md shadow-gray-400"
+			style="
+				background-image: url('/_BG_ART_LogIn_home_v2.jpg');
+				background-size: cover;
+				background-position: center;
+				height: 12vh;
+			"
+		></div>
+
+		<div v-for="(grade, gradeIndex) in foldersData" :key="gradeIndex" class="p-8">
 			<h1 class="text-2xl font-bold mb-2">{{ grade.mainLabel }}</h1>
 
 			<div v-for="(item, itemIndex) in grade.items" :key="itemIndex">
