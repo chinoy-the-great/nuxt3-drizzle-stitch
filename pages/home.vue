@@ -44,13 +44,12 @@
 					class="flex flex-col items-center flex-[1_0_23%] min-w-[23%] max-w-[23%]"
 				>
 					<!-- Icon Box (Square) -->
-					<div
-						class="bg-[#ffa5a5] rounded-xl p-2 flex items-center justify-center w-full aspect-square"
-						@click="selectedPage = icon.clickAction"
+					<NuxtLink
+						:to="{ path: '/modules', query: { grade: icon.keyword } }"
+						class="bg-[#ffa5a5] rounded-xl p-2 flex items-center justify-center w-full aspect-square cursor-pointer"
 					>
-						<img :src="icon.src" :alt="icon.alt" class="h-12 w-12 object-contain cursor-pointer" />
-					</div>
-
+						<img :src="icon.src" :alt="icon.alt" class="h-12 w-12 object-contain" />
+					</NuxtLink>
 					<!-- Label below icon box -->
 					<p class="text-center text-xxs font-bold leading-none mt-2">
 						{{ icon.label[0] }}
@@ -115,25 +114,25 @@ const icons = [
 		src: '/Hub_Modules.png',
 		alt: 'Fabric Guide Icon',
 		label: ['MODULES'],
-		clickAction: 'fabricGuide',
+		keyword: 'modules',
 	},
 	{
 		src: '/Hub_Sewing Techniques.png',
 		alt: 'Tutorials Icon',
 		label: ['SEWING', 'TECHNIQUES'],
-		clickAction: 'tutorials',
+		keyword: 'sewingTechniques',
 	},
 	{
 		src: '/Hub_Dressmaking Tools.png',
 		alt: 'Sewing Machine Icon',
 		label: ['DRESSMAKING', 'TOOLS'],
-		clickAction: 'sewingModel',
+		keyword: 'dressmakingTools',
 	},
 	{
 		src: '/Hub_Troubleshooting.png',
 		alt: 'Troubleshooting Icon',
 		label: ['TROUBLESHOOTING'],
-		clickAction: '',
+		keyword: 'troubleshooting',
 	},
 ]
 
@@ -159,8 +158,6 @@ const updateIndexOnScroll = () => {
 	currentIndex.value = Math.round(scrollLeft / imageWidth)
 }
 
-// Define reactive state for selected page
-const selectedPage = ref('fabricGuide') // Default to 'fabricGuide'
 const userStore = useUserStore()
 
 onMounted(() => {
