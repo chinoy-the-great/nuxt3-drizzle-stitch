@@ -1,29 +1,36 @@
 // src/assets/troubleshootingData.js
 export const troubleshootingData = [
 	{
-		name: 'Troubleshooting',
-		pdfs: [
+		mainLabel: 'Troubleshooting',
+		items: [
 			{
+				type: 'pdf',
 				title: 'Needle getting stuck in the material',
+				secondaryTitle: '',
 				description: '',
-				url: '/pdf/TROUBLESHOOTING/Needle Getting Stuck in the Material.pdf',
+				url: 'https://drive.google.com/file/d/1J6SIOgeBMkk7KfiA0gE5j0XXbcMBW8Ie/preview',
 			},
 			{
-				title: 'The fabric is stuck in the  sewing machine',
+				type: 'pdf',
+				title: 'The fabric is stuck in the sewing machine',
+				secondaryTitle: '',
 				description: '',
-				url: '/pdf/TROUBLESHOOTING/The fabric is stuck in the  sewing machine.pdf',
+				url: 'https://drive.google.com/file/d/1WzzpPPhJhZI74lDqQPcRUEDgbiBQcY4i/preview',
 			},
 			{
+				type: 'pdf',
 				title: 'Why does the needle keep breaking',
+				secondaryTitle: '',
 				description: '',
-				url: '/pdf/TROUBLESHOOTING/Why does the needle keep breaking_.pdf',
+				url: 'https://drive.google.com/file/d/1KtHuU_n3C7GBAPJlxuTglI-JAOW86y6E/preview',
 			},
 			{
+				type: 'pdf',
 				title: 'Why is the needle hitting the needle plate',
+				secondaryTitle: '',
 				description: '',
-				url: '/pdf/TROUBLESHOOTING/Why is the needle hitting the needle plate_.pdf',
+				url: 'https://drive.google.com/file/d/1loCVmQJ4U5U0RP9BvcLkdpD-Cfdg2Cpd/preview',
 			},
 		],
-		subfolders: [],
 	},
 ]
