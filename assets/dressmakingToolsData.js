@@ -1,39 +1,43 @@
 // src/assets/dressmakingToolsData.js
 export const dressmakingToolsData = [
 	{
-		name: 'Dressmaking Tools',
-		pdfs: [
+		mainLabel: 'Dressmaking Tools',
+		items: [
 			{
+				type: 'pdf',
 				title: 'Cutting Tools',
+				secondaryTitle: '',
 				description: '',
-				url: '/pdf/DRESSMAKING_TOOLS/Cutting Tools.pdf',
+				url: 'https://drive.google.com/file/d/1CoGJM7rwfhfaPdhaR3CcS4z6bGvoYfPp/preview',
 			},
 			{
+				type: 'pdf',
 				title: 'Marking Tools',
+				secondaryTitle: '',
 				description: '',
-				url: '/pdf/DRESSMAKING_TOOLS/Marking Tools.pdf',
+				url: 'https://drive.google.com/file/d/1LTPvYgDsmbgfyGl597rk_bpzDcgqwoYo/preview',
 			},
 			{
+				type: 'pdf',
 				title: 'Measuring Tools',
+				secondaryTitle: '',
 				description: '',
-				url: '/pdf/DRESSMAKING_TOOLS/Measuring Tools.pdf',
+				url: 'https://drive.google.com/file/d/1y6kpEI-o3l7fp-0nOfxjptkk0NVtGAMC/preview',
 			},
 			{
-				title: 'Methods of Taking Body Measurements',
-				description: '',
-				url: '/pdf/DRESSMAKING_TOOLS/METHODS OF TAKING BODY MEASUREMENT.pdf',
-			},
-			{
+				type: 'pdf',
 				title: 'Pinning and Sewing Tools',
+				secondaryTitle: '',
 				description: '',
 				url: '/pdf/DRESSMAKING_TOOLS/Pinning and Sewing Tools.pdf',
 			},
 			{
+				type: 'pdf',
 				title: 'Pressing Tools',
+				secondaryTitle: '',
 				description: '',
 				url: '/pdf/DRESSMAKING_TOOLS/Pressing Tools.pdf',
 			},
 		],
-		subfolders: [],
 	},
 ]
