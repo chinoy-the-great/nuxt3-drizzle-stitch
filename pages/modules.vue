@@ -66,31 +66,71 @@
 </template>
 
 <script setup>
+import { dressmakingToolsData } from 'assets/dressmakingToolsData.js'
+// Import your data sets
 import { foldersData } from 'assets/foldersData.js'
-import { onMounted, ref } from 'vue'
+
+import { sewingTechniquesData } from 'assets/sewingTechniquesData.js'
+import { troubleshootingData } from 'assets/troubleshootingData.js'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 definePageMeta({
 	layout: 'window',
-	title: 'Modules',
+	title: 'Dressmaking Learning Hub',
 })
 
+const route = useRoute()
 const localFoldersData = ref([])
 
-onMounted(() => {
-	// Create a deep copy to avoid modifying the original data
-	const copiedFoldersData = JSON.parse(JSON.stringify(foldersData))
+// Function to select data based on the 'grade' query parameter
+const selectData = () => {
+	const keyword = route.query.grade
+	let selectedData
 
-	copiedFoldersData.forEach((grade) => {
+	switch (keyword) {
+		case 'sewingTechniques':
+			selectedData = sewingTechniquesData
+			break
+		case 'dressmakingTools':
+			selectedData = dressmakingToolsData
+			break
+		case 'troubleshooting':
+			selectedData = troubleshootingData
+			break
+		default:
+			selectedData = foldersData
+	}
+
+	// Deep copy to avoid mutating original data
+	const copiedData = JSON.parse(JSON.stringify(selectedData))
+
+	// Initialize 'expanded' property for PDF items
+	copiedData.forEach((grade) => {
 		grade.items.forEach((item) => {
 			if (item.type === 'pdf') {
-				item.expanded = false // Initialize expanded property directly
+				item.expanded = false
 			}
 		})
 	})
 
-	localFoldersData.value = copiedFoldersData // Assign the modified copy to localFoldersData
+	localFoldersData.value = copiedData
+}
+
+// Initialize data on component mount
+onMounted(() => {
+	selectData()
 })
 
+// Watch for changes in the 'grade' query parameter
+watch(
+	() => route.query.grade,
+	() => {
+		selectData()
+	},
+)
+
+// Function to toggle the 'expanded' state of PDF items
 const togglePdf = (item) => {
 	item.expanded = !item.expanded
 }
