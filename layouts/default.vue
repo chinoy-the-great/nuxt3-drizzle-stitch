@@ -42,7 +42,10 @@
 		</div>
 
 		<!-- Bottom Toolbar -->
-		<div v-if="showToolbar" class="fixed inset-x-0 bottom-0 bg-white shadow-lg border-t-4 border-[#f4bbbb]">
+		<div
+			v-if="showToolbar"
+			class="fixed inset-x-0 bottom-0 bg-white shadow-lg border-t-4 border-[#f4bbbb] z-50"
+		>
 			<nav class="flex justify-around py-2">
 				<!-- Toolbar Links -->
 				<NuxtLink
