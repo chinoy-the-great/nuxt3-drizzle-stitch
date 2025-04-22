@@ -126,7 +126,7 @@
 					<h2 class="text-2xl font-bold mb-4">Quiz Complete!</h2>
 					<p class="text-lg mb-2">Your Score:</p>
 					<p class="text-5xl font-extrabold mb-6">{{ score }} / {{ total }}</p>
-					<button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded" @click="goBack">
+					<button class="bg-[#65558f] hover:bg-purple-700 text-white px-6 py-2 rounded-full" @click="goBack">
 						Back to Quizzes
 					</button>
 				</div>
