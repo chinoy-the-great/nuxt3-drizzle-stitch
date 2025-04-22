@@ -117,7 +117,7 @@ const toolbarItems = [
 		activeIcon: '/Toolbar_Activities_Icon_Pink.png',
 	},
 	{
-		path: '/tasktracker',
+		path: '/schedule',
 		label: 'Tracker',
 		defaultIcon: '/Toolbar_Tracker_Icon.png',
 		activeIcon: '/Toolbar_Tracker_Icon_Pink.png',
