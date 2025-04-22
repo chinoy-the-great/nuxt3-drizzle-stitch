@@ -101,58 +101,58 @@
 							threads, uneven stitches, and thread breakage.
 						</li>
 						<li>
-							<strong>Tension Regulator</strong>
+							<strong>Tension Regulator:</strong>
 							Is an essential component that ensures the thread is fed at the correct tightness, enabling
 							smooth stitching.
 						</li>
 						<li>
-							<strong>Thread Guide 2</strong>
+							<strong>Thread Guide 2:</strong>
 							It is a second point in the threading path that helps guide the upper thread from the spool
 							towards the needle.
 						</li>
 						<li>
-							<strong>Needle Clamp</strong>
+							<strong>Needle Clamp:</strong>
 							Is to hold the sewing machine needle securely in place during operation.
 						</li>
 						<li>
-							<strong>Hook</strong>
-							ts primary purpose is to catch the upper thread as the needle moves down and interlock it with
+							<strong>Hook:</strong>
+							Its primary purpose is to catch the upper thread as the needle moves down and interlock it with
 							the bobbin thread, forming a stitch.
 						</li>
 						<li>
-							<strong>Needle</strong>
+							<strong>Needle:</strong>
 							Is the primary tool for creating stitches.
 						</li>
 						<li>
-							<strong>Presser Foot</strong>
+							<strong>Presser Foot:</strong>
 							It holds the fabric firmly, and ensures that the fabric moves evenly under the needle,
 							preventing it from shifting or bunching, which could result in uneven stitching or fabric
 							damage.
 						</li>
 						<li>
-							<strong>Feed Dog</strong>
+							<strong>Feed Dog:</strong>
 							It works in coordination with the presser foot, which holds the fabric in place, and the needle,
 							which form the stitches.
 						</li>
 						<li>
-							<strong>Slide Plate</strong>
+							<strong>Slide Plate:</strong>
 							It serves as a protective cover for the bobbin and other internal mechanisms.
 						</li>
 						<li>
-							<strong>Throat Plate</strong>
+							<strong>Throat Plate:</strong>
 							It provides a protection to the sewing machines internal, and to support the fabric as it moves
 							through the sewing machine.
 						</li>
 						<li>
-							<strong>Bobbin Case</strong>
+							<strong>Bobbin Case:</strong>
 							Is to securely hold the bobbin thread in place.
 						</li>
 						<li>
-							<strong>Bobbin Thread</strong>
+							<strong>Bobbin Thread:</strong>
 							Is the lower thread that works together with the upper thread to create stitches.
 						</li>
 						<li>
-							<strong>Treadle</strong>
+							<strong>Treadle:</strong>
 							It allows the user to control the speed of sewing, by pressing the treadle with their feet in a
 							back and forth motion.
 						</li>
