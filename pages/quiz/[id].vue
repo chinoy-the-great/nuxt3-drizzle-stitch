@@ -27,55 +27,62 @@
 		<!-- ──────────────────────────────────────────────────── -->
 		<div
 			v-if="quiz.type === 'multiple-choice' && !showResults"
-			class="relative w-full max-w-2xl bg-white p-6 shadow-lg rounded-lg flex flex-col min-h-[500px] border border-gray-200"
+			class="relative w-full max-w-2xl min-h-[500px] bg-transparent shadow-lg rounded-lg flex flex-col border border-gray-200 overflow-hidden"
 		>
-			<!-- Questions Wrapper -->
-			<div class="relative w-full overflow-hidden flex-grow">
-				<transition name="fade" mode="out-in">
-					<div :key="currentQuestionIndex" class="w-full p-4 absolute">
-						<p class="text-sm font-medium text-center mb-4">QUESTION NO. {{ currentQuestionIndex + 1 }}</p>
-						<p class="text-sm text-center px-8 mb-12">
-							{{ quiz.questions[currentQuestionIndex].text }}
-						</p>
-						<ul class="flex flex-col items-center space-y-6">
-							<li
-								v-for="option in quiz.questions[currentQuestionIndex].options"
-								:key="option"
-								class="w-full flex justify-center"
-							>
-								<label
-									class="flex items-center gap-2 cursor-pointer bg-white border border-black rounded-full px-4 py-2 text-xs w-full max-w-[400px]"
-								>
-									<input
-										v-model="answers[currentQuestionIndex]"
-										type="radio"
-										class="accent-[#65558f] w-4 h-4"
-										:name="`question-${currentQuestionIndex}`"
-										:value="option"
-									/>
-									{{ option }}
-								</label>
-							</li>
-						</ul>
-					</div>
-				</transition>
+			<!-- Upper Section -->
+			<div class="bg-white px-6 py-4 border-b border-black mt-6">
+				<p class="text-sm font-medium text-center mb-6">QUESTION NO. {{ currentQuestionIndex + 1 }}</p>
+				<p class="text-sm text-center px-8 mb-6">
+					{{ quiz.questions[currentQuestionIndex].text }}
+				</p>
 			</div>
 
-			<!-- Navigation Row -->
-			<div class="flex justify-between mt-6">
-				<button
-					:disabled="currentQuestionIndex === 0"
-					class="bg-white text-black px-8 py-1 rounded-full border border-black text-xxs font-semibold disabled:opacity-50"
-					@click="prevQuestion"
-				>
-					Back
-				</button>
-				<button
-					class="bg-[#65558f] text-white px-8 py-1 rounded-full text-xxs font-semibold disabled:opacity-50"
-					@click="handleNextOrSubmit"
-				>
-					{{ nextLabel }}
-				</button>
+			<!-- Lower Section (now has real height) -->
+			<div class="bg-white/70 px-6 py-4 flex flex-col flex-1">
+				<div class="relative w-full overflow-hidden flex-1">
+					<transition name="fade" mode="out-in">
+						<!-- pin it to the top of the wrapper so it’s never clipped -->
+						<div :key="currentQuestionIndex" class="absolute inset-0 overflow-auto p-4">
+							<ul class="flex flex-col items-center space-y-6">
+								<li
+									v-for="option in quiz.questions[currentQuestionIndex].options"
+									:key="option"
+									class="w-full flex justify-center"
+								>
+									<label
+										class="flex items-center gap-2 cursor-pointer bg-white border border-black rounded-full px-4 py-2 text-xxs w-full max-w-[400px]"
+									>
+										<input
+											v-model="answers[currentQuestionIndex]"
+											type="radio"
+											class="accent-[#65558f] w-4 h-4"
+											:name="`question-${currentQuestionIndex}`"
+											:value="option"
+										/>
+										{{ option }}
+									</label>
+								</li>
+							</ul>
+						</div>
+					</transition>
+				</div>
+
+				<!-- Navigation Row -->
+				<div class="flex justify-between mt-6">
+					<button
+						:disabled="currentQuestionIndex === 0"
+						class="bg-white text-black px-8 py-1 rounded-full border border-black text-xxs font-semibold disabled:opacity-50"
+						@click="prevQuestion"
+					>
+						Back
+					</button>
+					<button
+						class="bg-[#65558f] text-white px-8 py-1 rounded-full text-xxs font-semibold disabled:opacity-50"
+						@click="handleNextOrSubmit"
+					>
+						{{ nextLabel }}
+					</button>
+				</div>
 			</div>
 		</div>
 
