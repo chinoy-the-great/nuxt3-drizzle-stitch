@@ -1,70 +1,64 @@
 <template>
-	<div class="max-w-3xl mx-auto mt-8 mb-16 p-6">
+	<div class="max-w-3xl mx-auto mb-16 p-6">
 		<h1 class="text-2xl font-semibold mb-4">Notifications</h1>
 
-		<div
-			v-for="(notification, index) in notifications"
-			:key="index"
-			class="p-4 mb-4 bg-[#EFBCC3] rounded-lg shadow-sm flex"
-		>
-			<!-- Icon -->
-			<div class="mr-4 text-2xl">
-				{{ notification.icon }}
-			</div>
-
-			<!-- Notification Content -->
-			<div class="flex-grow">
-				<p class="font-semibold text-gray-800">{{ notification.message }}</p>
-				<p class="text-gray-700">{{ notification.description }}</p>
-				<span class="text-sm text-gray-500">{{ notification.time }}</span>
+		<!-- Notification List -->
+		<div v-if="sortedNotifications.length" class="space-y-4">
+			<div
+				v-for="note in sortedNotifications"
+				:key="note.id"
+				class="flex items-center p-4 bg-[#f4bbbb] rounded-lg h-[70px] shadow-md shadow-gray-400"
+			>
+				<!-- big icon, centered -->
+				<img :src="iconsByType[note.type]" :alt="`${note.type} icon`" class="h-8 w-8 flex-shrink-0 mr-4" />
+				<!-- text -->
+				<div>
+					<p class="text-xs font-bold text-black ml-4">{{ note.message }}</p>
+					<p class="text-xxs text-black ml-4">{{ note.description }}</p>
+					<span class="text-xxs text-gray-500 ml-4">{{ note.time }}</span>
+				</div>
 			</div>
 		</div>
+
+		<!-- empty state -->
+		<p v-else class="text-gray-600">You have no notifications.</p>
 	</div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
+// 1) Your master array; keeps a `type` field
 const notifications = ref([
 	{
 		id: 1,
-		type: 'comment',
-		message: 'New Comment',
-		description: 'John commented on your post.',
-		time: '2 hours ago',
-		icon: '💬',
+		type: 'activity',
+		message: 'New Activity Assigned',
+		description: 'How to set up the Sewing Machine',
+		time: '3 days ago',
 	},
 	{
 		id: 2,
-		type: 'like',
-		message: 'New Like',
-		description: 'Alice liked your photo.',
-		time: '1 day ago',
-		icon: '❤️',
+		type: 'achievement',
+		message: 'New Achievement',
+		description: 'You finished a quiz!',
+		time: '2 hours ago',
 	},
 	{
 		id: 3,
-		type: 'upload',
-		message: 'New Upload',
-		description: 'A new tutorial was uploaded in your subscribed channel.',
-		time: '3 days ago',
-		icon: '📹',
-	},
-	{
-		id: 4,
-		type: 'comment',
-		message: 'New Comment',
-		description: 'Bob commented on your video.',
-		time: '4 days ago',
-		icon: '💬',
-	},
-	{
-		id: 5,
-		type: 'task',
-		message: 'Task Reminder',
-		description: 'You have a task due soon. Don’t forget to check it!',
-		time: '6 hours ago',
-		icon: '⏰',
+		type: 'activity',
+		message: 'New Activity Assigned',
+		description: 'Write project report',
+		time: 'Just now',
 	},
 ])
+
+// 2) Map each type to your public icons
+const iconsByType = {
+	activity: '/Toolbar_Activities_Icon.png',
+	achievement: '/Toolbar_Achievements_Icon.png',
+}
+
+// 3) If you want newest‐first, sort by id descending (or swap the compare fn)
+const sortedNotifications = computed(() => [...notifications.value].sort((a, b) => b.id - a.id))
 </script>
