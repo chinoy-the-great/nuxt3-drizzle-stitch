@@ -45,15 +45,15 @@
 					<!-- Top row: outerTitle and score -->
 					<div class="flex justify-between items-start mr-2 ml-2 mt-1">
 						<p class="text-black max-w-[50%]">
-							<span class="font-semibold text-sm">{{ score.outerTitle }}</span>
+							<span class="font-semibold text-xs">{{ score.outerTitle }}</span>
 							<br />
-							<span class="text-xs block">{{ score.quizTitle }}</span>
+							<span class="text-xxs block">{{ score.quizTitle }}</span>
 						</p>
-						<p class="text-black text-xs">Score: {{ score.score }} / {{ score.totalQuestions }}</p>
+						<p class="text-black text-xxs mt-1">Score: {{ score.score }} / {{ score.totalQuestions }}</p>
 					</div>
 
 					<!-- Bottom row: date -->
-					<p class="text-xs text-black ml-2 mb-1">{{ formatDate(score.date) }}</p>
+					<p class="text-xxs text-black ml-2 mb-1">{{ formatDate(score.date) }}</p>
 				</div>
 			</div>
 		</div>
