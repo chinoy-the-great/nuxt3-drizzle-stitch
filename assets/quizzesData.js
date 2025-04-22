@@ -3,10 +3,15 @@ export const quizzesData = [
 		id: '0',
 		outerTitle: 'Quiz #1',
 		title: 'How to Thread a Domestic / Manual Sewing Machine',
+		directions:
+			'Directions: Threading a domestic/manual sewing machine requires careful attention\n' +
+			'to detail and proper handling of the thread and bobbin. This quiz is designed to\n' +
+			'challenge your understanding of the process and test your ability to recall specific\n' +
+			'details. Think carefully before answering each question!',
 		type: 'multiple-choice',
 		questions: [
 			{
-				text: '1. What is the purpose of placing the thread on the spool pin at the start?',
+				text: 'What is the purpose of placing the thread on the spool pin at the start?',
 				options: [
 					'A. To prepare it for the bobbin winding process',
 					'B. To hold the thread securely for threading',
@@ -15,7 +20,7 @@ export const quizzesData = [
 				],
 			},
 			{
-				text: '2. What does the first thread guide do in the threading process?',
+				text: 'What does the first thread guide do in the threading process?',
 				options: [
 					'A. Holds the thread firmly in place during sewing',
 					'B. Directs the thread toward the tension regulator',
@@ -24,7 +29,7 @@ export const quizzesData = [
 				],
 			},
 			{
-				text: '3. Why is it important to loop the thread around the tension regulator?',
+				text: 'Why is it important to loop the thread around the tension regulator?',
 				options: [
 					'A. To ensure the thread passes through the bobbin smoothly',
 					'B. To create slack in the thread for easier threading',
@@ -33,7 +38,7 @@ export const quizzesData = [
 				],
 			},
 			{
-				text: '4. After looping the thread around the tension regulator, what is the next\n' + 'step?',
+				text: 'After looping the thread around the tension regulator, what is the next\n' + 'step?',
 				options: [
 					'A. Pull the thread through the needle',
 					'B. Pass the thread through the remaining guides near the needle',
@@ -42,7 +47,7 @@ export const quizzesData = [
 				],
 			},
 			{
-				text: '5. What is the function of the slide plate?',
+				text: 'What is the function of the slide plate?',
 				options: [
 					'A. To guide the thread into the needle',
 					'B. To secure the thread spool in place',
@@ -51,7 +56,7 @@ export const quizzesData = [
 				],
 			},
 			{
-				text: '6. When placing the bobbin in the case, what should you do with the thread?',
+				text: 'When placing the bobbin in the case, what should you do with the thread?',
 				options: [
 					'A. Leave it loose and un-threaded',
 					'B. Pull it slowly, push it through the gap, and slide it around the metal to hold it in\n' +
@@ -61,8 +66,7 @@ export const quizzesData = [
 				],
 			},
 			{
-				text:
-					'7. Why is it important to slide the bobbin thread around the metal inside the\n' + 'bobbin case?',
+				text: 'Why is it important to slide the bobbin thread around the metal inside the\n' + 'bobbin case?',
 				options: [
 					'A. To secure the bobbin in the compartment',
 					'B. To ensure proper thread tension for stitching',
@@ -71,7 +75,7 @@ export const quizzesData = [
 				],
 			},
 			{
-				text: '8. Where should you place the bobbin case after preparing the bobbin?',
+				text: 'Where should you place the bobbin case after preparing the bobbin?',
 				options: [
 					'A. In the tension regulator',
 					'B. In the bobbin compartment',
@@ -80,7 +84,7 @@ export const quizzesData = [
 				],
 			},
 			{
-				text: '9. What does turning the wheel towards you do during the final step?',
+				text: 'What does turning the wheel towards you do during the final step?',
 				options: [
 					'A. Pulls the thread into the tension regulator',
 					'B. Raises the needle and pulls the thread from the bobbin',
@@ -89,7 +93,7 @@ export const quizzesData = [
 				],
 			},
 			{
-				text: '10. Why is it critical to hold the tip of the thread during the final step?',
+				text: 'Why is it critical to hold the tip of the thread during the final step?',
 				options: [
 					'A. To prevent the thread from slipping out of the guides',
 					'B. To guide the thread into the tension regulator',
@@ -115,6 +119,10 @@ export const quizzesData = [
 		id: '1',
 		outerTitle: 'Quiz #2',
 		title: 'Parts and Functions of Domestic/Manual Sewing Machine',
+		directions:
+			'Directions: Welcome to the Sewing Machine Parts and Functions Matching Quiz!\n' +
+			'In this quiz, you will match each part of the sewing machine with its corresponding\n' +
+			'function.',
 		type: 'matching',
 		questions: [
 			{ text: '1. Spool Pin', id: 1 },
