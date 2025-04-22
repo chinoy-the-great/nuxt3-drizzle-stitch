@@ -18,6 +18,10 @@
 			></div>
 		</div>
 
+		<p class="text-sm font-bold text-center px-4">
+			{{ quiz?.title }}
+		</p>
+
 		<p class="text-xxs text-center px-4 mb-4">
 			{{ quiz?.directions }}
 		</p>
