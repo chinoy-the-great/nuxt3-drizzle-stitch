@@ -90,13 +90,7 @@
 		<!-- MATCHING QUIZ (hidden once showResults === true) -->
 		<!-- ──────────────────────────────────────────────────── -->
 		<div v-if="quiz.type === 'matching' && !showResults">
-			<div class="w-full max-w-2xl bg-white p-6 shadow-lg rounded-lg">
-				<h1 class="text-3xl font-bold text-center mb-2">
-					{{ quiz.title }}
-				</h1>
-				<p class="text-sm text-gray-600 text-center mb-4">
-					{{ quiz.directions }}
-				</p>
+			<div class="relative w-full max-w-2xl bg-white/70 p-6 shadow-lg rounded-lg border border-gray-200">
 				<p v-if="!quiz" class="text-red-500">Quiz not found!</p>
 				<div v-else>
 					<div v-for="(question, index) in quiz.questions" :key="question.id" class="mb-4">
@@ -111,11 +105,8 @@
 
 					<!-- You could replace this with a unified Next/Done,
                but this preserves your original matching Submit -->
-					<button
-						class="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
-						@click="submitQuiz"
-					>
-						Submit Quiz
+					<button class="mt-6 w-full bg-[#65558f] text-white py-2 rounded-full" @click="submitQuiz">
+						Done
 					</button>
 				</div>
 			</div>
