@@ -9,7 +9,7 @@
 					background-size: cover;
 					background-position: center bottom;
 					background-repeat: no-repeat;
-					opacity: 0.3;
+					opacity: 0.5;
 				"
 			></div>
 		</div>

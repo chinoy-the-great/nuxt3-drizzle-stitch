@@ -1,5 +1,5 @@
 <template>
-	<div class="max-w-3xl mx-auto">
+	<div class="max-w-3xl mx-auto mb-24">
 		<!-- Achievements Label -->
 		<div class="bg-[#ffa5a5] h-16 flex items-center justify-center">
 			<h1 class="text-2xl font-semibold text-black">Achievements</h1>

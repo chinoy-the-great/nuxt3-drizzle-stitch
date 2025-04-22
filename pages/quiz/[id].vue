@@ -1,101 +1,97 @@
 <template>
 	<div
-		class="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6"
+		class="flex flex-col items-center justify-center bg-transparent p-6"
 		@touchstart="handleTouchStart"
 		@touchend="handleTouchEnd"
 	>
-		<!-- Quiz Container For Multiple Choice -->
-		<div v-if="quiz.type === 'multiple-choice'">
-			<div class="w-full max-w-2xl bg-white p-6 shadow-lg rounded-lg relative">
-				<!-- Quiz Title (Static) -->
-				<h1 class="text-3xl font-bold text-center mb-4">{{ quiz?.title }}</h1>
+		<!-- Fixed Bottom Half Background with Overlay -->
+		<div class="fixed bottom-0 left-0 w-full h-2/3 z-0">
+			<div
+				class="w-full h-full"
+				style="
+					background-image: url('/_BG_ART_LogIn_home_v2.jpg');
+					background-size: cover;
+					background-position: center bottom;
+					background-repeat: no-repeat;
+					opacity: 0.5;
+				"
+			></div>
+		</div>
 
-				<!-- Directions -->
-				<p class="text-sm text-gray-600 text-center">
-					Directions: Threading a domestic/manual sewing machine requires careful attention to detail and
-					proper handling of the thread and bobbin. This quiz is designed to challenge your understanding of
-					the process and test your ability to recall specific details. Think carefully before answering each
-					question!
-				</p>
+		<p class="text-xxs text-center px-4 mb-4">
+			{{ quiz?.directions }}
+		</p>
 
-				<!-- If Quiz is Not Found -->
-				<p v-if="!quiz" class="text-red-500">Quiz not found!</p>
-
-				<!-- Quiz Content -->
-				<div v-if="quiz" class="relative w-full overflow-hidden">
-					<!-- Questions Wrapper -->
-					<div class="relative w-full min-h-[300px] flex items-center">
-						<!-- Single Question (Only One Visible at a Time) -->
-						<transition name="fade" mode="out-in">
-							<!-- Wrapper Div to Ensure a Single Child -->
-							<div :key="currentQuestionIndex" class="w-full p-4 absolute">
-								<p class="font-semibold">{{ quiz.questions[currentQuestionIndex].text }}</p>
-								<ul>
-									<li
-										v-for="option in quiz.questions[currentQuestionIndex].options"
-										:key="option"
-										class="mt-2"
-									>
-										<label class="flex items-center gap-2 cursor-pointer">
-											<input
-												v-model="answers[currentQuestionIndex]"
-												type="radio"
-												:name="`question-${currentQuestionIndex}`"
-												:value="option"
-												class="accent-blue-500"
-											/>
-											{{ option }}
-										</label>
-									</li>
-								</ul>
-							</div>
-						</transition>
+		<!-- ──────────────────────────────────────────────────── -->
+		<!-- MULTIPLE‐CHOICE QUIZ (hidden once showResults === true) -->
+		<!-- ──────────────────────────────────────────────────── -->
+		<div
+			v-if="quiz.type === 'multiple-choice' && !showResults"
+			class="relative w-full max-w-2xl bg-white p-6 shadow-lg rounded-lg flex flex-col min-h-[500px] border border-gray-200"
+		>
+			<!-- Questions Wrapper -->
+			<div class="relative w-full overflow-hidden flex-grow">
+				<transition name="fade" mode="out-in">
+					<div :key="currentQuestionIndex" class="w-full p-4 absolute">
+						<p class="text-sm font-medium text-center mb-4">QUESTION NO. {{ currentQuestionIndex + 1 }}</p>
+						<p class="text-sm text-center px-8 mb-12">
+							{{ quiz.questions[currentQuestionIndex].text }}
+						</p>
+						<ul class="flex flex-col items-center space-y-6">
+							<li
+								v-for="option in quiz.questions[currentQuestionIndex].options"
+								:key="option"
+								class="w-full flex justify-center"
+							>
+								<label
+									class="flex items-center gap-2 cursor-pointer bg-white border border-black rounded-full px-4 py-2 text-xs w-full max-w-[400px]"
+								>
+									<input
+										v-model="answers[currentQuestionIndex]"
+										type="radio"
+										class="accent-[#65558f] w-4 h-4"
+										:name="`question-${currentQuestionIndex}`"
+										:value="option"
+									/>
+									{{ option }}
+								</label>
+							</li>
+						</ul>
 					</div>
-				</div>
+				</transition>
+			</div>
 
-				<!-- Navigation Buttons -->
-				<div class="flex justify-between mt-4">
-					<button
-						:disabled="currentQuestionIndex === 0"
-						class="px-4 py-2 bg-gray-300 rounded-lg disabled:opacity-50"
-						@click="prevQuestion"
-					>
-						⬅
-					</button>
-					<button
-						:disabled="currentQuestionIndex === quiz.questions.length - 1"
-						class="px-4 py-2 bg-gray-300 rounded-lg disabled:opacity-50"
-						@click="nextQuestion"
-					>
-						➡
-					</button>
-				</div>
-
-				<!-- Submit Button -->
+			<!-- Navigation Row -->
+			<div class="flex justify-between mt-6">
 				<button
-					v-if="currentQuestionIndex === quiz.questions.length - 1"
-					class="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
-					@click="submitQuiz"
+					:disabled="currentQuestionIndex === 0"
+					class="bg-white text-black px-8 py-1 rounded-full border border-black text-xxs font-semibold disabled:opacity-50"
+					@click="prevQuestion"
 				>
-					Submit Quiz
+					Back
+				</button>
+				<button
+					class="bg-[#65558f] text-white px-8 py-1 rounded-full text-xxs font-semibold disabled:opacity-50"
+					@click="handleNextOrSubmit"
+				>
+					{{ nextLabel }}
 				</button>
 			</div>
 		</div>
 
-		<!-- Quiz Container For Matching-->
-		<div v-if="quiz.type === 'matching'">
+		<!-- ──────────────────────────────────────────────────── -->
+		<!-- MATCHING QUIZ (hidden once showResults === true) -->
+		<!-- ──────────────────────────────────────────────────── -->
+		<div v-if="quiz.type === 'matching' && !showResults">
 			<div class="w-full max-w-2xl bg-white p-6 shadow-lg rounded-lg">
-				<h1 class="text-3xl font-bold text-center mb-2">{{ quiz?.title }}</h1>
-
-				<!-- Directions -->
+				<h1 class="text-3xl font-bold text-center mb-2">
+					{{ quiz.title }}
+				</h1>
 				<p class="text-sm text-gray-600 text-center mb-4">
-					Directions: Welcome to the Sewing Machine Parts and Functions Matching Quiz! In this quiz, you will
-					match each part of the sewing machine with its corresponding function.
+					{{ quiz.directions }}
 				</p>
-
 				<p v-if="!quiz" class="text-red-500">Quiz not found!</p>
-
-				<div v-if="quiz">
+				<div v-else>
 					<div v-for="(question, index) in quiz.questions" :key="question.id" class="mb-4">
 						<p class="font-semibold">{{ question.text }}</p>
 						<select v-model="userAnswers[index]" class="w-full p-2 border rounded">
@@ -106,6 +102,8 @@
 						</select>
 					</div>
 
+					<!-- You could replace this with a unified Next/Done,
+               but this preserves your original matching Submit -->
 					<button
 						class="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
 						@click="submitQuiz"
@@ -115,110 +113,139 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- ──────────────────────────────────────────────────── -->
+		<!-- RESULTS OVERLAY (shown once showResults === true) -->
+		<!-- ──────────────────────────────────────────────────── -->
+		<Teleport to="body">
+			<div
+				v-if="showResults"
+				class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4"
+			>
+				<div class="bg-white p-8 rounded-lg shadow-lg text-center max-w-sm w-full">
+					<h2 class="text-2xl font-bold mb-4">Quiz Complete!</h2>
+					<p class="text-lg mb-2">Your Score:</p>
+					<p class="text-5xl font-extrabold mb-6">{{ score }} / {{ total }}</p>
+					<button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded" @click="goBack">
+						Back to Quizzes
+					</button>
+				</div>
+			</div>
+		</Teleport>
 	</div>
 </template>
 
 <script setup>
+import { useUserStore } from '@/stores/user' // ← adjust import path if needed
 import { quizzesData } from 'assets/quizzesData.js'
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 definePageMeta({
-	layout: 'fullscreen', // Uses fullscreen layout instead of default
+	layout: 'quizwindow',
 })
 
+// ROUTER & STORE
 const route = useRoute()
 const router = useRouter()
-const quizId = route.params.id.toString() // Ensure it's a string
-const quiz = ref(quizzesData.find((q) => q.id === quizId))
-const answers = ref([])
-const currentQuestionIndex = ref(0)
-const userAnswers = ref(Array.from({ length: quiz.value?.questions.length }).fill(''))
 const userStore = useUserStore()
 
-// Touch swipe handling
-const touchStartX = ref(0)
-const touchEndX = ref(0)
+// LOAD QUIZ
+const quizId = String(route.params.id)
+const quiz = ref(quizzesData.find((q) => q.id === quizId))
 
-const handleTouchStart = (event) => {
-	touchStartX.value = event.touches[0].clientX
+// STATE
+const currentQuestionIndex = ref(0)
+const answers = ref([]) // MCQ answers
+const userAnswers = ref([]) // matching answers
+
+// RESULTS STATE
+const showResults = ref(false)
+const score = ref(0)
+const total = ref(0)
+
+// INITIALIZE ANSWERS WHEN QUIZ LOADS
+watch(
+	() => quiz.value?.questions,
+	(questions) => {
+		if (!questions) return
+		if (quiz.value.type === 'multiple-choice') {
+			answers.value = Array.from({ length: questions.length }).fill(null)
+			userAnswers.value = []
+		} else {
+			userAnswers.value = Array.from({ length: questions.length }).fill('')
+			answers.value = []
+		}
+	},
+	{ immediate: true },
+)
+
+// SWIPE HANDLING
+const touchStartX = ref(0)
+
+function handleTouchStart(e) {
+	touchStartX.value = e.touches[0].clientX
 }
 
-const nextQuestion = () => {
+function handleTouchEnd(e) {
+	const dx = touchStartX.value - e.changedTouches[0].clientX
+	if (dx > 50) handleNextOrSubmit()
+	else if (dx < -50) prevQuestion()
+}
+
+// NAVIGATION HELPERS
+function nextQuestion() {
 	if (currentQuestionIndex.value < quiz.value.questions.length - 1) {
 		currentQuestionIndex.value++
 	}
 }
 
-const prevQuestion = () => {
+function prevQuestion() {
 	if (currentQuestionIndex.value > 0) {
 		currentQuestionIndex.value--
 	}
 }
 
-const checkSwipe = () => {
-	const swipeThreshold = 50 // Minimum swipe distance
+const isLast = computed(() => currentQuestionIndex.value === quiz.value.questions.length - 1)
+const nextLabel = computed(() => (isLast.value ? 'Done' : 'Next'))
 
-	// Swipe Left (Next Question)
-	if (touchStartX.value - touchEndX.value > swipeThreshold) {
-		nextQuestion()
-	}
-
-	// Swipe Right (Previous Question)
-	if (touchEndX.value - touchStartX.value > swipeThreshold) {
-		prevQuestion()
-	}
+function handleNextOrSubmit() {
+	if (isLast.value) submitQuiz()
+	else nextQuestion()
 }
 
-const handleTouchEnd = (event) => {
-	touchEndX.value = event.changedTouches[0].clientX
-	checkSwipe()
-}
-
-const submitQuiz = () => {
-	if (!quiz.value || !quiz.value.answerKey) {
-		console.error('Quiz data or answer key is missing!')
+// FINAL SUBMIT LOGIC (both MCQ & matching)
+function submitQuiz() {
+	if (!quiz.value?.answerKey) {
+		console.error('Quiz data or answerKey missing')
 		return
 	}
 
-	console.log('Quiz Title:', quiz.value.title)
-	console.log('Quiz Type:', quiz.value.type)
-	console.log('User Answers:', answers.value || userAnswers.value)
-	console.log('Correct Answers:', quiz.value.answerKey)
-
-	let score = 0
-	const totalQuestions = quiz.value.questions.length
+	total.value = quiz.value.questions.length
+	let s = 0
 
 	if (quiz.value.type === 'multiple-choice') {
-		quiz.value.answerKey.forEach((correctAnswer, index) => {
-			if (String(answers.value[index] || '') === String(correctAnswer)) {
-				score++
-			} else {
-				console.log(`❌ Question ${index + 1}: Expected "${correctAnswer}", Got "${answers.value[index]}"`)
-			}
+		quiz.value.answerKey.forEach((correct, i) => {
+			if (String(answers.value[i] ?? '') === String(correct)) s++
 		})
-	} else if (quiz.value.type === 'matching') {
-		score = 0 // Reset score before checking
-
-		quiz.value.answerKey.forEach((correctAnswer, index) => {
-			// Find the selected answer text using the selected ID
-			const selectedAnswerId = userAnswers.value[index]
-			const selectedAnswerText =
-				quiz.value.answers.find((answer) => answer.id === selectedAnswerId)?.text || ''
-
-			if (String(selectedAnswerText) === String(correctAnswer)) {
-				score++
-			} else {
-				console.log(`❌ Match ${index + 1}: Expected "${correctAnswer}", Got "${selectedAnswerText}"`)
-			}
+	} else {
+		quiz.value.answerKey.forEach((correct, i) => {
+			const selText = quiz.value.answers.find((a) => a.id === userAnswers.value[i])?.text || ''
+			if (selText === correct) s++
 		})
 	}
 
-	// Store quiz score in Pinia
-	userStore.storeQuizScore(quiz.value.outerTitle, quiz.value.title, score, totalQuestions)
+	score.value = s
 
-	// eslint-disable-next-line no-alert
-	alert(`Your Score: ${score} / ${totalQuestions}`)
+	// store score
+	userStore.storeQuizScore(quiz.value.outerTitle, quiz.value.title, s, total.value)
+
+	// reveal results overlay
+	showResults.value = true
+}
+
+// go back to quizzes list
+function goBack() {
 	router.push('/quizzes')
 }
 </script>
@@ -228,6 +255,7 @@ const submitQuiz = () => {
 .fade-leave-active {
 	transition: opacity 0.3s ease-in-out;
 }
+
 .fade-enter,
 .fade-leave-to {
 	opacity: 0;
