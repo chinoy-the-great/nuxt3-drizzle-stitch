@@ -1,29 +1,57 @@
 <template>
 	<div>
-		<!-- Header Image -->
 		<div class="header-image"></div>
-
-		<!-- Centered white card -->
 		<div class="card">
 			<Transition name="fade" mode="out-in">
-				<div :key="step" class="flex flex-col items-start space-y-4">
-					<!-- Title -->
-					<h2 class="title">{{ stepTitle }}</h2>
+				<div :key="step" class="step-container">
+					<!-- existing steps… -->
+					<h2 class="title" :class="{ 'title--pink': step === 4 }">
+						{{ stepTitle }}
+					</h2>
 
-					<!-- Step 1 -->
 					<button v-if="step === 1" class="btn" @click="goToStep(2)">Start Customizing</button>
 
-					<!-- Step 2 -->
 					<div v-else-if="step === 2" class="option-list">
 						<button class="btn" @click="selectType('top')">Top</button>
 						<button class="btn" @click="selectType('bottom')">Bottom</button>
 					</div>
 
-					<!-- Step 3 -->
 					<div v-else-if="step === 3" class="option-list">
 						<button v-for="style in currentStyles" :key="style" class="btn" @click="selectStyle(style)">
 							{{ style }}
 						</button>
+					</div>
+
+					<!-- NEW Step 4: Enter Your Measurements -->
+					<div v-else-if="step === 4" class="w-full space-y-4">
+						<div class="grid grid-cols-2 gap-4">
+							<div class="flex flex-col">
+								<label class="label">Bust (in inches)</label>
+								<input v-model="measurements.bust" type="number" class="input" />
+							</div>
+							<div class="flex flex-col">
+								<label class="label">Armhole (in inches)</label>
+								<input v-model="measurements.armhole" type="number" class="input" />
+							</div>
+							<div class="flex flex-col">
+								<label class="label">Underbust (in inches)</label>
+								<input v-model="measurements.underbust" type="number" class="input" />
+							</div>
+							<div class="flex flex-col">
+								<label class="label">Sleeve Length (in inches)</label>
+								<input v-model="measurements.sleeveLength" type="number" class="input" />
+							</div>
+							<div class="flex flex-col">
+								<label class="label">Shoulder Width (in inches)</label>
+								<input v-model="measurements.shoulderWidth" type="number" class="input" />
+							</div>
+							<div class="flex flex-col">
+								<label class="label">Neckline (in inches)</label>
+								<input v-model="measurements.neckline" type="number" class="input" />
+							</div>
+						</div>
+
+						<button class="btn" @click="generatePattern">Generate Pattern</button>
 					</div>
 				</div>
 			</Transition>
@@ -32,25 +60,39 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
-definePageMeta({
-	layout: 'customizationwindow',
-	title: 'Pattern Customization',
-})
+definePageMeta({ layout: 'customizationwindow', title: 'Pattern Customization' })
 
 const step = ref(1)
 const garmentType = ref<'top' | 'bottom' | ''>('')
-
+const selectedStyle = ref('')
 const topStyles = ['T‑Shirt', 'Sando', 'Blouse', 'Polo Shirt', 'Crop Top']
 const bottomStyles = ['Shorts', 'Pants', 'Skirt']
 
+// new reactive measurements object
+const measurements = reactive({
+	bust: '',
+	armhole: '',
+	underbust: '',
+	sleeveLength: '',
+	shoulderWidth: '',
+	neckline: '',
+})
+
 const stepTitle = computed(() => {
-	if (step.value === 1) return 'Create Your Own Pattern'
-	if (step.value === 2) return 'Select Garment Type'
-	if (step.value === 3 && garmentType.value === 'top') return 'Select Top Style'
-	if (step.value === 3 && garmentType.value === 'bottom') return 'Select Bottom Style'
-	return ''
+	switch (step.value) {
+		case 1:
+			return 'Create Your Own Pattern'
+		case 2:
+			return 'Select Garment Type'
+		case 3:
+			return garmentType.value === 'top' ? 'Select Top Style' : 'Select Bottom Style'
+		case 4:
+			return 'Enter Your Measurements'
+		default:
+			return ''
+	}
 })
 
 const currentStyles = computed(() => (garmentType.value === 'top' ? topStyles : bottomStyles))
@@ -58,57 +100,63 @@ const currentStyles = computed(() => (garmentType.value === 'top' ? topStyles : 
 function goToStep(n: number) {
 	step.value = n
 }
-
 function selectType(type: 'top' | 'bottom') {
 	garmentType.value = type
 	step.value = 3
 }
-
+// now we advance to step 4 on style selection
 function selectStyle(style: string) {
-	console.log('Chosen style:', style)
+	selectedStyle.value = style
+	step.value = 4
+}
+function generatePattern() {
+	console.log('🚀 generate with', {
+		type: garmentType.value,
+		style: selectedStyle.value,
+		measurements,
+	})
+	// …your API call or router push…
 }
 </script>
 
 <style lang="postcss">
-/* header background + sizing */
 .header-image {
-	@apply w-full h-[12vh]
-  bg-cover bg-center
+	@apply w-full h-[12vh] bg-cover bg-center
   bg-[url('/_BG_ART_LogIn_home_v2.jpg')]
   shadow-md shadow-gray-400;
 }
-
-/* white card around all steps */
 .card {
-	@apply mx-auto mt-6 max-w-md
-  bg-white p-6
-  rounded-lg shadow-lg;
+	@apply mx-auto mt-6 max-w-md bg-white p-6 rounded-lg shadow-lg;
 }
-
-/* reused button */
+.step-container {
+	@apply flex flex-col items-start space-y-6;
+}
+.title {
+	@apply text-black text-lg font-semibold text-left;
+}
+/* only used on step 4 */
+.title--pink {
+	@apply text-[#FF0066];
+}
+.option-list {
+	@apply flex flex-col space-y-2 w-full;
+}
 .btn {
-	@apply w-full
-  bg-[#FF0066] text-white text-sm
-  py-2 px-4
-  rounded-lg
-  shadow-md shadow-gray-400
-  transition ease-in-out;
+	@apply w-full bg-[#FF0066] text-white text-sm
+  py-2 px-4 rounded-lg shadow-md shadow-gray-400
+  transition ease-in-out text-center;
 }
 .btn:hover {
 	@apply bg-pink-500;
 }
-
-/* small tweaks for text title */
-.title {
-	@apply text-black text-lg font-semibold text-left;
+.label {
+	@apply text-sm font-medium text-gray-700 mb-1;
 }
-
-/* wrapper for stacked buttons to get even spacing */
-.option-list {
-	@apply flex flex-col space-y-2 w-full;
+.input {
+	@apply w-full border border-gray-300 rounded-md p-2
+  focus:outline-none focus:ring-2 focus:ring-pink-400;
 }
-
-/* simple fade in/out */
+/* fade */
 .fade-enter-active,
 .fade-leave-active {
 	transition: opacity 0.3s ease;
