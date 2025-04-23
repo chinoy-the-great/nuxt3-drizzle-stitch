@@ -1,34 +1,32 @@
 <template>
 	<div>
-		<!-- header image -->
-		<div class="header-image"></div>
+		<div class="header-image mb-8"></div>
 
-		<!-- main card -->
 		<div class="card">
 			<Transition name="fade" mode="out-in">
-				<div :key="step" class="step-container">
-					<!-- step title -->
-					<h2 class="title" :class="{ 'title--pink': step === 4 }">
+				<div :key="step" class="step-container space-y-6">
+					<!-- shared title -->
+					<h2 class="title" :class="{ 'title--pink': step === 4 || step === 5 }">
 						{{ stepTitle }}
 					</h2>
 
-					<!-- step 1 -->
+					<!-- STEP 1 -->
 					<button v-if="step === 1" class="btn" @click="goToStep(2)">Start Customizing</button>
 
-					<!-- step 2 -->
+					<!-- STEP 2 -->
 					<div v-else-if="step === 2" class="option-list">
 						<button class="btn" @click="selectType('top')">Top</button>
 						<button class="btn" @click="selectType('bottom')">Bottom</button>
 					</div>
 
-					<!-- step 3 -->
+					<!-- STEP 3 -->
 					<div v-else-if="step === 3" class="option-list">
 						<button v-for="style in currentStyles" :key="style" class="btn" @click="selectStyle(style)">
 							{{ style }}
 						</button>
 					</div>
 
-					<!-- step 4: just the inputs + button -->
+					<!-- STEP 4 -->
 					<div v-else-if="step === 4" class="w-full space-y-4">
 						<div class="grid grid-cols-2 gap-4">
 							<div v-for="field in measurementFields" :key="field.key" class="flex flex-col">
@@ -36,14 +34,54 @@
 								<input v-model="measurements[field.key]" type="number" class="input" />
 							</div>
 						</div>
-
 						<button class="btn" @click="generatePattern">Generate Pattern</button>
+					</div>
+
+					<!-- STEP 5: RESULTS -->
+					<div v-else-if="step === 5" class="w-full space-y-6">
+						<!-- big main image -->
+						<img
+							:src="resultImages.main"
+							alt="Pattern result"
+							class="w-full object-contain bg-white p-4 rounded-md"
+							style="max-height: 40vh"
+						/>
+
+						<!-- two columns: measurements + side image -->
+						<div class="grid grid-cols-2 gap-4">
+							<div>
+								<h3 class="font-semibold mb-2">Your Measurements</h3>
+								<ul class="list-disc pl-5 space-y-1 text-sm">
+									<li v-for="f in measurementFields" :key="f.key">
+										<strong>{{ f.label }}:</strong>
+										{{ measurements[f.key] }} {{ f.unit }}
+									</li>
+								</ul>
+							</div>
+							<div>
+								<img
+									:src="resultImages.side"
+									alt="Side view"
+									class="w-full object-contain bg-white p-4 rounded-md"
+									style="max-height: 40vh"
+								/>
+							</div>
+						</div>
+
+						<!-- Save buttons -->
+						<div>
+							<button class="btn w-full mb-2" @click="saveCreation">Save in My Creation</button>
+							<div class="flex space-x-2">
+								<button class="btn flex-1" @click="savePdf">Save PDF</button>
+								<button class="btn flex-1" @click="startOver">Start Over</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</Transition>
 		</div>
 
-		<!-- ORIGINAL instructions panel, now dynamic -->
+		<!-- original instructions ONLY at step 4 -->
 		<div v-if="step === 4" class="instructions px-8 pb-8">
 			<h3 class="instructions-title">Instructions:</h3>
 			<div v-for="field in measurementFields" :key="field.key" class="instruction-item">
@@ -67,31 +105,31 @@ const step = ref(1)
 const garmentType = ref<'top' | 'bottom' | ''>('')
 const selectedStyle = ref<string>('')
 
-// a reactive object that will hold whatever measurement‐keys the user needs:
+// dynamic measurements store
 const measurements = reactive<Record<string, string>>({})
 
-// pull the array of style‐names for step 3
+// styles for step 3
 const currentStyles = computed<string[]>(() => {
 	if (!garmentType.value) return []
 	return customizationData[garmentType.value].styles
 })
 
-// pull the right measurement‐fields based on (garmentType, selectedStyle)
-const measurementFields = computed<
-	Array<{
-		key: string
-		label: string
-		unit: string
-		description: string
-	}>
->(() => {
+// which measurement fields to show
+const measurementFields = computed(() => {
 	if (!garmentType.value || !selectedStyle.value) return []
-	const all = customizationData[garmentType.value].measurements
-	// if there's a per‐style override, use it; otherwise default
-	return all[selectedStyle.value] ?? all.default
+	const m = customizationData[garmentType.value].measurements
+	return m[selectedStyle.value] ?? m.default
 })
 
-// convenience titles
+// images for step 5
+const resultImages = computed(() => {
+	if (!garmentType.value || !selectedStyle.value) {
+		return { main: '', side: '' }
+	}
+	const imgs = customizationData[garmentType.value].images
+	return imgs[selectedStyle.value] ?? imgs.default
+})
+
 const stepTitle = computed(() => {
 	switch (step.value) {
 		case 1:
@@ -102,6 +140,8 @@ const stepTitle = computed(() => {
 			return garmentType.value === 'top' ? 'Select Top Style' : 'Select Bottom Style'
 		case 4:
 			return 'Enter Your Measurements'
+		case 5:
+			return 'Result of Your Pattern'
 		default:
 			return ''
 	}
@@ -119,12 +159,9 @@ function selectType(type: 'top' | 'bottom') {
 function selectStyle(style: string) {
 	selectedStyle.value = style
 
-	// clear out any old measurements
-	Object.keys(measurements).forEach((k) => {
-		delete measurements[k]
-	})
-
-	// initialize the new fields
+	// reset old measurements
+	Object.keys(measurements).forEach((k) => delete measurements[k])
+	// init new keys
 	measurementFields.value.forEach((f) => {
 		measurements[f.key] = ''
 	})
@@ -133,12 +170,39 @@ function selectStyle(style: string) {
 }
 
 function generatePattern() {
-	console.log('Generating with:', {
+	// ensure no blank fields
+	const missing = measurementFields.value.filter((f) => !measurements[f.key]).map((f) => f.label)
+
+	if (missing.length) {
+		// enter error message function here
+		return
+	}
+
+	// here you would call your API…
+	// once successful, go to step 5
+	step.value = 5
+}
+
+function saveCreation() {
+	console.log('Save creation for:', {
 		type: garmentType.value,
 		style: selectedStyle.value,
 		measurements,
 	})
-	// … call your API or router.push …
+	// call your save‐creation API…
+}
+
+function savePdf() {
+	console.log('Generate & save PDF for:', measurements)
+	// call your PDF endpoint…
+}
+
+function startOver() {
+	// reset everything
+	step.value = 1
+	garmentType.value = ''
+	selectedStyle.value = ''
+	Object.keys(measurements).forEach((k) => delete measurements[k])
 }
 </script>
 
@@ -149,7 +213,7 @@ function generatePattern() {
   shadow-md shadow-gray-400;
 }
 .card {
-	@apply mx-auto mt-6 max-w-md bg-white p-6 rounded-lg shadow-lg;
+	@apply mx-auto my-6 max-w-md bg-white p-6 rounded-lg shadow-lg;
 }
 .step-container {
 	@apply flex flex-col items-start space-y-6;
