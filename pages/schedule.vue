@@ -67,101 +67,113 @@
 				v-if="showForm"
 				class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
 			>
-				<div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 space-y-4">
-					<!-- Header -->
-					<div class="flex justify-between items-center">
-						<button class="text-gray-500 hover:text-gray-700" @click="showForm = false">Cancel</button>
-						<h3 class="text-lg font-semibold">New {{ form.type === 'event' ? 'Event' : 'Task' }}</h3>
+				<div class="bg-white rounded-lg shadow-lg w-full max-w-xs p-3 space-y-2 text-xs">
+					<!-- HEADER with bottom border -->
+					<div class="flex justify-between items-center border-b border-black pb-2">
+						<button class="text-[#f4bbbb] hover:text-[#d39b9b]" @click="showForm = false">CANCEL</button>
+
+						<h3 class="font-semibold text-sm text-[#ff0066]">
+							NEW {{ form.type === 'event' ? 'EVENT' : 'TASK' }}
+						</h3>
+
 						<button
-							:disabled="!isEndAfterStart"
-							class="text-blue-500 hover:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+							:disabled="form.type === 'event' && !isEndAfterStart"
+							class="text-[#f4bbbb] hover:text-[#d39b9b] disabled:opacity-50 disabled:cursor-not-allowed"
 							@click="addItem"
 						>
-							Add
+							ADD
 						</button>
 					</div>
 
-					<!-- Form Fields -->
-					<div class="space-y-4 text-sm">
-						<!-- Title -->
-						<div>
-							<label class="block mb-1">Title</label>
-							<input v-model="form.title" type="text" class="w-full border rounded p-2" />
+					<!-- BODY in original order -->
+					<div class="space-y-2">
+						<!-- 1) Title -->
+						<div class="flex items-center">
+							<label class="w-1/3">Title:</label>
+							<input v-model="form.title" type="text" class="flex-1 border rounded p-1" />
 						</div>
-						<!-- Location / Description -->
-						<div>
-							<label class="block mb-1">
-								{{ form.type === 'event' ? 'Location' : 'Description' }}
+
+						<!-- 2) Location/Description -->
+						<div class="flex items-center">
+							<label class="w-1/3">
+								{{ form.type === 'event' ? 'Location:' : 'Description:' }}
 							</label>
-							<input v-model="form.location" type="text" class="w-full border rounded p-2" />
+							<input v-model="form.location" type="text" class="flex-1 border rounded p-1" />
 						</div>
-						<!-- Category -->
-						<div>
-							<label class="block mb-1">Category</label>
-							<select v-model="form.type" class="w-full border rounded p-2">
+
+						<!-- 3) Category -->
+						<div class="flex items-center">
+							<label class="w-1/3">Category:</label>
+							<select v-model="form.type" class="flex-1 border rounded p-1">
 								<option value="event">Event</option>
 								<option value="task">Task</option>
 							</select>
 						</div>
-						<!-- Notify me -->
-						<div>
-							<label class="block mb-1">Notify me</label>
-							<select v-model="form.notify" class="w-full border rounded p-2">
+
+						<!-- 4) Notify me -->
+						<div class="flex items-center">
+							<label class="w-1/3">Notify:</label>
+							<select v-model="form.notify" class="flex-1 border rounded p-1">
 								<option value="day-before">A day before</option>
 								<option value="on-day">On the day</option>
 								<option value="hour-before">An hour before</option>
 							</select>
 						</div>
-						<!-- Repeat -->
-						<div>
-							<label class="block mb-1">Repeat</label>
-							<select v-model="form.repeat" class="w-full border rounded p-2">
+
+						<!-- 5) Repeat -->
+						<div class="flex items-center">
+							<label class="w-1/3">Repeat:</label>
+							<select v-model="form.repeat" class="flex-1 border rounded p-1">
 								<option value="none">None</option>
 								<option value="daily">Every day</option>
 								<option value="every-other-day">Every other day</option>
 								<option value="weekly">Weekly</option>
 							</select>
 						</div>
-						<!-- All Day -->
+
+						<!-- 6) All Day as a slider -->
 						<div class="flex items-center">
-							<input id="allDay" v-model="form.allDay" type="checkbox" class="mr-2" />
-							<label for="allDay">All Day</label>
+							<span class="w-1/3">All Day:</span>
+							<label for="allDay" class="relative inline-flex items-center cursor-pointer">
+								<input id="allDay" v-model="form.allDay" type="checkbox" class="sr-only peer" />
+								<!-- track -->
+								<div
+									class="w-9 h-5 bg-gray-300 rounded-full peer-checked:bg-[#ff0066] transition-colors"
+								></div>
+								<!-- thumb -->
+								<div
+									class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full peer-checked:translate-x-4 transition-transform"
+								></div>
+							</label>
 						</div>
-						<!-- Starts -->
-						<div class="grid grid-cols-2 gap-4">
-							<div>
-								<label class="block mb-1">Starts (Date)</label>
-								<input v-model="form.startDate" type="date" class="w-full border rounded p-2" />
-							</div>
-							<div>
-								<label class="block mb-1">Starts (Time)</label>
-								<input
-									v-model="form.startTime"
-									type="time"
-									:disabled="form.allDay"
-									class="w-full border rounded p-2"
-								/>
-							</div>
+
+						<!-- 7) Starts -->
+						<div class="flex items-center">
+							<label class="w-1/3">Starts:</label>
+							<input v-model="form.startDate" type="date" class="border rounded p-1 flex-1" />
+							<input
+								v-model="form.startTime"
+								type="time"
+								:disabled="form.allDay"
+								class="border rounded p-1 w-20 ml-1"
+							/>
 						</div>
-						<!-- Ends -->
-						<div class="grid grid-cols-2 gap-4">
-							<div>
-								<label class="block mb-1">Ends (Date)</label>
-								<input v-model="form.endDate" type="date" class="w-full border rounded p-2" />
-							</div>
-							<div>
-								<label class="block mb-1">Ends (Time)</label>
-								<input
-									v-model="form.endTime"
-									type="time"
-									:disabled="form.allDay"
-									class="w-full border rounded p-2"
-								/>
-							</div>
+
+						<!-- 8) Ends -->
+						<div class="flex items-center">
+							<label class="w-1/3">Ends:</label>
+							<input v-model="form.endDate" type="date" class="border rounded p-1 flex-1" />
+							<input
+								v-model="form.endTime"
+								type="time"
+								:disabled="form.allDay"
+								class="border rounded p-1 w-20 ml-1"
+							/>
 						</div>
-						<!-- Validation Error -->
-						<p v-if="!isEndAfterStart" class="text-red-500 text-sm mt-1">
-							End date/time must be the same or after the start.
+
+						<!-- validation msg -->
+						<p v-if="form.type === 'event' && !isEndAfterStart" class="text-red-500">
+							End must be the same or after the start.
 						</p>
 					</div>
 				</div>
