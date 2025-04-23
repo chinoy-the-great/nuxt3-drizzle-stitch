@@ -1,53 +1,39 @@
 <template>
 	<div>
+		<!-- header image -->
 		<div class="header-image"></div>
+
+		<!-- main card -->
 		<div class="card">
 			<Transition name="fade" mode="out-in">
 				<div :key="step" class="step-container">
-					<!-- existing steps… -->
+					<!-- step title -->
 					<h2 class="title" :class="{ 'title--pink': step === 4 }">
 						{{ stepTitle }}
 					</h2>
 
+					<!-- step 1 -->
 					<button v-if="step === 1" class="btn" @click="goToStep(2)">Start Customizing</button>
 
+					<!-- step 2 -->
 					<div v-else-if="step === 2" class="option-list">
 						<button class="btn" @click="selectType('top')">Top</button>
 						<button class="btn" @click="selectType('bottom')">Bottom</button>
 					</div>
 
+					<!-- step 3 -->
 					<div v-else-if="step === 3" class="option-list">
 						<button v-for="style in currentStyles" :key="style" class="btn" @click="selectStyle(style)">
 							{{ style }}
 						</button>
 					</div>
 
-					<!-- NEW Step 4: Enter Your Measurements -->
+					<!-- step 4: just the inputs + button -->
 					<div v-else-if="step === 4" class="w-full space-y-4">
 						<div class="grid grid-cols-2 gap-4">
-							<div class="flex flex-col">
-								<label class="label">Bust (in inches)</label>
-								<input v-model="measurements.bust" type="number" class="input" />
-							</div>
-							<div class="flex flex-col">
-								<label class="label">Armhole (in inches)</label>
-								<input v-model="measurements.armhole" type="number" class="input" />
-							</div>
-							<div class="flex flex-col">
-								<label class="label">Underbust (in inches)</label>
-								<input v-model="measurements.underbust" type="number" class="input" />
-							</div>
-							<div class="flex flex-col">
-								<label class="label">Sleeve Length (in inches)</label>
-								<input v-model="measurements.sleeveLength" type="number" class="input" />
-							</div>
-							<div class="flex flex-col">
-								<label class="label">Shoulder Width (in inches)</label>
-								<input v-model="measurements.shoulderWidth" type="number" class="input" />
-							</div>
-							<div class="flex flex-col">
-								<label class="label">Neckline (in inches)</label>
-								<input v-model="measurements.neckline" type="number" class="input" />
+							<div v-for="field in measurementFields" :key="field.key" class="flex flex-col">
+								<label class="label">{{ field.label }} ({{ field.unit }})</label>
+								<input v-model="measurements[field.key]" type="number" class="input" />
 							</div>
 						</div>
 
@@ -57,65 +43,55 @@
 			</Transition>
 		</div>
 
+		<!-- ORIGINAL instructions panel, now dynamic -->
 		<div v-if="step === 4" class="instructions px-8 pb-8">
 			<h3 class="instructions-title">Instructions:</h3>
-
-			<div v-for="item in measurementInstructions" :key="item.label" class="instruction-item">
-				<p class="instruction-measure">{{ item.label }}</p>
-				<p class="instruction-text">How To Measure: {{ item.description }}</p>
+			<div v-for="field in measurementFields" :key="field.key" class="instruction-item">
+				<p class="instruction-measure">{{ field.label }}</p>
+				<p class="instruction-text">How To Measure: {{ field.description }}</p>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
+import { customizationData } from '@/assets/customizationData.js'
 import { computed, reactive, ref } from 'vue'
 
-definePageMeta({ layout: 'customizationwindow', title: 'Pattern Customization' })
+definePageMeta({
+	layout: 'customizationwindow',
+	title: 'Pattern Customization',
+})
 
 const step = ref(1)
 const garmentType = ref<'top' | 'bottom' | ''>('')
-const selectedStyle = ref('')
-const topStyles = ['T‑Shirt', 'Sando', 'Blouse', 'Polo Shirt', 'Crop Top']
-const bottomStyles = ['Shorts', 'Pants', 'Skirt']
+const selectedStyle = ref<string>('')
 
-const measurementInstructions = [
-	{
-		label: 'Bust',
-		description: 'Around the fullest part of your bust, keeping the tape comfortable snug but not tight.',
-	},
-	{
-		label: 'Armhole',
-		description: 'Directly under your bust, where the band of your bra sits.',
-	},
-	{
-		label: 'Underbust',
-		description: 'Around the shoulder and under the arm, keeping the tape snug but comfortable.',
-	},
-	{
-		label: 'Sleeve Length',
-		description: 'From the top of the shoulder to the wrist along the outside of your arm.',
-	},
-	{
-		label: 'Shoulder Width',
-		description: 'From the shoulder (at the neck) to the desired length (waist, hips, or lower).',
-	},
-	{
-		label: 'Neckline',
-		description: 'Around the base of your neck, where the collar or neckline sits.',
-	},
-]
+// a reactive object that will hold whatever measurement‐keys the user needs:
+const measurements = reactive<Record<string, string>>({})
 
-// new reactive measurements object
-const measurements = reactive({
-	bust: '',
-	armhole: '',
-	underbust: '',
-	sleeveLength: '',
-	shoulderWidth: '',
-	neckline: '',
+// pull the array of style‐names for step 3
+const currentStyles = computed<string[]>(() => {
+	if (!garmentType.value) return []
+	return customizationData[garmentType.value].styles
 })
 
+// pull the right measurement‐fields based on (garmentType, selectedStyle)
+const measurementFields = computed<
+	Array<{
+		key: string
+		label: string
+		unit: string
+		description: string
+	}>
+>(() => {
+	if (!garmentType.value || !selectedStyle.value) return []
+	const all = customizationData[garmentType.value].measurements
+	// if there's a per‐style override, use it; otherwise default
+	return all[selectedStyle.value] ?? all.default
+})
+
+// convenience titles
 const stepTitle = computed(() => {
 	switch (step.value) {
 		case 1:
@@ -131,27 +107,38 @@ const stepTitle = computed(() => {
 	}
 })
 
-const currentStyles = computed(() => (garmentType.value === 'top' ? topStyles : bottomStyles))
-
 function goToStep(n: number) {
 	step.value = n
 }
+
 function selectType(type: 'top' | 'bottom') {
 	garmentType.value = type
 	step.value = 3
 }
-// now we advance to step 4 on style selection
+
 function selectStyle(style: string) {
 	selectedStyle.value = style
+
+	// clear out any old measurements
+	Object.keys(measurements).forEach((k) => {
+		delete measurements[k]
+	})
+
+	// initialize the new fields
+	measurementFields.value.forEach((f) => {
+		measurements[f.key] = ''
+	})
+
 	step.value = 4
 }
+
 function generatePattern() {
-	console.log('🚀 generate with', {
+	console.log('Generating with:', {
 		type: garmentType.value,
 		style: selectedStyle.value,
 		measurements,
 	})
-	// …your API call or router push…
+	// … call your API or router.push …
 }
 </script>
 
