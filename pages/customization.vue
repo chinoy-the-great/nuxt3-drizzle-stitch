@@ -13,15 +13,19 @@
 
 		<!-- New Pattern Customization Box -->
 		<div class="flex justify-center mt-8">
-			<div
-				class="flex items-center bg-white border-[2px] border-black rounded-md px-3 py-2 w-[85%] shadow-md shadow-gray-400"
+			<!-- NuxtLink in place of your div -->
+			<NuxtLink
+				to="/customization-pattern"
+				class="flex items-center bg-white border-2 border-black rounded-md px-3 py-2 w-[85%] shadow-md shadow-gray-400 hover:bg-gray-50 transition"
 			>
-				<!-- Plus Icon inside a white circle with black border -->
+				<!-- Plus Icon -->
 				<div class="flex items-center justify-center border border-black rounded-full w-6 h-6 mr-3 bg-white">
 					<i class="fas fa-plus text-xs text-black"></i>
 				</div>
+
+				<!-- Label -->
 				<span class="text-xxs text-black font-semibold">New Pattern Customization</span>
-			</div>
+			</NuxtLink>
 		</div>
 
 		<!-- Section with two rectangles and labels below -->
@@ -29,7 +33,7 @@
 			<div class="w-[85%] flex gap-2 flex-col items-center">
 				<div class="flex w-full gap-2">
 					<!-- Left Rectangle (2/3 width) -->
-					<div class="w-2/3 bg-[#f4bbbb] h-32 rounded-md shadow-md shadow-gray-400"></div>
+					<div class="w-2/3 bg-[#ffe9fa] h-32 rounded-md shadow-md shadow-gray-400"></div>
 
 					<!-- Right Rectangle (1/3 width) -->
 					<div class="w-1/3 bg-[#ff0066] h-32 rounded-md shadow-md shadow-gray-400"></div>
