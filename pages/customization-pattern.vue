@@ -56,6 +56,15 @@
 				</div>
 			</Transition>
 		</div>
+
+		<div v-if="step === 4" class="instructions px-8 pb-8">
+			<h3 class="instructions-title">Instructions:</h3>
+
+			<div v-for="item in measurementInstructions" :key="item.label" class="instruction-item">
+				<p class="instruction-measure">{{ item.label }}</p>
+				<p class="instruction-text">How To Measure: {{ item.description }}</p>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -69,6 +78,33 @@ const garmentType = ref<'top' | 'bottom' | ''>('')
 const selectedStyle = ref('')
 const topStyles = ['T‑Shirt', 'Sando', 'Blouse', 'Polo Shirt', 'Crop Top']
 const bottomStyles = ['Shorts', 'Pants', 'Skirt']
+
+const measurementInstructions = [
+	{
+		label: 'Bust',
+		description: 'Around the fullest part of your bust, keeping the tape comfortable snug but not tight.',
+	},
+	{
+		label: 'Armhole',
+		description: 'Directly under your bust, where the band of your bra sits.',
+	},
+	{
+		label: 'Underbust',
+		description: 'Around the shoulder and under the arm, keeping the tape snug but comfortable.',
+	},
+	{
+		label: 'Sleeve Length',
+		description: 'From the top of the shoulder to the wrist along the outside of your arm.',
+	},
+	{
+		label: 'Shoulder Width',
+		description: 'From the shoulder (at the neck) to the desired length (waist, hips, or lower).',
+	},
+	{
+		label: 'Neckline',
+		description: 'Around the base of your neck, where the collar or neckline sits.',
+	},
+]
 
 // new reactive measurements object
 const measurements = reactive({
@@ -155,6 +191,21 @@ function generatePattern() {
 .input {
 	@apply w-full border border-gray-300 rounded-md p-2
   focus:outline-none focus:ring-2 focus:ring-pink-400;
+}
+.instructions {
+	@apply text-xxs text-black mt-4;
+}
+.instructions-title {
+	@apply text-xs text-center font-bold mb-2;
+}
+.instruction-item {
+	@apply mb-2;
+}
+.instruction-measure {
+	@apply text-left font-bold;
+}
+.instruction-text {
+	@apply text-left font-semibold;
 }
 /* fade */
 .fade-enter-active,
