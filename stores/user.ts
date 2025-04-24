@@ -1,14 +1,14 @@
 import { nanoid } from 'nanoid'
+// stores/user.ts
 import { defineStore } from 'pinia'
 import { computed, ref, watch } from 'vue'
 
-/** Authentication payload */
+/**── Interfaces ─────────────────────────────────────────**/
 interface User {
 	username: string
 	token: string
 }
 
-/** Quiz score structure */
 interface QuizScore {
 	outerTitle: string
 	quizTitle: string
@@ -17,7 +17,6 @@ interface QuizScore {
 	date: string
 }
 
-/** A saved pattern (“creation”) */
 export interface PatternCreation {
 	id: string
 	garmentType: 'top' | 'bottom'
@@ -27,8 +26,9 @@ export interface PatternCreation {
 	createdAt: string
 }
 
+/**── Store Definition ────────────────────────────────────**/
 export const useUserStore = defineStore('user', () => {
-	// ─── User / Profile State ───────────────────────────
+	// ─── State ─────────────────────────────────────────────
 	const user = ref<User | null>(null)
 	const name = ref('John Doe')
 	const fullName = ref('Johnathan Doe')
@@ -37,36 +37,64 @@ export const useUserStore = defineStore('user', () => {
 	const age = ref<number | null>(null)
 	const email = ref('')
 
-	// ─── Quiz Scores ─────────────────────────────────────
 	const quizScores = ref<QuizScore[]>([])
 
-	// ─── Persisted “My Creations” ────────────────────────
+	// “My Creations” state
 	const creations = ref<PatternCreation[]>([])
 
-	// Hydrate from localStorage (only in browser)
+	// ─── HYDRATE on client ─────────────────────────────────
 	if (typeof window !== 'undefined') {
-		const saved = localStorage.getItem('my_creations')
-		if (saved) {
+		// load user if stored
+		const rawUser = window.localStorage.getItem('user')
+		if (rawUser) {
 			try {
-				creations.value = JSON.parse(saved)
-			} catch (e) {
-				console.warn('Failed to parse saved creations:', e)
-			}
+				user.value = JSON.parse(rawUser)
+			} catch {}
+		}
+		// load anonymous creations if any
+		const rawCreations = window.localStorage.getItem('my_creations')
+		if (rawCreations) {
+			try {
+				creations.value = JSON.parse(rawCreations)
+			} catch {}
 		}
 	}
 
-	// Persist any changes back to localStorage
+	// ─── WATCH user → persist & clear creations on login ───
+	watch(
+		user,
+		(u) => {
+			if (typeof window === 'undefined') return
+
+			if (u) {
+				// user just logged in
+				window.localStorage.setItem('user', JSON.stringify(u))
+
+				// clear any guest‐stored creations
+				creations.value = []
+				window.localStorage.removeItem('my_creations')
+			} else {
+				// user logged out
+				window.localStorage.removeItem('user')
+			}
+		},
+		{ immediate: true },
+	)
+
+	// ─── WATCH creations → persist anonymous creations ─────
 	watch(
 		creations,
-		(newList) => {
-			if (typeof window !== 'undefined') {
-				localStorage.setItem('my_creations', JSON.stringify(newList))
+		(list) => {
+			if (typeof window === 'undefined') return
+			// only store when there's no logged-in user
+			if (!user.value) {
+				window.localStorage.setItem('my_creations', JSON.stringify(list))
 			}
 		},
 		{ deep: true },
 	)
 
-	// ─── Actions ─────────────────────────────────────────
+	// ─── Actions ───────────────────────────────────────────
 	function setUser(userData: User) {
 		user.value = userData
 	}
@@ -101,10 +129,6 @@ export const useUserStore = defineStore('user', () => {
 		})
 	}
 
-	/**
-	 * Add a new pattern to the user’s creations list.
-	 * Generates a unique `id` + timestamp automatically.
-	 */
 	function addCreation(payload: {
 		garmentType: 'top' | 'bottom'
 		style: string
@@ -118,11 +142,11 @@ export const useUserStore = defineStore('user', () => {
 		})
 	}
 
-	// ─── Getters ─────────────────────────────────────────
+	// ─── Getters ───────────────────────────────────────────
 	const isLoggedIn = computed(() => !!user.value)
 
 	return {
-		// Auth & profile
+		// state
 		user,
 		name,
 		fullName,
@@ -130,19 +154,17 @@ export const useUserStore = defineStore('user', () => {
 		profilePicture,
 		age,
 		email,
+		quizScores,
+		creations,
+
+		// actions
 		setUser,
 		clearUser,
 		updateProfile,
-
-		// Quiz
-		quizScores,
 		storeQuizScore,
-
-		// Creations
-		creations,
 		addCreation,
 
-		// Getters
+		// getter
 		isLoggedIn,
 	}
 })
