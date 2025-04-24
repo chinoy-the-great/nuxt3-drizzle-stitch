@@ -67,7 +67,7 @@
 
 <script setup lang="ts">
 // your central customization data
-import { customizationData } from '@/assets/customizationData.js'
+import { measurementDefinitions } from '@/assets/measurementDefinitions.js'
 // Pinia store & types
 import { computed, ref } from 'vue'
 import { PatternCreation, useUserStore } from '~/stores/user'
@@ -92,18 +92,10 @@ function goBack() {
 	selectedCreation.value = null
 }
 
-// compute measurement‐fields for the currently selected creation
-const selectedMeasurementFields = computed(() => {
-	if (!selectedCreation.value) return []
-	const { garmentType, style } = selectedCreation.value
-	const m = customizationData[garmentType].measurements
-	return m[style] ?? m.default
-})
-
 // helper to look up field labels by key
-function getLabel(key: string) {
-	const field = selectedMeasurementFields.value.find((f) => f.key === key)
-	return field?.label ?? key
+function getLabel(key: string): string {
+	const fromMaster = measurementDefinitions.find((m) => m.key === key)
+	return fromMaster.label ?? key
 }
 </script>
 
