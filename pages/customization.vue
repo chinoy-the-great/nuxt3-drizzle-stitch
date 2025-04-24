@@ -39,7 +39,10 @@
 					></NuxtLink>
 
 					<!-- Right Rectangle (1/3 width) -->
-					<div class="w-1/3 bg-[#ff0066] h-32 rounded-md shadow-md shadow-gray-400"></div>
+					<NuxtLink
+						to="/customization-pattern-guide"
+						class="w-1/3 bg-[#ff0066] h-32 rounded-md shadow-md shadow-gray-400"
+					></NuxtLink>
 				</div>
 
 				<div class="flex w-full gap-2 mt-1">
