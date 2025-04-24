@@ -2,7 +2,7 @@
 	<div>
 		<div class="header-image mb-8"></div>
 
-		<div class="card">
+		<div ref="pdfContent" class="card">
 			<Transition name="fade" mode="out-in">
 				<div :key="step" class="step-container space-y-6">
 					<!-- shared title -->
@@ -70,10 +70,10 @@
 
 						<!-- Save buttons -->
 						<div>
-							<button class="btn w-full mb-2" @click="saveCreation">Save in My Creation</button>
+							<button class="btn no-pdf w-full mb-2" @click="saveCreation">Save in My Creation</button>
 							<div class="flex space-x-2">
-								<button class="btn flex-1" @click="savePdf">Save PDF</button>
-								<button class="btn flex-1" @click="startOver">Start Over</button>
+								<button class="btn no-pdf flex-1" @click="savePdf">Save PDF</button>
+								<button class="btn no-pdf flex-1" @click="startOver">Start Over</button>
 							</div>
 						</div>
 					</div>
@@ -192,17 +192,39 @@ function saveCreation() {
 	// call your save‐creation API…
 }
 
-function savePdf() {
-	console.log('Generate & save PDF for:', measurements)
-	// call your PDF endpoint…
-}
-
 function startOver() {
 	// reset everything
 	step.value = 1
 	garmentType.value = ''
 	selectedStyle.value = ''
 	Object.keys(measurements).forEach((k) => delete measurements[k])
+}
+
+const pdfContent = ref<HTMLElement | null>(null)
+
+async function savePdf() {
+	if (!pdfContent.value) return
+
+	// 1) lazy‐load html2canvas
+	const { default: html2canvas } = await import('html2canvas')
+	// 2) rend­er, telling it to skip any `.no-pdf`
+	const canvas = await html2canvas(pdfContent.value, {
+		scale: window.devicePixelRatio,
+		useCORS: true,
+		backgroundColor: '#fff',
+		ignoreElements: (el) => el.classList?.contains('no-pdf'),
+	})
+
+	// 3) build the PDF
+	const imgData = canvas.toDataURL('image/png')
+	const { jsPDF: JsPDF } = await import('jspdf')
+	const pdf = new JsPDF({
+		unit: 'px',
+		format: [canvas.width, canvas.height],
+		orientation: 'portrait',
+	})
+	pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height)
+	pdf.save('pattern.pdf')
 }
 </script>
 
