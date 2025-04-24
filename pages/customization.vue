@@ -53,7 +53,10 @@
 
 <script setup>
 definePageMeta({
-	layout: 'window',
+	layout: 'customizationwindow',
 	title: 'Customization',
+	headerBg: '#ffffff',
+	headerBorder: '#ffa5a5',
+	mainBg: '#ffffff',
 })
 </script>
