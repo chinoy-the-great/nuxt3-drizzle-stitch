@@ -95,41 +95,68 @@
 <script setup lang="ts">
 import { customizationData } from '@/assets/customizationData.js'
 import { computed, reactive, ref } from 'vue'
+import { useUserStore } from '~/stores/user'
 
 definePageMeta({
 	layout: 'customizationwindow',
 	title: 'Pattern Customization',
 })
 
+// -------------------------------------------------------------
+// 1) define our local types
+// -------------------------------------------------------------
+interface MeasurementField {
+	key: string
+	label: string
+	unit: string
+	description: string
+}
+interface ImagePair {
+	main: string
+	side: string
+}
+
+// -------------------------------------------------------------
+// 2) state & store
+// -------------------------------------------------------------
+const userStore = useUserStore()
 const step = ref(1)
-const garmentType = ref<'top' | 'bottom' | ''>('')
+const garmentType = ref<'top' | 'bottom' | null>(null)
 const selectedStyle = ref<string>('')
 
-// dynamic measurements store
+// measurements keyed by field.key
 const measurements = reactive<Record<string, string>>({})
 
-// styles for step 3
+// -------------------------------------------------------------
+// 3) computed helpers
+// -------------------------------------------------------------
+// styles for step 3 (inferred as string[])
 const currentStyles = computed<string[]>(() => {
 	if (!garmentType.value) return []
 	return customizationData[garmentType.value].styles
 })
 
-// which measurement fields to show
-const measurementFields = computed(() => {
+// measurementFields: strongly typed array of our MeasurementField
+const measurementFields = computed<MeasurementField[]>(() => {
 	if (!garmentType.value || !selectedStyle.value) return []
+	// pull in that type’s measurements
 	const m = customizationData[garmentType.value].measurements
-	return m[selectedStyle.value] ?? m.default
+	// cast our dynamic key to keyof m
+	const key = selectedStyle.value as keyof typeof m
+	return m[key] ?? m.default
 })
 
-// images for step 5
-const resultImages = computed(() => {
+// resultImages: strongly typed ImagePair
+const resultImages = computed<ImagePair>(() => {
 	if (!garmentType.value || !selectedStyle.value) {
 		return { main: '', side: '' }
 	}
 	const imgs = customizationData[garmentType.value].images
-	return imgs[selectedStyle.value] ?? imgs.default
+	const key = selectedStyle.value as keyof typeof imgs
+	return imgs[key] ?? imgs.default
 })
 
+// dynamic step title
 const stepTitle = computed(() => {
 	switch (step.value) {
 		case 1:
@@ -147,6 +174,9 @@ const stepTitle = computed(() => {
 	}
 })
 
+// -------------------------------------------------------------
+// 4) step navigation + logic
+// -------------------------------------------------------------
 function goToStep(n: number) {
 	step.value = n
 }
@@ -158,56 +188,57 @@ function selectType(type: 'top' | 'bottom') {
 
 function selectStyle(style: string) {
 	selectedStyle.value = style
-
-	// reset old measurements
+	// reset + initialize fields
 	Object.keys(measurements).forEach((k) => delete measurements[k])
-	// init new keys
 	measurementFields.value.forEach((f) => {
 		measurements[f.key] = ''
 	})
-
 	step.value = 4
 }
 
 function generatePattern() {
-	// ensure no blank fields
 	const missing = measurementFields.value.filter((f) => !measurements[f.key]).map((f) => f.label)
 
 	if (missing.length) {
-		// enter error message function here
 		return
 	}
-
-	// here you would call your API…
-	// once successful, go to step 5
 	step.value = 5
 }
 
-function saveCreation() {
-	console.log('Save creation for:', {
-		type: garmentType.value,
-		style: selectedStyle.value,
-		measurements,
-	})
-	// call your save‐creation API…
-}
-
 function startOver() {
-	// reset everything
 	step.value = 1
-	garmentType.value = ''
+	garmentType.value = null
 	selectedStyle.value = ''
 	Object.keys(measurements).forEach((k) => delete measurements[k])
 }
 
+// -------------------------------------------------------------
+// 5) Save in My Creation
+// -------------------------------------------------------------
+function saveCreation() {
+	if (!userStore.isLoggedIn) {
+		return
+	}
+	// we know garmentType.value is non-null in step 5
+	userStore.addCreation({
+		garmentType: garmentType.value as 'top' | 'bottom',
+		style: selectedStyle.value,
+		measurements: { ...measurements },
+		images: resultImages.value,
+	})
+
+	startOver()
+}
+
+// -------------------------------------------------------------
+// 6) Save PDF (same as before)
+// -------------------------------------------------------------
 const pdfContent = ref<HTMLElement | null>(null)
 
 async function savePdf() {
 	if (!pdfContent.value) return
 
-	// 1) lazy‐load html2canvas
 	const { default: html2canvas } = await import('html2canvas')
-	// 2) rend­er, telling it to skip any `.no-pdf`
 	const canvas = await html2canvas(pdfContent.value, {
 		scale: window.devicePixelRatio,
 		useCORS: true,
@@ -215,7 +246,6 @@ async function savePdf() {
 		ignoreElements: (el) => el.classList?.contains('no-pdf'),
 	})
 
-	// 3) build the PDF
 	const imgData = canvas.toDataURL('image/png')
 	const { jsPDF: JsPDF } = await import('jspdf')
 	const pdf = new JsPDF({

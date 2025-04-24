@@ -33,7 +33,10 @@
 			<div class="w-[85%] flex gap-2 flex-col items-center">
 				<div class="flex w-full gap-2">
 					<!-- Left Rectangle (2/3 width) -->
-					<div class="w-2/3 bg-[#ffe9fa] h-32 rounded-md shadow-md shadow-gray-400"></div>
+					<NuxtLink
+						to="/customization-my-creation"
+						class="w-2/3 bg-[#ffe9fa] h-32 rounded-md shadow-md shadow-gray-400"
+					></NuxtLink>
 
 					<!-- Right Rectangle (1/3 width) -->
 					<div class="w-1/3 bg-[#ff0066] h-32 rounded-md shadow-md shadow-gray-400"></div>
