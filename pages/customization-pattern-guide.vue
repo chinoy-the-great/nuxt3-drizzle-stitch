@@ -23,7 +23,7 @@
 		</div>
 
 		<!-- card -->
-		<div class="relative z-0 card">
+		<div ref="pdfContent" class="relative z-0 card">
 			<Transition name="fade" mode="out-in">
 				<!-- STEP 1 -->
 				<div v-if="step === 1" key="step-1" class="space-y-6">
@@ -66,8 +66,8 @@
 							class="max-w-full h-auto rounded"
 						/>
 					</div>
-					<button class="btn w-full mt-4" @click="savePDF">Save PDF</button>
-					<button class="btn w-full mt-2" @click="backToPatterns">← Back</button>
+					<button class="btn no-pdf w-full mt-4" @click="savePdf">Save PDF</button>
+					<button class="btn no-pdf w-full mt-2" @click="backToPatterns">← Back</button>
 				</div>
 			</Transition>
 		</div>
@@ -88,6 +88,8 @@ definePageMeta({
 const step = ref(1)
 const selectedType = ref('')
 const selectedPattern = ref('')
+
+const pdfContent = ref<HTMLElement | null>(null)
 
 // Your existing pattern list (step 2)
 const patternsByType: Record<string, { name: string; src: string }[]> = {
@@ -143,9 +145,24 @@ function backToPatterns() {
 }
 
 // Stub for your PDF save logic
-function savePDF() {
-	// nothing here yet — you can hook in your real download logic
-	console.log('savePDF() clicked')
+async function savePdf() {
+	if (!pdfContent.value) return
+	const { default: html2canvas } = await import('html2canvas')
+	const canvas = await html2canvas(pdfContent.value, {
+		scale: window.devicePixelRatio,
+		useCORS: true,
+		backgroundColor: '#fff',
+		ignoreElements: (el) => el.classList?.contains('no-pdf'),
+	})
+	const imgData = canvas.toDataURL('image/png')
+	const { jsPDF: JsPDF } = await import('jspdf')
+	const pdf = new JsPDF({
+		unit: 'px',
+		format: [canvas.width, canvas.height],
+		orientation: 'portrait',
+	})
+	pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height)
+	pdf.save('pattern.pdf')
 }
 </script>
 
