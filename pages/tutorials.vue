@@ -73,6 +73,13 @@ const videos = ref([
 		thumbnail: '/Tutorials_Thumbnail_2.png',
 		expanded: false,
 	},
+	{
+		url: 'https://www.youtube.com/embed/PdEaIa-_0Ro',
+		title: '5 Kinds of Sewing Stitches',
+		description: 'An in-depth tutorial on various sewing stitches.',
+		thumbnail: '/Tutorials_Thumbnail_3.png',
+		expanded: false,
+	},
 ])
 
 const toggleVideo = (video) => {
