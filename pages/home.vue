@@ -46,7 +46,7 @@
 					<!-- Icon Box (Square) -->
 					<NuxtLink
 						:to="{ path: '/modules', query: { grade: icon.keyword } }"
-						class="bg-[#ffa5a5] rounded-xl p-2 flex items-center justify-center w-full aspect-square cursor-pointer"
+						class="video-card bg-[#ffa5a5] rounded-xl p-2 flex items-center justify-center w-full aspect-square cursor-pointer"
 					>
 						<img :src="icon.src" :alt="icon.alt" class="h-12 w-12 object-contain" />
 					</NuxtLink>
@@ -67,7 +67,7 @@
 				v-for="(button, index) in buttonItems"
 				:key="index"
 				:to="button.clickAction"
-				class="flex items-center bg-[#ffa5a5] rounded-xl px-4 h-20 py-2 w-1/2 cursor-pointer"
+				class="video-card flex items-center bg-[#ffa5a5] rounded-xl px-4 h-20 py-2 w-1/2 cursor-pointer"
 			>
 				<!-- Icon on the left -->
 				<img :src="button.src" :alt="button.alt" class="h-14 w-14 object-contain mr-3" />
@@ -84,7 +84,9 @@
 			<span class="text-[10px] text-[#ff0066] cursor-pointer">See all</span>
 		</div>
 		<NuxtLink to="/tutorials" class="flex px-4 mb-6">
-			<div class="flex items-center bg-[#ffa5a5] rounded-xl h-24 w-full cursor-pointer overflow-hidden">
+			<div
+				class="video-card flex items-center bg-[#ffa5a5] rounded-xl h-24 w-full cursor-pointer overflow-hidden"
+			>
 				<!-- Thumbnail on the left, full height, no left spacing -->
 				<img src="/Tutorials_Thumbnail.png" alt="Video Thumbnail" class="h-full w-auto object-cover" />
 
@@ -210,5 +212,9 @@ onBeforeUnmount(() => {
 .scrollbar-hide {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+}
+/* Hover just the inner card div */
+.video-card:hover {
+	background-color: #dc6e63 !important;
 }
 </style>
