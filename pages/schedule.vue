@@ -70,7 +70,7 @@
 				<div class="bg-white rounded-lg shadow-lg w-full max-w-xs p-3 space-y-2 text-xs">
 					<!-- HEADER with bottom border -->
 					<div class="flex justify-between items-center border-b border-black pb-2">
-						<button class="text-[#f4bbbb] hover:text-[#d39b9b]" @click="showForm = false">CANCEL</button>
+						<button class="text-[#f4bbbb] hover:text-[#ff0066]" @click="showForm = false">CANCEL</button>
 
 						<h3 class="font-semibold text-sm text-[#ff0066]">
 							NEW {{ form.type === 'event' ? 'EVENT' : 'TASK' }}
@@ -78,7 +78,7 @@
 
 						<button
 							:disabled="form.type === 'event' && !isEndAfterStart"
-							class="text-[#f4bbbb] hover:text-[#d39b9b] disabled:opacity-50 disabled:cursor-not-allowed"
+							class="text-[#f4bbbb] hover:text-[#ff0066] disabled:opacity-50 disabled:cursor-not-allowed"
 							@click="addItem"
 						>
 							ADD
