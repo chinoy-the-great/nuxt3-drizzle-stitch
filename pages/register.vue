@@ -97,6 +97,10 @@ import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+definePageMeta({
+	layout: 'welcome',
+})
+
 const router = useRouter()
 
 // Form data
