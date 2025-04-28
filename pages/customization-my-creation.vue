@@ -31,15 +31,15 @@
 				<div v-else key="detail" class="space-y-6">
 					<button class="text-[#FF0066] hover:underline" @click="goBack">← Back to Gallery</button>
 
-					<!-- big main image -->
+					<!-- big pattern image -->
 					<img
-						:src="selectedCreation.images.main"
+						:src="selectedCreation.images.side"
 						alt="Pattern result"
 						class="w-full object-contain bg-white p-4 rounded-md"
 						style="max-height: 40vh"
 					/>
 
-					<!-- two columns: measurements + side image -->
+					<!-- two columns: measurements + back & front image -->
 					<div class="grid grid-cols-2 gap-4">
 						<div>
 							<h3 class="font-semibold mb-2">Your Measurements</h3>
@@ -52,7 +52,7 @@
 						</div>
 						<div>
 							<img
-								:src="selectedCreation.images.side"
+								:src="selectedCreation.images.main"
 								alt="Side view"
 								class="w-full object-contain bg-white p-4 rounded-md"
 								style="max-height: 40vh"

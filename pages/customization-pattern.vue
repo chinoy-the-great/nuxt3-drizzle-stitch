@@ -39,15 +39,15 @@
 
 					<!-- STEP 5: RESULTS -->
 					<div v-else-if="step === 5" class="w-full space-y-6">
-						<!-- big main image -->
+						<!-- big pattern image -->
 						<img
-							:src="resultImages.main"
+							:src="resultImages.side"
 							alt="Pattern result"
 							class="w-full object-contain bg-white p-4 rounded-md"
 							style="max-height: 40vh"
 						/>
 
-						<!-- two columns: measurements + side image -->
+						<!-- two columns: measurements + back & front image -->
 						<div class="grid grid-cols-2 gap-4">
 							<div>
 								<h3 class="font-semibold mb-2">Your Measurements</h3>
@@ -60,7 +60,7 @@
 							</div>
 							<div>
 								<img
-									:src="resultImages.side"
+									:src="resultImages.main"
 									alt="Side view"
 									class="w-full object-contain bg-white p-4 rounded-md"
 									style="max-height: 40vh"
