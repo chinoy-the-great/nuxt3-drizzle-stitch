@@ -36,18 +36,19 @@
 				</div>
 
 				<!-- STEP 2 -->
-				<div v-else-if="step === 2" key="step-2" class="space-y-4">
-					<div class="grid grid-cols-2 gap-y-4 gap-x-1 mt-4 px-20 justify-items-center">
+				<div v-else-if="step === 2" key="step-2" class="space-y-4 px-4 sm:px-20">
+					<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4 justify-items-center">
 						<button
 							v-for="item in patternsByType[selectedType]"
 							:key="item.name"
-							class="icon-box"
+							class="icon-box w-full"
 							@click="selectPattern(item)"
 						>
 							<img :src="`/${item.src}`" :alt="item.name" class="icon-img" />
 							<span class="icon-label">{{ item.name }}</span>
 						</button>
 					</div>
+
 					<button class="btn mt-6" @click="goBack">← Back</button>
 				</div>
 
