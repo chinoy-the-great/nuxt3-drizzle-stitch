@@ -1,5 +1,4 @@
 // assets/measurementDefinitions.js
-
 /**
  * A single source‐of‐truth for every possible measurement
  * used by any garment-type or style.
@@ -70,5 +69,29 @@ export const measurementDefinitions = [
 		label: 'Skirt Length',
 		unit: 'inches',
 		description: 'From waist to desired skirt hem.',
+	},
+	{
+		key: 'thighWidth',
+		label: 'Thigh Width',
+		unit: 'inches',
+		description: 'Around the fullest part of your thigh.',
+	},
+	{
+		key: 'kneeWidth',
+		label: 'Knee Width',
+		unit: 'inches',
+		description: 'Around the widest point of your knee.',
+	},
+	{
+		key: 'inseam',
+		label: 'Inseam',
+		unit: 'inches',
+		description: 'From the crotch down the inside of the leg to the ankle.',
+	},
+	{
+		key: 'pantsLength',
+		label: 'Pants Length',
+		unit: 'inches',
+		description: 'From the natural waist down the outside of the leg to the hem.',
 	},
 ]
