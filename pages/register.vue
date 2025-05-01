@@ -39,7 +39,7 @@
 					type="email"
 					placeholder="Email"
 					required
-					class="w-full p-3 text-sm rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+					class="w-full p-3 pr-10 text-sm rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
 				/>
 				<i class="fas fa-envelope absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
 			</div>
@@ -48,24 +48,32 @@
 			<div class="mb-4 relative">
 				<input
 					v-model="password"
-					type="password"
+					:type="showPassword ? 'text' : 'password'"
 					placeholder="Password"
 					required
 					class="w-full p-3 pr-10 text-sm rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
 				/>
-				<i class="fas fa-eye absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+				<i
+					class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+					:class="[showPassword ? 'fas fa-eye-slash' : 'fas fa-eye']"
+					@click="toggleShowPassword"
+				></i>
 			</div>
 
 			<!-- Confirm Password -->
 			<div class="mb-4 relative">
 				<input
 					v-model="repeat_password"
-					type="password"
+					:type="showRepeatPassword ? 'text' : 'password'"
 					placeholder="Confirm Password"
 					required
 					class="w-full p-3 pr-10 text-sm rounded bg-white text-gray-800 shadow-md shadow-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
 				/>
-				<i class="fas fa-eye absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+				<i
+					class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+					:class="[showRepeatPassword ? 'fas fa-eye-slash' : 'fas fa-eye']"
+					@click="toggleShowRepeatPassword"
+				></i>
 			</div>
 
 			<!-- Sign Up Button -->
@@ -103,24 +111,36 @@ definePageMeta({
 
 const router = useRouter()
 
-// Form data
+// form fields
 const username = ref('')
 const email = ref('')
 const password = ref('')
 const repeat_password = ref('')
+
+// visibility toggles
+const showPassword = ref(false)
+const showRepeatPassword = ref(false)
+
+// submission state
 const isSubmitting = ref(false)
 const errorMessage = ref('')
 
-// Back button function
+// back button
 const goBack = () => {
 	router.push('/welcome')
 }
 
-// Handle registration
+// toggle functions
+const toggleShowPassword = () => {
+	showPassword.value = !showPassword.value
+}
+const toggleShowRepeatPassword = () => {
+	showRepeatPassword.value = !showRepeatPassword.value
+}
+
+// handle register
 const handleRegister = async () => {
 	errorMessage.value = ''
-
-	// Check if passwords match
 	if (password.value !== repeat_password.value) {
 		errorMessage.value = 'Passwords do not match!'
 		return
@@ -128,21 +148,15 @@ const handleRegister = async () => {
 
 	try {
 		isSubmitting.value = true
-
-		// Send registration request to the backend
 		const response = await axios.post('/api/register', {
 			name: username.value,
 			email: email.value,
 			password: password.value,
 		})
-
 		console.log('Received this:', response)
-
-		// Registration successful, redirect to login
 		router.push('/login')
-	} catch (error) {
-		// Handle error message
-		errorMessage.value = error.response?.data?.message || 'An error occurred during registration.'
+	} catch (err) {
+		errorMessage.value = err.response?.data?.message || 'An error occurred during registration.'
 	} finally {
 		isSubmitting.value = false
 	}
@@ -150,23 +164,8 @@ const handleRegister = async () => {
 </script>
 
 <style scoped>
+/* (You can remove or adjust these if you’re using Tailwind everywhere) */
 form {
-	position: relative; /* Ensure the form can position child elements absolutely */
-}
-
-.router-link {
-	position: absolute;
-	top: 16px;
-	left: 16px;
-	cursor: pointer;
-}
-
-.router-link img {
-	width: 32px; /* Adjust size as needed */
-	height: 32px;
-}
-
-.router-link:hover img {
-	opacity: 0.8; /* Slight opacity change on hover for effect */
+	position: relative;
 }
 </style>
