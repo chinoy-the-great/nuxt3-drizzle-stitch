@@ -4,10 +4,14 @@
 		<!-- Navbar -->
 		<header v-if="userStore.user" class="bg-[#ffa5a5] w-full z-30">
 			<nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-				<!-- Left: Menu Icon -->
-				<button class="text-nude-700 hover:text-nude-600 flex items-center" @click="toggleSidebar">
-					<img src="/Sliding_Menu_Icon.png" alt="Menu Icon" class="w-6 h-6" />
-				</button>
+				<div class="relative inline-block">
+					<!-- Left: Menu Icon -->
+					<button class="text-nude-700 hover:text-nude-600 flex items-center" @click="toggleSidebar">
+						<img src="/Sliding_Menu_Icon.png" alt="Menu Icon" class="w-6 h-6" />
+					</button>
+
+					<Sidebar :is-open="isSidebarOpen" @close="isSidebarOpen = false" />
+				</div>
 
 				<!-- Right: Notifications & Profile Icons -->
 				<div class="flex space-x-4 items-center">
@@ -27,14 +31,6 @@
 		</header>
 
 		<div class="flex flex-grow">
-			<!-- Sidebar -->
-			<Sidebar
-				v-if="userStore.user"
-				:is-open="isSidebarOpen"
-				@update:is-open="isSidebarOpen = $event"
-				@close="toggleSidebar"
-			/>
-
 			<!-- Page content -->
 			<main class="flex-grow container mx-auto">
 				<NuxtPage />

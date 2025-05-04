@@ -1,66 +1,68 @@
 <template>
-	<aside
-		class="fixed inset-y-0 left-0 z-30 w-64 bg-black bg-opacity-90 shadow-lg transition-transform transform"
-		:class="{ '-translate-x-full': !isOpen, 'translate-x-0': isOpen }"
-	>
-		<div class="p-4 relative">
-			<!-- Close Button -->
-			<button
-				class="absolute top-4 right-4 text-white hover:text-nude-800 focus:outline-none"
-				@click="emit('close')"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-				</svg>
-			</button>
-
-			<!-- Sidebar content -->
+	<transition name="dropdown" appear>
+		<div v-if="isOpen" class="absolute top-full left-0 mt-2 bg-[#FF0066] rounded-full shadow-lg z-50 p-3">
 			<ul class="space-y-2">
-				<li class="border-b border-white pb-1">
-					<NuxtLink to="/settings" class="flex items-center text-white hover:text-nude-600">
-						<!-- Image Icon -->
-						<img
-							src="/public/Settings_Icon.png"
-							alt="Settings"
-							class="w-5 h-5 mr-3 filter invert brightness-200"
-						/>
-						Settings
+				<!-- 1) Menu (just closes dropdown) -->
+				<li>
+					<button class="flex flex-col items-center" @click="emit('close')">
+						<img src="/Sliding_Menu_Icon.png" alt="Open Menu" class="w-6 h-6 white-icon" />
+						<span class="text-xxs text-white mt-1">Menu</span>
+					</button>
+				</li>
+
+				<!-- 2) Settings DISABLED FOR NOW -->
+				<!--				<li>-->
+				<!--					<NuxtLink to="/settings" class="flex flex-col items-center" @click="emit('close')">-->
+				<!--						<img src="/Settings_Icon.png" alt="Settings" class="w-6 h-6 white-icon" />-->
+				<!--						<span class="text-xxs text-white mt-1">Settings</span>-->
+				<!--					</NuxtLink>-->
+				<!--				</li>-->
+
+				<!-- 3) Logout -->
+				<li>
+					<NuxtLink to="/welcome" class="flex flex-col items-center" @click="logout">
+						<img src="/Log_out_Icon.png" alt="Logout" class="w-6 h-6 white-icon" />
+						<span class="text-xxs text-white mt-1">Logout</span>
 					</NuxtLink>
 				</li>
-				<li class="border-b border-white pb-1">
-					<NuxtLink
-						to="/welcome"
-						class="flex items-center text-white hover:text-nude-600"
-						@click="userStore.clearUser"
-					>
-						<!-- Image Icon -->
-						<img
-							src="/public/Log_out_Icon.png"
-							alt="Logout"
-							class="w-5 h-5 mr-3 filter invert brightness-200"
-						/>
-						Logout
-					</NuxtLink>
-				</li>
-				<!-- Add more links as needed -->
 			</ul>
 		</div>
-	</aside>
+	</transition>
 </template>
 
 <script setup>
-defineProps(['isOpen'])
+import { useUserStore } from '@/stores/user'
+
+defineProps({ isOpen: Boolean })
 const emit = defineEmits(['close'])
 const userStore = useUserStore()
+
+function logout() {
+	userStore.clearUser()
+	emit('close')
+}
 </script>
 
 <style scoped>
-/* Add any additional styles here */
+.white-icon {
+	filter: brightness(0) invert(1);
+}
+
+/* keep your fade/scale transition */
+.dropdown-enter-active,
+.dropdown-leave-active {
+	transition:
+		opacity 150ms ease,
+		transform 150ms ease;
+}
+.dropdown-enter-from,
+.dropdown-leave-to {
+	opacity: 0;
+	transform: scale(0.95);
+}
+.dropdown-enter-to,
+.dropdown-leave-from {
+	opacity: 1;
+	transform: scale(1);
+}
 </style>
