@@ -39,16 +39,30 @@
 
 					<!-- STEP 5: RESULTS -->
 					<div v-else-if="step === 5" class="w-full space-y-6">
-						<!-- big pattern image -->
-						<img
-							:src="resultImages.side"
-							alt="Pattern result"
-							class="w-full object-contain bg-white p-4 rounded-md"
-							style="max-height: 40vh"
-						/>
+						<!-- BIG SIDE VIEW (if you want to overlay here, do likewise) -->
+						<div class="relative w-full bg-white p-4 rounded-md" style="max-height: 40vh">
+							<img :src="resultImages.side" alt="Side view" class="w-full h-auto" />
+							<!-- overlay back‐view labels -->
+							<template v-for="f in measurementFields" :key="f.key">
+								<div
+									v-if="coords.front[f.key]"
+									class="absolute text-xxs font-bold text-red-500 bg-transparent px-1 rounded"
+									:style="{
+										left: `${coords.front[f.key].x}%`,
+										top: `${coords.front[f.key].y}%`,
+										transform: 'translate(-50%, -50%)',
+									}"
+								>
+									{{ measurements[f.key] }} in.
+								</div>
+							</template>
+						</div>
 
-						<!-- two columns: measurements + back & front image -->
+						<!-- TWO‐COLUMN FRONT + LIST -->
 						<div class="grid grid-cols-2 gap-4">
+							<div class="relative bg-white p-4 rounded-md" style="max-height: 40vh">
+								<img :src="resultImages.main" alt="Front view" class="w-full h-auto" />
+							</div>
 							<div>
 								<h3 class="font-semibold mb-2">Your Measurements</h3>
 								<ul class="list-disc pl-5 space-y-1 text-sm">
@@ -57,14 +71,6 @@
 										{{ measurements[f.key] }} {{ f.unit }}
 									</li>
 								</ul>
-							</div>
-							<div>
-								<img
-									:src="resultImages.main"
-									alt="Side view"
-									class="w-full object-contain bg-white p-4 rounded-md"
-									style="max-height: 40vh"
-								/>
 							</div>
 						</div>
 
@@ -94,7 +100,8 @@
 
 <script setup lang="ts">
 import { customizationData } from '@/assets/customizationData.js'
-import { measurementDefinitions } from '@/assets/measurementDefinitions.js' // ← new!
+import { measurementCoordinates } from '@/assets/measurementCoordinates.js'
+import { measurementDefinitions } from '@/assets/measurementDefinitions.js'
 import { computed, reactive, ref } from 'vue'
 import { useUserStore } from '~/stores/user'
 
@@ -152,6 +159,12 @@ const resultImages = computed<ImagePair>(() => {
 	}
 	const imgs = customizationData[garmentType.value].images
 	return imgs[selectedStyle.value as keyof typeof imgs] ?? imgs.default
+})
+
+const coords = computed(() => {
+	if (!selectedStyle.value) return { front: {}, back: {} }
+	// guard against missing style
+	return measurementCoordinates[selectedStyle.value] || { front: {}, back: {} }
 })
 
 // step title (unchanged)
