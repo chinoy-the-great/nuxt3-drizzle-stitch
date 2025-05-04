@@ -35,28 +35,6 @@
 					</NuxtLink>
 				</li>
 				<li class="border-b border-white pb-1">
-					<NuxtLink to="/bookmarks" class="flex items-center text-white hover:text-nude-600">
-						<!-- Image Icon -->
-						<img
-							src="/public/Bookmark_Icon.png"
-							alt="Bookmarks"
-							class="w-5 h-5 mr-3 filter invert brightness-200"
-						/>
-						Bookmarks
-					</NuxtLink>
-				</li>
-				<li class="border-b border-white pb-1">
-					<NuxtLink to="/references" class="flex items-center text-white hover:text-nude-600">
-						<!-- Image Icon -->
-						<img
-							src="/public/References_Icon.png"
-							alt="References"
-							class="w-5 h-5 mr-3 filter invert brightness-200"
-						/>
-						References
-					</NuxtLink>
-				</li>
-				<li class="border-b border-white pb-1">
 					<NuxtLink
 						to="/welcome"
 						class="flex items-center text-white hover:text-nude-600"
