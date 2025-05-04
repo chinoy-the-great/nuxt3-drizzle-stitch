@@ -2,7 +2,7 @@
 
 export const customizationData = {
 	top: {
-		styles: ['T‑Shirt', 'Sando', 'Blouse', 'Polo Shirt', 'Crop Top'],
+		styles: ['T-Shirt', 'Sando', 'Blouse', 'Polo Shirt', 'Crop Top'],
 		measurements: {
 			default: ['bust', 'armhole', 'underbust', 'shoulderWidth', 'sleeveLength', 'neckline'],
 			Sando: ['bust', 'armhole', 'underbust', 'shoulderWidth', 'neckline'],
@@ -12,7 +12,7 @@ export const customizationData = {
 				main: '/assets/images/top/default-main.png',
 				side: '/assets/images/top/default-side.png',
 			},
-			'T‑Shirt': {
+			'T-Shirt': {
 				main: '/Pattern_TShirt.png',
 				side: '/PatternGuide_TShirt.png',
 			},
