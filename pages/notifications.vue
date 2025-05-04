@@ -51,14 +51,38 @@ const notifications = ref([
 		description: 'Write project report',
 		time: 'Just now',
 	},
+
+	// 2) NEW: three video‐type placeholders
+	{
+		id: 4,
+		type: 'video',
+		message: 'New Video Tutorial!',
+		description: 'Kinds of Sewing Stitches',
+		time: '5 hours ago',
+	},
+	{
+		id: 5,
+		type: 'video',
+		message: 'New Video Tutorial!',
+		description: 'Needle Getting Stuck in the Material',
+		time: '2 hours ago',
+	},
+	{
+		id: 6,
+		type: 'video',
+		message: 'New Video Tutorial!',
+		description: 'Taking Body Measurements',
+		time: 'Just now',
+	},
 ])
 
-// 2) Map each type to your public icons
+// 3) Map each type to your public icons
 const iconsByType = {
 	activity: '/Toolbar_Activities_Icon.png',
 	achievement: '/Toolbar_Achievements_Icon.png',
+	video: '/Video_Icon.png', // <-- your video icon
 }
 
-// 3) If you want newest‐first, sort by id descending (or swap the compare fn)
+// 4) If you want newest‐first, sort by id descending
 const sortedNotifications = computed(() => [...notifications.value].sort((a, b) => b.id - a.id))
 </script>
