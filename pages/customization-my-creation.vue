@@ -27,33 +27,48 @@
 					</div>
 				</div>
 
-				<!-- ───────── DETAIL VIEW (no buttons) ─────── -->
+				<!-- ───────── DETAIL VIEW ─────────── -->
 				<div v-else key="detail" class="space-y-6">
 					<button class="text-[#FF0066] hover:underline" @click="goBack">← Back to Gallery</button>
 
-					<!-- big pattern image -->
-					<img
-						:src="selectedCreation.images.side"
-						alt="Pattern result"
-						class="w-full object-contain bg-white p-4 rounded-md"
-						style="max-height: 40vh"
-					/>
+					<!-- BIG SIDE/BACK VIEW WITH OVERLAYS -->
+					<div class="relative w-full bg-white p-4 rounded-md" style="max-height: 40vh">
+						<img
+							:src="selectedCreation.images.side"
+							alt="Pattern result"
+							class="w-full object-contain h-auto"
+						/>
+						<!-- overlay back‐view labels -->
+						<template v-for="(value, key) in selectedCreation.measurements" :key="key">
+							<div
+								v-if="coordsDetail.front[key]"
+								class="absolute z-10 text-xxs text-red-500 font-bold bg-transparent px-1 rounded"
+								:style="{
+									left: `${coordsDetail.front[key].x}%`,
+									top: `${coordsDetail.front[key].y}%`,
+									transform: 'translate(-50%, -50%)',
+								}"
+							>
+								{{ value }}in.
+							</div>
+						</template>
+					</div>
 
-					<!-- two columns: measurements + back & front image -->
+					<!-- two columns: measurements + front/main image (no overlay) -->
 					<div class="grid grid-cols-2 gap-4">
 						<div>
 							<h3 class="font-semibold mb-2">Your Measurements</h3>
 							<ul class="list-disc pl-5 space-y-1 text-sm">
 								<li v-for="(value, key) in selectedCreation.measurements" :key="key">
 									<strong>{{ getLabel(key) }}:</strong>
-									{{ value }}
+									{{ value }}{{ getUnit(key) }}
 								</li>
 							</ul>
 						</div>
 						<div>
 							<img
 								:src="selectedCreation.images.main"
-								alt="Side view"
+								alt="Front view"
 								class="w-full object-contain bg-white p-4 rounded-md"
 								style="max-height: 40vh"
 							/>
@@ -66,9 +81,11 @@
 </template>
 
 <script setup lang="ts">
+// import the coordinate lookup you built
+import { measurementCoordinates } from '@/assets/measurementCoordinates.js'
 // your central customization data
 import { measurementDefinitions } from '@/assets/measurementDefinitions.js'
-// Pinia store & types
+
 import { computed, ref } from 'vue'
 import { PatternCreation, useUserStore } from '~/stores/user'
 
@@ -84,7 +101,6 @@ const creations = computed<PatternCreation[]>(() => userStore.creations)
 
 // which one is “open” in detail view?
 const selectedCreation = ref<PatternCreation | null>(null)
-
 function selectCreation(item: PatternCreation) {
 	selectedCreation.value = item
 }
@@ -92,17 +108,36 @@ function goBack() {
 	selectedCreation.value = null
 }
 
+// derive the front/back coords for the current style
+const coordsDetail = computed(() => {
+	if (!selectedCreation.value) {
+		return { front: {}, back: {} }
+	}
+	// look up by the exact style name you saved
+	return (
+		measurementCoordinates[selectedCreation.value.style] || {
+			front: {},
+			back: {},
+		}
+	)
+})
+
 // helper to look up field labels by key
 function getLabel(key: string): string {
 	const fromMaster = measurementDefinitions.find((m) => m.key === key)
-	return fromMaster.label ?? key
+	return fromMaster?.label ?? key
+}
+
+// optional: if you have units you can return them here (e.g. 'cm'/'in')
+function getUnit(key: string): string {
+	const fromMaster = measurementDefinitions.find((m) => m.key === key)
+	return fromMaster?.unit ? ` ${fromMaster.unit}` : ''
 }
 </script>
 
 <style lang="postcss">
 .header-image {
 	@apply w-full h-[12vh] bg-cover bg-center shadow-md shadow-gray-400;
-	/* replicate your background */
 	background-image: url('/_BG_ART_LogIn_home_v2.jpg');
 }
 .card {
