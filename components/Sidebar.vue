@@ -1,6 +1,9 @@
 <template>
 	<transition name="dropdown" appear>
-		<div v-if="isOpen" class="absolute top-full left-0 mt-2 bg-[#FF0066] rounded-full shadow-lg z-50 p-3">
+		<div
+			v-if="isOpen"
+			class="absolute top-0 left-0 transform -translate-x-2 -translate-y-2 bg-[#FF0066] rounded-full shadow-lg z-50 p-3"
+		>
 			<ul class="space-y-2">
 				<!-- 1) Menu (just closes dropdown) -->
 				<li>
@@ -47,22 +50,17 @@ function logout() {
 .white-icon {
 	filter: brightness(0) invert(1);
 }
-
 /* keep your fade/scale transition */
 .dropdown-enter-active,
 .dropdown-leave-active {
-	transition:
-		opacity 150ms ease,
-		transform 150ms ease;
+	transition: opacity 150ms ease;
 }
 .dropdown-enter-from,
 .dropdown-leave-to {
 	opacity: 0;
-	transform: scale(0.95);
 }
 .dropdown-enter-to,
 .dropdown-leave-from {
 	opacity: 1;
-	transform: scale(1);
 }
 </style>
