@@ -116,12 +116,48 @@ const patternsByType: Record<string, { name: string; src: string }[]> = {
 // New mapping for step 3
 const patternDetails: Record<string, { templateSrc: string; guideSrc: string }> = {
 	'T-Shirt': {
-		templateSrc: 'GuideTemplate_TShirt.jpg',
+		templateSrc: 'GuideTemplate_TShirt.png',
 		guideSrc: 'Guide_TShirt.png',
 	},
+	Sleeveless: {
+		templateSrc: 'GuideTemplate_Sleeveless.png',
+		guideSrc: 'Pattern_Sando.png',
+	},
+	Longsleeves: {
+		templateSrc: 'GuideTemplate_Longsleeves.png',
+		guideSrc: 'Guide_TShirt.png',
+	},
+	Skirts: {
+		templateSrc: 'GuideTemplate_Skirt.png',
+		guideSrc: 'Pattern_Skirt.png',
+	},
+	Shorts: {
+		templateSrc: 'GuideTemplate_Short.png',
+		guideSrc: 'Pattern_Shorts.png',
+	},
 	Pants: {
-		templateSrc: 'GuideTemplate_Pants.jpg',
+		templateSrc: 'GuideTemplate_Pants.png',
 		guideSrc: 'Guide_Pants.png',
+	},
+	'A-line': {
+		templateSrc: 'GuideTemplate_ALine.png',
+		guideSrc: 'Pattern_Skirt.png',
+	},
+	Yoke: {
+		templateSrc: 'GuideTemplate_Yoke.png',
+		guideSrc: 'Pattern_Skirt.png',
+	},
+	Shirt: {
+		templateSrc: 'GuideTemplate_Shirt.png',
+		guideSrc: 'Pattern_Skirt.png',
+	},
+	Bodycon: {
+		templateSrc: 'GuideTemplate_Bodycon.png',
+		guideSrc: 'Pattern_Skirt.png',
+	},
+	Peplum: {
+		templateSrc: 'GuideTemplate_Peplum.png',
+		guideSrc: 'Pattern_Skirt.png',
 	},
 	// add more when you have them...
 }
