@@ -56,6 +56,7 @@ import { ref } from 'vue'
 
 definePageMeta({
 	layout: 'window',
+	title: 'Video Tutorials',
 })
 
 const videos = ref([
@@ -78,6 +79,48 @@ const videos = ref([
 		title: '5 Kinds of Sewing Stitches',
 		description: 'An in-depth tutorial on various sewing stitches.',
 		thumbnail: '/Tutorials_Thumbnail_3.png',
+		expanded: false,
+	},
+	{
+		url: 'https://www.youtube.com/embed/OEC_sGdPNOo',
+		title: 'Measuring Tools',
+		description: 'Tools, materials, and equipment used in sewing.',
+		thumbnail: '/Tutorials_Thumbnail_4.png',
+		expanded: false,
+	},
+	{
+		url: 'https://www.youtube.com/embed/2h6osQ26mb0',
+		title: 'Marking Tools',
+		description: 'Tools, materials, and equipment used in sewing.',
+		thumbnail: '/Tutorials_Thumbnail_5.png',
+		expanded: false,
+	},
+	{
+		url: 'https://www.youtube.com/embed/IqY8zw1Nmks',
+		title: 'Cutting Tools',
+		description: 'Tools, materials, and equipment used in sewing.',
+		thumbnail: '/Tutorials_Thumbnail_6.png',
+		expanded: false,
+	},
+	{
+		url: 'https://www.youtube.com/embed/uP_gTd7jGLg',
+		title: 'Taking Body Measurements',
+		description: 'A tutorial on the proper way of taking body measurements.',
+		thumbnail: '/Tutorials_Thumbnail_7.png',
+		expanded: false,
+	},
+	{
+		url: 'https://www.youtube.com/embed/WaLmfM1RNTo',
+		title: 'Needle Getting Stuck in the Material',
+		description: 'Troubleshooting a common error in sewing.',
+		thumbnail: '/Tutorials_Thumbnail_8.png',
+		expanded: false,
+	},
+	{
+		url: 'https://www.youtube.com/embed/5w1n8jGT2MM',
+		title: 'Kinds of Sewing Stitches',
+		description: 'An introduction on different kids of sewing stitches.',
+		thumbnail: '/Tutorials_Thumbnail_9.png',
 		expanded: false,
 	},
 ])
