@@ -55,9 +55,20 @@
 						v-if="item.type === 'pdf' && item.expanded"
 						class="bg-[#ffa5a5] rounded-lg mb-4 p-2 text-white overflow-hidden"
 					>
-						<!-- Video Player -->
+						<!-- PDF Preview -->
 						<iframe class="w-full h-96 rounded-b-lg" :src="item.url"></iframe>
-						<!-- Description -->
+
+						<!-- Download Button (now below, smaller) -->
+						<div class="flex justify-end mt-2">
+							<button
+								class="inline-flex items-center bg-white text-black px-2 py-1 rounded shadow hover:bg-gray-100 transition text-xs"
+							>
+								<i class="fas fa-download mr-1"></i>
+								Download
+							</button>
+						</div>
+
+						<!-- you can still add description or other markup here -->
 					</div>
 				</Transition>
 			</div>
