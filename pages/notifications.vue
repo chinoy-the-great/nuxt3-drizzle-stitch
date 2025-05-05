@@ -2,16 +2,14 @@
 	<div class="max-w-3xl mx-auto mb-16 p-6">
 		<h1 class="text-2xl font-semibold mb-4">Notifications</h1>
 
-		<!-- Notification List -->
 		<div v-if="sortedNotifications.length" class="space-y-4">
 			<div
 				v-for="note in sortedNotifications"
 				:key="note.id"
-				class="flex items-center p-4 bg-[#f4bbbb] rounded-lg h-[70px] shadow-md shadow-gray-400"
+				class="flex items-center p-4 bg-[#f4bbbb] rounded-lg h-[70px] shadow-md shadow-gray-400 cursor-pointer"
+				@click="onNoteClick(note)"
 			>
-				<!-- big icon, centered -->
 				<img :src="iconsByType[note.type]" :alt="`${note.type} icon`" class="h-8 w-8 flex-shrink-0 mr-4" />
-				<!-- text -->
 				<div>
 					<p class="text-xs font-bold text-black ml-4">{{ note.message }}</p>
 					<p class="text-xxs text-black ml-4">{{ note.description }}</p>
@@ -20,15 +18,15 @@
 			</div>
 		</div>
 
-		<!-- empty state -->
 		<p v-else class="text-gray-600">You have no notifications.</p>
 	</div>
 </template>
 
 <script setup>
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-// 1) Your master array; keeps a `type` field
+// 1) notifications array…
 const notifications = ref([
 	{
 		id: 1,
@@ -76,13 +74,26 @@ const notifications = ref([
 	},
 ])
 
-// 3) Map each type to your public icons
+// 2) icon map…
 const iconsByType = {
 	activity: '/Toolbar_Activities_Icon.png',
 	achievement: '/Toolbar_Achievements_Icon.png',
-	video: '/Video_Icon.png', // <-- your video icon
+	video: '/Video_Icon.png',
 }
 
-// 4) If you want newest‐first, sort by id descending
+// 3) sorted list…
 const sortedNotifications = computed(() => [...notifications.value].sort((a, b) => b.id - a.id))
+
+// 4) navigation handler
+const router = useRouter()
+
+function onNoteClick(note) {
+	if (note.type === 'video') {
+		// replace 'Tutorials' with your actual route name or path
+		router.push('/tutorials')
+	} else {
+		// fallback: do nothing or go somewhere else
+		console.log('clicked a non-video notification:', note)
+	}
+}
 </script>
