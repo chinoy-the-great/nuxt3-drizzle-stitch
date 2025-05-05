@@ -3,19 +3,31 @@
 		<h1 class="text-2xl font-semibold mb-4">Notifications</h1>
 
 		<div v-if="sortedNotifications.length" class="space-y-4">
-			<div
-				v-for="note in sortedNotifications"
-				:key="note.id"
-				class="flex items-center p-4 bg-[#f4bbbb] rounded-lg h-[70px] shadow-md shadow-gray-400 cursor-pointer"
-				@click="onNoteClick(note)"
-			>
-				<img :src="iconsByType[note.type]" :alt="`${note.type} icon`" class="h-8 w-8 flex-shrink-0 mr-4" />
-				<div>
-					<p class="text-xs font-bold text-black ml-4">{{ note.message }}</p>
-					<p class="text-xxs text-black ml-4">{{ note.description }}</p>
-					<span class="text-xxs text-gray-500 ml-4">{{ note.time }}</span>
+			<template v-for="note in sortedNotifications" :key="note.id">
+				<!-- VIDEO notifications use a NuxtLink -->
+				<NuxtLink
+					v-if="note.type === 'video'"
+					to="/tutorials"
+					class="flex items-center p-4 bg-[#f4bbbb] rounded-lg h-[70px] shadow-md shadow-gray-400 cursor-pointer"
+				>
+					<img :src="iconsByType[note.type]" :alt="`${note.type} icon`" class="h-8 w-8 flex-shrink-0 mr-4" />
+					<div>
+						<p class="text-xs font-bold text-black ml-4">{{ note.message }}</p>
+						<p class="text-xxs text-black ml-4">{{ note.description }}</p>
+						<span class="text-xxs text-gray-500 ml-4">{{ note.time }}</span>
+					</div>
+				</NuxtLink>
+
+				<!-- all other notifications are static divs -->
+				<div v-else class="flex items-center p-4 bg-[#f4bbbb] rounded-lg h-[70px] shadow-md shadow-gray-400">
+					<img :src="iconsByType[note.type]" :alt="`${note.type} icon`" class="h-8 w-8 flex-shrink-0 mr-4" />
+					<div>
+						<p class="text-xs font-bold text-black ml-4">{{ note.message }}</p>
+						<p class="text-xxs text-black ml-4">{{ note.description }}</p>
+						<span class="text-xxs text-gray-500 ml-4">{{ note.time }}</span>
+					</div>
 				</div>
-			</div>
+			</template>
 		</div>
 
 		<p v-else class="text-gray-600">You have no notifications.</p>
@@ -24,9 +36,8 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
 
-// 1) notifications array…
+// 1) Your notifications array
 const notifications = ref([
 	{
 		id: 1,
@@ -49,8 +60,7 @@ const notifications = ref([
 		description: 'Write project report',
 		time: 'Just now',
 	},
-
-	// 2) NEW: three video‐type placeholders
+	// New video‐type placeholders
 	{
 		id: 4,
 		type: 'video',
@@ -62,7 +72,7 @@ const notifications = ref([
 		id: 5,
 		type: 'video',
 		message: 'New Video Tutorial!',
-		description: 'Needle Getting Stuck in the Material',
+		description: 'Needle Getting Stuck in Material',
 		time: '2 hours ago',
 	},
 	{
@@ -74,26 +84,13 @@ const notifications = ref([
 	},
 ])
 
-// 2) icon map…
+// 2) Icon map
 const iconsByType = {
 	activity: '/Toolbar_Activities_Icon.png',
 	achievement: '/Toolbar_Achievements_Icon.png',
 	video: '/Video_Icon.png',
 }
 
-// 3) sorted list…
+// 3) newest‐first sort
 const sortedNotifications = computed(() => [...notifications.value].sort((a, b) => b.id - a.id))
-
-// 4) navigation handler
-const router = useRouter()
-
-function onNoteClick(note) {
-	if (note.type === 'video') {
-		// replace 'Tutorials' with your actual route name or path
-		router.push('/tutorials')
-	} else {
-		// fallback: do nothing or go somewhere else
-		console.log('clicked a non-video notification:', note)
-	}
-}
 </script>
