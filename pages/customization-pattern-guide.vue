@@ -121,11 +121,11 @@ const patternDetails: Record<string, { templateSrc: string; guideSrc: string }> 
 	},
 	Sleeveless: {
 		templateSrc: 'GuideTemplate_Sleeveless.png',
-		guideSrc: 'Pattern_Sando.png',
+		guideSrc: 'Guide_Sleeveless.png',
 	},
 	Longsleeves: {
 		templateSrc: 'GuideTemplate_Longsleeves.png',
-		guideSrc: 'Guide_TShirt.png',
+		guideSrc: 'Guide_Longsleeves.png',
 	},
 	Skirts: {
 		templateSrc: 'GuideTemplate_Skirt.png',
@@ -141,23 +141,23 @@ const patternDetails: Record<string, { templateSrc: string; guideSrc: string }> 
 	},
 	'A-line': {
 		templateSrc: 'GuideTemplate_ALine.png',
-		guideSrc: 'Pattern_Skirt.png',
+		guideSrc: 'Guide_Aline.png',
 	},
 	Yoke: {
 		templateSrc: 'GuideTemplate_Yoke.png',
-		guideSrc: 'Pattern_Skirt.png',
+		guideSrc: 'Guide_Yoke.png',
 	},
 	Shirt: {
 		templateSrc: 'GuideTemplate_Shirt.png',
-		guideSrc: 'Pattern_Skirt.png',
+		guideSrc: 'Guide_Shirt.png',
 	},
 	Bodycon: {
 		templateSrc: 'GuideTemplate_Bodycon.png',
-		guideSrc: 'Pattern_Skirt.png',
+		guideSrc: 'Guide_Bodycon.png',
 	},
 	Peplum: {
 		templateSrc: 'GuideTemplate_Peplum.png',
-		guideSrc: 'Pattern_Skirt.png',
+		guideSrc: 'Guide_Peplum.png',
 	},
 	// add more when you have them...
 }
