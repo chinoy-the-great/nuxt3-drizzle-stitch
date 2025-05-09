@@ -5,59 +5,104 @@
 			<h1 class="text-2xl font-semibold text-black">Calendar</h1>
 		</div>
 
-		<!-- Schedule List -->
-		<div v-for="section in scheduleData" :key="section.date" class="p-6">
-			<h2 class="font-semibold text-sm mb-4">{{ section.display }}</h2>
-			<ul class="space-y-4">
-				<li
-					v-for="item in section.items"
-					:key="item.id"
-					class="flex border-l-4 bg-white rounded"
-					:class="item.type === 'event' ? 'border-blue-500' : 'border-yellow-400'"
+		<!-- TABS (left‐aligned, padded border) -->
+		<div class="flex justify-start space-x-4 border-b border-gray-300 bg-white py-2 mx-8 mt-4">
+			<!-- TASKS TAB -->
+			<button
+				class="bg-transparent active:bg-transparent focus:outline-none focus:ring-0 ml-4"
+				@click="activeTab = 'tasks'"
+			>
+				<span
+					class="inline-block px-3 py-1 text-sm font-medium"
+					:class="
+						activeTab === 'tasks'
+							? 'bg-[#ff0066] text-white rounded-full'
+							: 'text-gray-400 hover:text-gray-800'
+					"
 				>
-					<!-- Event -->
-					<template v-if="item.type === 'event'">
-						<div class="pl-4 py-1 flex flex-col justify-center">
-							<div class="flex items-center">
-								<span class="text-sm font-medium">{{ item.start }}</span>
-								<span class="text-sm ml-2">{{ item.title }}</span>
-							</div>
-							<div class="flex items-center text-sm text-gray-600 mt-1">
-								<span class="text-sm">{{ item.end }}</span>
-								<span class="text-sm ml-2">{{ item.location }}</span>
-							</div>
-						</div>
-					</template>
-					<!-- Task -->
-					<template v-else>
-						<div class="pl-4 py-1 flex items-center">
-							<input
-								v-model="item.done"
-								type="checkbox"
-								class="h-5 w-5 appearance-none rounded-full border-2 border-black checked:bg-gray-400 checked:border-gray-400 focus:outline-none flex-shrink-0 transition"
-							/>
-							<div class="ml-4 flex flex-col">
-								<span
-									:class="item.done ? 'text-gray-400 line-through' : 'text-gray-900'"
-									class="text-sm font-medium"
-								>
-									{{ item.title }}
-								</span>
-								<span :class="item.done ? 'text-gray-400 line-through' : 'text-gray-600'" class="text-sm">
-									{{ item.description }}
-								</span>
-							</div>
-						</div>
-					</template>
-				</li>
-			</ul>
+					Tasks
+				</span>
+			</button>
+
+			<!-- NOTES TAB -->
+			<button
+				class="bg-transparent active:bg-transparent focus:outline-none focus:ring-0"
+				@click="activeTab = 'notes'"
+			>
+				<span
+					class="inline-block px-3 py-1 text-sm font-medium"
+					:class="
+						activeTab === 'notes'
+							? 'bg-[#ff0066] text-white rounded-full'
+							: 'text-gray-400 hover:text-gray-800'
+					"
+				>
+					Notes
+				</span>
+			</button>
 		</div>
 
-		<!-- Floating + button -->
-		<button
-			class="fixed bottom-6 right-6 w-12 h-12 rounded-full focus:outline-none new-task-btn mb-16"
-			@click="showForm = true"
-		></button>
+		<!-- 1) TASKS VIEW (your existing schedule.vue content) -->
+		<div v-if="activeTab === 'tasks'" class="bg-white mb-16">
+			<!-- Schedule List -->
+			<div v-for="section in scheduleData" :key="section.date" class="p-6">
+				<h2 class="font-semibold text-sm mb-4">{{ section.display }}</h2>
+				<ul class="space-y-4">
+					<li
+						v-for="item in section.items"
+						:key="item.id"
+						class="flex border-l-4 bg-white rounded"
+						:class="item.type === 'event' ? 'border-blue-500' : 'border-yellow-400'"
+					>
+						<!-- Event -->
+						<template v-if="item.type === 'event'">
+							<div class="pl-4 py-1 flex flex-col justify-center">
+								<div class="flex items-center">
+									<span class="text-sm font-medium">{{ item.start }}</span>
+									<span class="text-sm ml-2">{{ item.title }}</span>
+								</div>
+								<div class="flex items-center text-sm text-gray-600 mt-1">
+									<span class="text-sm">{{ item.end }}</span>
+									<span class="text-sm ml-2">{{ item.location }}</span>
+								</div>
+							</div>
+						</template>
+						<!-- Task -->
+						<template v-else>
+							<div class="pl-4 py-1 flex items-center">
+								<input
+									v-model="item.done"
+									type="checkbox"
+									class="h-5 w-5 appearance-none rounded-full border-2 border-black checked:bg-gray-400 checked:border-gray-400 focus:outline-none flex-shrink-0 transition"
+								/>
+								<div class="ml-4 flex flex-col">
+									<span
+										:class="item.done ? 'text-gray-400 line-through' : 'text-gray-900'"
+										class="text-sm font-medium"
+									>
+										{{ item.title }}
+									</span>
+									<span :class="item.done ? 'text-gray-400 line-through' : 'text-gray-600'" class="text-sm">
+										{{ item.description }}
+									</span>
+								</div>
+							</div>
+						</template>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Floating + button -->
+			<button
+				class="fixed bottom-6 right-6 w-12 h-12 rounded-full focus:outline-none new-task-btn mb-16"
+				@click="showForm = true"
+			></button>
+		</div>
+
+		<!-- 2) NOTES VIEW (empty for now) -->
+		<div v-else class="bg-white mb-16 p-6">
+			<!-- Placeholder for notes -->
+		</div>
 
 		<!-- Modal Form -->
 		<Teleport to="body">
@@ -182,6 +227,8 @@
 
 <script setup>
 import { computed, reactive, ref } from 'vue'
+
+const activeTab = ref('tasks')
 
 // 1) initial schedule grouped by date
 const scheduleData = ref([
