@@ -100,8 +100,31 @@
 		</div>
 
 		<!-- 2) NOTES VIEW (empty for now) -->
-		<div v-else class="bg-white mb-16 p-6">
-			<!-- Placeholder for notes -->
+		<div v-else class="bg-white mb-16">
+			<!-- 1) LOOP THROUGH DATE SECTIONS -->
+			<div v-for="section in groupedNotes" :key="section.date" class="p-6">
+				<h2 class="font-semibold text-sm mb-4">{{ section.display }}</h2>
+				<ul class="space-y-4">
+					<li
+						v-for="note in section.items"
+						:key="note.id"
+						class="border-l-4 border-gray-700 bg-gray-100 rounded p-4"
+					>
+						<div class="flex justify-between items-center">
+							<span class="text-sm font-medium text-gray-900">{{ note.title }}</span>
+							<!-- if you ever want a small date in the corner: -->
+							<!-- <span class="text-sm text-gray-600">{{ note.date }}</span> -->
+						</div>
+						<p class="text-sm text-gray-700 mt-1">{{ note.content }}</p>
+					</li>
+				</ul>
+			</div>
+
+			<!-- 2) FLOATING NEW‐NOTE BUTTON -->
+			<button
+				class="fixed bottom-6 right-6 w-12 h-12 rounded-full new-note-btn focus:outline-none mb-16"
+				@click="showNoteForm = true"
+			></button>
 		</div>
 
 		<!-- Modal Form -->
@@ -218,6 +241,48 @@
 						<p v-if="form.type === 'event' && !isEndAfterStart" class="text-red-500">
 							End must be the same or after the start.
 						</p>
+					</div>
+				</div>
+			</div>
+		</Teleport>
+
+		<!-- NEW NOTE MODAL -->
+		<Teleport to="body">
+			<div
+				v-if="showNoteForm"
+				class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+			>
+				<div class="bg-white rounded-lg shadow-lg w-full max-w-xs p-3 space-y-2 text-xs">
+					<!-- header -->
+					<div class="flex justify-between items-center border-b border-black pb-2">
+						<button class="text-[#f4bbbb] hover:text-[#ff0066]" @click="closeNoteForm">CANCEL</button>
+						<h3 class="font-semibold text-sm text-[#ff0066]">NEW NOTE</h3>
+						<button
+							:disabled="!noteForm.title"
+							class="text-[#f4bbbb] hover:text-[#ff0066] disabled:opacity-50 disabled:cursor-not-allowed"
+							@click="addNote"
+						>
+							ADD
+						</button>
+					</div>
+					<!-- body -->
+					<div class="space-y-2">
+						<div class="flex items-center">
+							<label class="w-1/3">Title:</label>
+							<input v-model="noteForm.title" type="text" class="flex-1 border rounded p-1 text-sm" />
+						</div>
+						<div class="flex items-start">
+							<label class="w-1/3">Notes:</label>
+							<textarea
+								v-model="noteForm.content"
+								rows="3"
+								class="flex-1 border rounded p-1 text-sm"
+							></textarea>
+						</div>
+						<div class="flex items-center">
+							<label class="w-1/3">Date:</label>
+							<input v-model="noteForm.date" type="date" class="flex-1 border rounded p-1 text-sm" />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -363,6 +428,60 @@ function addItem() {
 	// close the form
 	showForm.value = false
 }
+
+const notesData = ref([])
+
+const showNoteForm = ref(false)
+const noteForm = reactive({
+	title: '',
+	content: '',
+	date: new Date().toISOString().substr(0, 10),
+})
+
+function addNote() {
+	if (!noteForm.title) return
+	const newId = notesData.value.length > 0 ? Math.max(...notesData.value.map((n) => n.id)) + 1 : 1
+	notesData.value.push({
+		id: newId,
+		title: noteForm.title,
+		content: noteForm.content,
+		date: noteForm.date,
+	})
+	closeNoteForm()
+}
+
+function closeNoteForm() {
+	showNoteForm.value = false
+	noteForm.title = ''
+	noteForm.content = ''
+	noteForm.date = new Date().toISOString().substr(0, 10)
+}
+
+// ----- GROUP & SORT NOTES BY DATE -----
+const groupedNotes = computed(() => {
+	// 1) bucket by date into a plain object
+	const map = notesData.value.reduce((acc, note) => {
+		// ensure the array exists, then push
+		;(acc[note.date] = acc[note.date] || []).push(note)
+		return acc
+	}, {})
+
+	// 2) turn that object into a sorted array of { date, display, items }
+	return Object.keys(map)
+		.sort((a, b) => (a < b ? -1 : 1))
+		.map((date) => {
+			const d = new Date(date)
+			const weekday = d.toLocaleDateString('en-US', { weekday: 'long' })
+			const MM = String(d.getMonth() + 1).padStart(2, '0')
+			const DD = String(d.getDate()).padStart(2, '0')
+			const YY = String(d.getFullYear() % 100).padStart(2, '0')
+			return {
+				date,
+				display: `${weekday} ${MM}/${DD}/${YY}`,
+				items: map[date],
+			}
+		})
+})
 </script>
 
 <style scoped>
@@ -379,5 +498,24 @@ function addItem() {
 .new-task-btn:hover {
 	/* hover icon */
 	background-image: url('/Tracker_Task_Pink.png');
+}
+
+.new-task-btn {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-image: url('/Tracker_Task_Black.png');
+}
+.new-task-btn:hover {
+	background-image: url('/Tracker_Task_Pink.png');
+}
+.new-note-btn {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-image: url('/Tracker_Note_Black.png');
+}
+.new-note-btn:hover {
+	background-image: url('/Tracker_Note_Pink.png');
 }
 </style>
