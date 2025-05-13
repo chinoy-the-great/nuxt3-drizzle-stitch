@@ -43,7 +43,7 @@
 				/>
 				<i
 					class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
-					:class="[showPassword ? 'fas fa-eye-slash' : 'fas fa-eye']"
+					:class="[showPassword ? 'fas fa-eye' : 'fas fa-eye-slash']"
 					@click="toggleShowPassword"
 				></i>
 			</div>
