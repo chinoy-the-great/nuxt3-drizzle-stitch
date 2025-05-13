@@ -41,7 +41,7 @@ export const customizationData = {
 			default: ['waist', 'hips', 'length'],
 			Shorts: ['waist', 'hips', 'thighWidth', 'shortsLength'],
 			Pants: ['waist', 'thighWidth', 'hips', 'kneeWidth', 'inseam', 'pantsLength'],
-			Skirt: ['waist', 'hips', 'thighWidth', 'skirtLength'],
+			Skirt: ['waist', 'hips', 'skirtLength'],
 		},
 		images: {
 			default: {
