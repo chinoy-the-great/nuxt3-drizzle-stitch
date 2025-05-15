@@ -84,8 +84,7 @@ export const measurementCoordinates = {
 		front: {
 			waist: { x: 49, y: 31 },
 			hips: { x: 49, y: 60 },
-			thighWidth: { x: 49, y: 97 },
-			skirtLength: { x: 20, y: 60 },
+			skirtLength: { x: 20, y: 64 },
 		},
 		back: {},
 	},
