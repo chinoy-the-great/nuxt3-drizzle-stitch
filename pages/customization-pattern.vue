@@ -60,9 +60,6 @@
 
 						<!-- TWO‐COLUMN FRONT + LIST -->
 						<div class="grid grid-cols-2 gap-4">
-							<div class="relative bg-white p-4 rounded-md" style="max-height: 40vh">
-								<img :src="resultImages.main" alt="Front view" class="w-full h-auto" />
-							</div>
 							<div>
 								<h3 class="font-semibold mb-2">Your Measurements</h3>
 								<ul class="list-disc pl-5 space-y-1 text-sm">
@@ -71,6 +68,9 @@
 										{{ measurements[f.key] }} {{ f.unit }}
 									</li>
 								</ul>
+							</div>
+							<div class="relative bg-white p-4 rounded-md" style="max-height: 40vh">
+								<img :src="resultImages.main" alt="Front view" class="w-full h-auto" />
 							</div>
 						</div>
 
