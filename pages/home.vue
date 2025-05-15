@@ -81,7 +81,7 @@
 
 		<div class="flex justify-between items-center px-4 pb-2">
 			<h2 class="text-black text-lg font-semibold">Video Tutorials</h2>
-			<span class="text-[10px] text-[#ff0066] cursor-pointer">See all</span>
+			<NuxtLink to="/tutorials" class="text-[10px] text-[#ff0066] cursor-pointer">See all</NuxtLink>
 		</div>
 		<NuxtLink to="/tutorials" class="flex px-4 mb-6">
 			<div
