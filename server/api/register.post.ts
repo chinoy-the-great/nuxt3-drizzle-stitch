@@ -29,11 +29,16 @@ export default defineEventHandler(async (event) => {
 			// type: 'user',
 		}
 
+		console.log('New User: ', newUser)
+
 		// Insert the new user into the database
 		const result = await db.insert(users).values(newUser).run()
 
+		console.log('Registration success')
+
 		return { success: true, newUser: result }
 	} catch (error: any) {
+		console.error('Registration failed: ', error)
 		throw createError({
 			statusCode: 500,
 			statusMessage: error.message,

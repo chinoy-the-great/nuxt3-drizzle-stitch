@@ -92,6 +92,12 @@
 			</p>
 		</form>
 
+		<PopupModal
+			:show="showSuccessModal"
+			@update:show="showSuccessModal = $event"
+			@confirm="onSuccessConfirm"
+		/>
+
 		<!-- Background Footer Image -->
 		<div
 			class="absolute bottom-0 w-full h-1/3 bg-cover bg-no-repeat bg-center"
@@ -104,42 +110,33 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-
-definePageMeta({
-	layout: 'welcome',
-})
+import PopupModal from '~/components/PopupModal.vue'
 
 const router = useRouter()
 
-// form fields
+// form state
 const username = ref('')
 const email = ref('')
 const password = ref('')
 const repeat_password = ref('')
 
-// visibility toggles
+// toggles
 const showPassword = ref(false)
 const showRepeatPassword = ref(false)
 
-// submission state
+// submission / errors
 const isSubmitting = ref(false)
 const errorMessage = ref('')
 
-// back button
-const goBack = () => {
-	router.push('/welcome')
-}
+// modal control
+const showSuccessModal = ref(false)
 
-// toggle functions
-const toggleShowPassword = () => {
-	showPassword.value = !showPassword.value
-}
-const toggleShowRepeatPassword = () => {
-	showRepeatPassword.value = !showRepeatPassword.value
-}
+const toggleShowPassword = () => (showPassword.value = !showPassword.value)
+const toggleShowRepeatPassword = () => (showRepeatPassword.value = !showRepeatPassword.value)
 
-// handle register
-const handleRegister = async () => {
+const goBack = () => router.push('/welcome')
+
+async function handleRegister() {
 	errorMessage.value = ''
 	if (password.value !== repeat_password.value) {
 		errorMessage.value = 'Passwords do not match!'
@@ -148,18 +145,23 @@ const handleRegister = async () => {
 
 	try {
 		isSubmitting.value = true
-		const response = await axios.post('/api/register', {
+		await axios.post('/api/register', {
 			name: username.value,
 			email: email.value,
 			password: password.value,
 		})
-		console.log('Received this:', response)
-		router.push('/login')
+		// instead of redirecting right away, show the modal
+		showSuccessModal.value = true
 	} catch (err) {
 		errorMessage.value = err.response?.data?.message || 'An error occurred during registration.'
 	} finally {
 		isSubmitting.value = false
 	}
+}
+
+// when user clicks “Go to Login” in the modal:
+function onSuccessConfirm() {
+	router.push('/login')
 }
 </script>
 
