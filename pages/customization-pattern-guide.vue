@@ -141,23 +141,23 @@ const patternDetails: Record<string, { templateSrc: string; guideSrc: string }> 
 	},
 	'A-line': {
 		templateSrc: 'GuideTemplate_ALine.png',
-		guideSrc: 'Guide_Aline.png',
+		guideSrc: 'GuideTemplate_ALine_Blank.png',
 	},
 	Yoke: {
 		templateSrc: 'GuideTemplate_Yoke.png',
-		guideSrc: 'Guide_Yoke.png',
+		guideSrc: 'GuideTemplate_Yoke_Blank.png',
 	},
 	Shirt: {
 		templateSrc: 'GuideTemplate_Shirt.png',
-		guideSrc: 'Guide_Shirt.png',
+		guideSrc: 'GuideTemplate_DressShirt_Blank.png',
 	},
 	Bodycon: {
 		templateSrc: 'GuideTemplate_Bodycon.png',
-		guideSrc: 'Guide_Bodycon.png',
+		guideSrc: 'GuideTemplate_Bodycon_Blank.png',
 	},
 	Peplum: {
 		templateSrc: 'GuideTemplate_Peplum.png',
-		guideSrc: 'Guide_Peplum.png',
+		guideSrc: 'GuideTemplate_Peplum_Blank.png',
 	},
 	// add more when you have them...
 }
