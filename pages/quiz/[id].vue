@@ -110,7 +110,11 @@
 
 					<!-- You could replace this with a unified Next/Done,
                but this preserves your original matching Submit -->
-					<button class="mt-6 w-full bg-[#65558f] text-white py-2 rounded-full" @click="submitQuiz">
+					<button
+						:disabled="!quiz.questions.every((_, i) => userAnswers[i])"
+						class="mt-6 w-full bg-[#65558f] text-white py-2 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+						@click="submitQuiz"
+					>
 						Done
 					</button>
 				</div>
