@@ -121,11 +121,11 @@ const patternDetails: Record<string, { templateSrc: string; guideSrc: string }> 
 	},
 	Sleeveless: {
 		templateSrc: 'GuideTemplate_Sleeveless.png',
-		guideSrc: 'Guide_Sleeveless.png',
+		guideSrc: 'GuideTemplate_Sleeveless_Blank.png',
 	},
 	Longsleeves: {
 		templateSrc: 'GuideTemplate_Longsleeves.png',
-		guideSrc: 'Guide_Longsleeves.png',
+		guideSrc: 'GuideTemplate_Longsleeves_Blank.png',
 	},
 	Skirts: {
 		templateSrc: 'GuideTemplate_Skirt.png',
