@@ -81,7 +81,8 @@
 						Back
 					</button>
 					<button
-						class="bg-[#65558f] text-white px-8 py-1 rounded-full text-xxs font-semibold disabled:opacity-50"
+						:disabled="!answers[currentQuestionIndex]"
+						class="bg-[#65558f] text-white px-8 py-1 rounded-full text-xxs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
 						@click="handleNextOrSubmit"
 					>
 						{{ nextLabel }}
