@@ -54,7 +54,7 @@
 
 				<!-- STEP 3 -->
 				<div v-else-if="step === 3" key="step-3" class="space-y-6 text-center">
-					<h2 class="text-black text-lg font-semibold">{{ selectedPattern }} Cut Details</h2>
+					<h2 class="text-black text-lg font-semibold uppercase">{{ selectedPattern }} Cut Details</h2>
 					<div class="grid grid-cols-1 gap-y-4 mt-4 justify-items-center">
 						<img
 							:src="`/${patternDetails[selectedPattern].guideSrc}`"
