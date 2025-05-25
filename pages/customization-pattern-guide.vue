@@ -129,11 +129,11 @@ const patternDetails: Record<string, { templateSrc: string; guideSrc: string }> 
 	},
 	Skirts: {
 		templateSrc: 'GuideTemplate_Skirt.png',
-		guideSrc: 'Pattern_Skirt.png',
+		guideSrc: 'GuideTemplate_Skirt_Blank.png',
 	},
 	Shorts: {
 		templateSrc: 'GuideTemplate_Short.png',
-		guideSrc: 'Pattern_Shorts.png',
+		guideSrc: 'GuideTemplate_Short_Blank.png',
 	},
 	Pants: {
 		templateSrc: 'GuideTemplate_Pants.png',
